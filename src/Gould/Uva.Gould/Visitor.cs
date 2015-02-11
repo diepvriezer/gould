@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -26,6 +27,7 @@ namespace Uva.Gould
         /// <typeparam name="TContext">Type in which the node must be seen</typeparam>
         /// <param name="node">Node to visit</param>
         /// <returns>Result of the handler, or the original node if none were found.</returns>
+        [DebuggerHidden]
         public TContext Visit<TContext>(TContext node)
             where TContext : Node
         {
@@ -35,7 +37,16 @@ namespace Uva.Gould
             // Try to invoke handler from list.
             var handler = FindHandler(node, typeof(TContext));
             if (handler != null)
-                return (TContext)handler.Action.DynamicInvoke(node);
+            {
+                try
+                {
+                    return (TContext)handler.Action.DynamicInvoke(node);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
+            }
 
             // If no handlers are found, try the child properties.
             VisitChildren(node);
@@ -46,6 +57,7 @@ namespace Uva.Gould
         /// Tries to invoke handlers on the children of this node.
         /// </summary>
         /// <param name="node">Node to visit</param>
+        [DebuggerHidden]
         public void VisitChildren(Node node)
         {
             foreach (var prop in node.ChildProperties)
@@ -57,14 +69,21 @@ namespace Uva.Gould
                     throw new InvalidOperationException("Unable to write to property " + prop.Name);
 
                 // Retrieve child node from property.
-                var childNode = (Node)prop.GetValue(node);
+                var childNode = prop.GetValue(node);
                 if (childNode == null)
                     continue;
-                
+
                 // Invoke this visit method using the property type as context.
-                childNode = (Node)_genericVisitPrototype
-                    .MakeGenericMethod(prop.PropertyType)
-                    .Invoke(this, new object[] { childNode });
+                try
+                {
+                    childNode = _genericVisitPrototype
+                        .MakeGenericMethod(prop.PropertyType)
+                        .Invoke(this, new object[] {childNode});
+                }
+                catch (TargetInvocationException ex)
+                {
+                    throw ex.InnerException;
+                }
 
                 // Set property with result of invocation.
                 prop.SetValue(node, childNode);
