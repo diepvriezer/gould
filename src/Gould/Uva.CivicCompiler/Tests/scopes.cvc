@@ -1,0 +1,36 @@
+﻿int a0 = 599;
+extern int b;
+
+void main(int a1)
+{
+	int a2;
+	void main(int a3)
+	{
+		int c4;
+		void test(int a4)
+		{
+			int a5 = random();
+		}
+		void test2(int b4)
+		{
+		}
+	}
+
+	for (int i = 0, 10)
+	{
+	}
+}
+
+void main2()
+{
+	for (int b = 0, 1)
+	{
+		for (int b = b, 2, 50)
+		{
+			main(b);
+		}
+	}
+}
+
+extern int __a1;
+export int __a2 = 512;

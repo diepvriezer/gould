@@ -1,0 +1,23 @@
+﻿int main()
+{
+	int a = 50 + 50;
+	int b;
+
+	int test()
+	{
+		int x = a;
+	}
+
+	b = a;
+	a = 3;
+	b = a + 1;
+	a = 4;
+	b = a + 2;
+
+	if (b > a)
+	{
+	   a = 5;
+	}
+
+	return a;
+}
