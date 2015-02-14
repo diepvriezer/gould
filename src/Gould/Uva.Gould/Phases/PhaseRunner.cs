@@ -51,11 +51,11 @@ namespace Uva.Gould.Phases
 #else
                 try
                 {
-                    ast = phase.Transform(ast, state);
+                    ast = phase.Transform(ast);
                 }
                 catch (Exception ex)
                 {
-                    logger.Critical(ex);
+                    CTI.Critical(ex.ToString());
                 }
 #endif
 

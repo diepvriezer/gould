@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>uvagould</id>
+    <version>1.0.0</version>
+    <title>Uva.Gould</title>
+    <authors>Floris den Heijer</authors>
+    <owners>Floris den Heijer</owners>
+    <projectUrl>https://github.com/diepvriezer/gould</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Minimalistic framework with type safe AST traversal</description>
+    <releaseNotes>Initial release of the framework.</releaseNotes>
+    <copyright>Copyright © Floris den Heijer 2015</copyright>
+    <tags>compiler framework ast</tags>
+  </metadata>
+</package>
