@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>uvagould</id>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <title>Uva.Gould</title>
     <authors>Floris den Heijer</authors>
     <owners>Floris den Heijer</owners>
@@ -12,5 +12,13 @@
     <releaseNotes>Initial release of the framework.</releaseNotes>
     <copyright>Copyright © Floris den Heijer 2015</copyright>
     <tags>compiler framework ast</tags>
+    <dependencies>
+      <dependency id="Antlr4.Runtime" version="4.3.0.0" />
+    </dependencies>
   </metadata>
+  <files>
+    <file src="bin\Debug\*.dll" target="lib\net45" /> 
+    <file src="bin\Debug\*.pdb" target="lib\net45" /> 
+    <file src="**\*.cs" target="src" />
+  </files>
 </package>

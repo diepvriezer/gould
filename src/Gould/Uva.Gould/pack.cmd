@@ -1,0 +1,1 @@
+nuget pack uvagould.nuspec -o ../nuget
