@@ -14,6 +14,7 @@ namespace Uva.Gould.Graphs
         public static readonly string[] EdgeStyles = { "style=dashed,color=blue;", "style=bold,color=green;", "style=dashed,color=red" };
         public static readonly string[] NodeStyles = {"style=filled,color=lightgrey", "style=bold", "style=dashed,shape=circle,color=red,fontsize=8"};
 
+
         /// <summary>
         /// Default drawing settings. If the graph looks wrong, try setting reverse pointers to true.
         /// </summary>

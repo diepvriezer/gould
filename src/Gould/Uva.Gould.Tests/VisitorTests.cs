@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Uva.Gould.Support;
 using Uva.Gould.Tests.Fixtures;
 
 namespace Uva.Gould.Tests
@@ -66,6 +65,13 @@ namespace Uva.Gould.Tests
             // Base tree is as above.
             var tree = new BiNodeTree2(); // cast to node
             int hits;
+            
+            // With viewing we can hit all nodes, or any matching subtype.
+            RemoveAllHandlers();
+            hits = 0;
+            View<Node>(n => { hits++; VisitChildren(n); });
+            Visit(tree);
+            Assert.IsTrue(hits == 7);
             
             // Count BiNodeA2's, of which we have four (ID: 2, 3, 5, 6)
             RemoveAllHandlers();

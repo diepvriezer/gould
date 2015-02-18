@@ -40,7 +40,10 @@ namespace Uva.Gould
             {
                 try
                 {
-                    return (TContext)handler.Action.DynamicInvoke(node);
+                    var result = handler.Action.DynamicInvoke(node);
+                    return handler.ActionReturns 
+                        ? (TContext) result 
+                        : node;
                 }
                 catch (TargetInvocationException ex)
                 {
@@ -101,7 +104,7 @@ namespace Uva.Gould
         protected void View<T>(Action<T> action)
             where T : Node
         {
-            ReplaceIf<T, T>(null, WrapAction<T, T>(action));
+            ViewIf<T>(null, action);
         }
         /// <summary>
         /// Adds a 'view-only' handler which doesn't require a return value when the predicate is met.
@@ -113,7 +116,7 @@ namespace Uva.Gould
             where T : TContext
             where TContext : Node
         {
-            ReplaceIf<T, TContext>(null, WrapAction<T, TContext>(action));
+            ViewIf<T, TContext>(null, action);
         }
         /// <summary>
         /// Adds a 'view-only' handler which doesn't require a return value.
@@ -124,7 +127,14 @@ namespace Uva.Gould
         protected void ViewIf<T>(Func<T, bool> predicate, Action<T> action)
             where T : Node
         {
-            ReplaceIf<T, T>(predicate, WrapAction<T, T>(action));
+            _handles.Add(new Handler
+            {
+                Type = typeof(T),
+                ContextType = null,
+                Predicate = predicate,
+                Action = action,
+                ActionReturns = false
+            });
         }
 
         /// <summary>
@@ -138,7 +148,14 @@ namespace Uva.Gould
             where T : TContext
             where TContext : Node
         {
-            ReplaceIf<T, TContext>(predicate, WrapAction<T, T>(action));
+            _handles.Add(new Handler
+            {
+                Type = typeof(T),
+                ContextType = typeof(TContext),
+                Predicate = predicate,
+                Action = action,
+                ActionReturns = false
+            });
         }
 
 
@@ -189,12 +206,13 @@ namespace Uva.Gould
             where T : TContext
             where TContext : Node
         {
-            _handles.Add(new Handler()
+            _handles.Add(new Handler
             {
                 Type = typeof(T),
                 ContextType = typeof(TContext),
                 Predicate = predicate,
-                Action = func
+                Action = func,
+                ActionReturns = true
             });
         }
 
@@ -212,22 +230,22 @@ namespace Uva.Gould
         private Handler FindHandler(Node node, Type contextType)
         {
             var nodeType = node.GetType();
-            var possibleMatches = _handles
-                .Where(handle =>
-                    handle.Type.IsAssignableFrom(nodeType) &&
-                    contextType.IsAssignableFrom(handle.ContextType));
-            
-            foreach (var match in possibleMatches)
+            foreach (var handle in _handles)
             {
-                // They are "possible" matches, because they might have a predicate.
-                if (match.Predicate != null)
+                if (!handle.Type.IsAssignableFrom(nodeType))
+                    continue;
+
+                if (handle.ContextType != null && !contextType.IsAssignableFrom(handle.ContextType))
+                    continue;
+
+                if (handle.Predicate != null)
                 {
-                    var result = (bool) match.Predicate.DynamicInvoke(node);
+                    var result = (bool) handle.Predicate.DynamicInvoke(node);
                     if (!result)
                         continue;
                 }
 
-                return match;
+                return handle;
             }
 
             return null;
@@ -240,16 +258,6 @@ namespace Uva.Gould
                                       && m.IsGenericMethod
                                       && m.GetParameters().Length == 1);
         }
-        private static Func<T, TContext> WrapAction<T, TContext>(Action<T> action)
-            where T : TContext
-            where TContext : Node
-        {
-            return t =>
-            {
-                action.Invoke(t);
-                return t;
-            };
-        }
 
         internal class Handler
         {
@@ -257,6 +265,8 @@ namespace Uva.Gould
             public Type ContextType { get; set; }
             public Delegate Predicate { get; set; }
             public Delegate Action { get; set; }
+
+            public bool ActionReturns { get; set; }
         }
     }
 }

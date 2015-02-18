@@ -29,12 +29,12 @@ namespace Uva.Gould.Support
         {
             PrintNoIndent("Info: " + message, args);
         }
-        public static void InfoWithSource(string message, SourceInfo sourceInfo, params object[] args)
+        public static void InfoWithSource(string message, Node node, params object[] args)
         {
             if (args != null && args.Any())
-                Info(FormatOriginMessage(sourceInfo, string.Format(message, args)));
+                Info(FormatOriginMessage(node.SourceInfo, string.Format(message, args)));
             else
-                Info(FormatOriginMessage(sourceInfo, message));
+                Info(FormatOriginMessage(node.SourceInfo, message));
         }
 
         public static void Warn(string message, params object[] args)
@@ -43,12 +43,12 @@ namespace Uva.Gould.Support
             PhaseRunner.TotalWarnings++;
             PrintNoIndent("Warning: " + message, args);
         }
-        public static void WarnWithSource(string message, SourceInfo sourceInfo, params object[] args)
+        public static void WarnWithSource(string message, Node node, params object[] args)
         {
             if (args != null && args.Any())
-                Warn(FormatOriginMessage(sourceInfo, string.Format(message, args)));
+                Warn(FormatOriginMessage(node.SourceInfo, string.Format(message, args)));
             else
-                Warn(FormatOriginMessage(sourceInfo, message));
+                Warn(FormatOriginMessage(node.SourceInfo, message));
         }
 
         public static void Error(string message, params object[] args)
@@ -57,12 +57,12 @@ namespace Uva.Gould.Support
             PhaseRunner.TotalErrors++;
             PrintNoIndent("Error: " + message, args);
         }
-        public static void ErrorWithSource(string message, SourceInfo sourceInfo, params object[] args)
+        public static void ErrorWithSource(string message, Node node, params object[] args)
         {
             if (args != null && args.Any())
-                Error(FormatOriginMessage(sourceInfo, string.Format(message, args)));
+                Error(FormatOriginMessage(node.SourceInfo, string.Format(message, args)));
             else
-                Error(FormatOriginMessage(sourceInfo, message));
+                Error(FormatOriginMessage(node.SourceInfo, message));
         }
         
         public static void Critical(string message, params object[] args)
@@ -70,10 +70,10 @@ namespace Uva.Gould.Support
             PhaseRunner.AbortCompilation = true;
             Error(message, args);
         }
-        public static void CriticalWithSource(string message, SourceInfo sourceInfo, params object[] args)
+        public static void CriticalWithSource(string message, Node node, params object[] args)
         {
             PhaseRunner.AbortCompilation = true;
-            ErrorWithSource(message, sourceInfo, args);
+            ErrorWithSource(message, node, args);
         }
 
         #endregion

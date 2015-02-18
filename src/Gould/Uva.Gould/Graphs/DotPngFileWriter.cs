@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using Uva.Gould.Properties;
 
 namespace Uva.Gould.Graphs
 {
     public static class DotPngFileWriter
     {
-        /// <summary>
-        /// Path to dot executable.
-        /// </summary>
-        public const string DotPath = @"C:\Program Files (x86)\Graphviz2.38\bin\dot.exe";
-        
         /// <summary>
         /// Writes a .DOT and .PNG file to disk.
         /// </summary>
@@ -26,14 +22,14 @@ namespace Uva.Gould.Graphs
                     Path.GetFileNameWithoutExtension(dotOutputPath) + ".png");
             }
 
-            if (!File.Exists(DotPath))
-                throw new FileNotFoundException("Dot file executable not found at {0}", DotPath);
+            if (!File.Exists(Settings.Default.DotPath))
+                throw new FileNotFoundException("Dot file executable not found at {0}", Settings.Default.DotPath);
 
             using (var io = new StreamWriter(dotOutputPath, false))
                 io.Write(dot);
 
             // Pass through to command line.
-            var startInfo = new ProcessStartInfo(DotPath,
+            var startInfo = new ProcessStartInfo(Settings.Default.DotPath,
                 string.Format(@"""{0}"" -o ""{1}"" -Tpng", dotOutputPath, pngOutputPath));
             startInfo.CreateNoWindow = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
