@@ -24,9 +24,9 @@
 \contentsline {subsection}{\numberline {4.4}Type-Safe Tree Traversals}{8}
 \contentsline {subsubsection}{\numberline {4.4.1}Alternative approach: lambda based}{10}
 \contentsline {subsection}{\numberline {4.5}Parser / Lexer Extensibility}{10}
-\contentsline {subsection}{\numberline {4.6}Platform Updates}{10}
-\contentsline {subsection}{\numberline {4.7}Documentation Generator}{10}
-\contentsline {subsection}{\numberline {4.8}Summary}{10}
+\contentsline {subsection}{\numberline {4.6}Platform Updates}{11}
+\contentsline {subsection}{\numberline {4.7}Documentation Generator}{11}
+\contentsline {subsection}{\numberline {4.8}Summary}{11}
 \contentsline {section}{\numberline {5}Discussion}{11}
 \contentsline {section}{\numberline {6}Conclusion}{11}
 \contentsline {section}{\numberline {7}References}{11}

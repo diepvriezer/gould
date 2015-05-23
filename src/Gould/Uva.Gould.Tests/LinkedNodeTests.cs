@@ -6,7 +6,7 @@ using Uva.Gould.Tests.Fixtures;
 namespace Uva.Gould.Tests
 {
     [TestClass]
-    public class LinkedNodeTests : Visitor
+    public class LinkedNodeTests : OldVisitor
     {
         private LinkedNode<IdNode> GetTestChain()
         {

@@ -9,9 +9,9 @@ namespace Uva.Gould
     /// <summary>
     /// Visitor for Node graphs, relies on reflection.
     /// </summary>
-    public abstract class Visitor
+    public abstract class OldVisitor
     {
-        protected Visitor()
+        protected OldVisitor()
         {
             _handles = new List<Handler>();
             _genericVisitPrototype = GetGenericVisitMethod();

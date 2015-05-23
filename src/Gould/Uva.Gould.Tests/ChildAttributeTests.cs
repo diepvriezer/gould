@@ -14,6 +14,13 @@ namespace Uva.Gould.Tests
             [Child(5)] public Object C { get; set; }
         }
 
+        public class DerivedOrderedProperties : OrderedProperties
+        {
+            [Child] public new string A { get; set; }
+            [Child] public new string B { get; set; }
+            [Child] public new string C { get; set; }
+        }
+
         [TestMethod]
         public void UsesCallerLine()
         {

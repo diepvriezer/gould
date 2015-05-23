@@ -51,7 +51,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ChildAttributeTests.cs" />
+    <Compile Include="Fixtures\AstNodes.cs" />
     <Compile Include="Fixtures\Nodes.cs" />
+    <Compile Include="LambdaVisitorTests.cs" />
     <Compile Include="LinkedNodeTests.cs" />
     <Compile Include="NodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,6 +61,8 @@
     <Compile Include="Support\Tests\TestBaseTests.cs" />
     <Compile Include="Support\TestBase.cs" />
     <Compile Include="Support\TreeComparer.cs" />
+    <Compile Include="OldVisitorTests.cs" />
+    <Compile Include="ViewOnlyVisitorTests.cs" />
     <Compile Include="VisitorTests.cs" />
   </ItemGroup>
   <ItemGroup>

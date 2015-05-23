@@ -394,12 +394,35 @@ The only case which is not supported in this scenario is one where there are two
 
 Drawbacks: always have to invoke visitor with dynamic cast when also targeting higher up the inheritance hierarchy.
 
-\subsubsection{Alternative approach: lambda based}
-While this approach is sufficient for most traversals, it requires some care when multiple inheritance layers are targeted. Method invocation depends on two separate mechanisms, namely direct (single-dispatch via compiler) and reflection based. This ambiguity can be avoided by preventing direct access to visitor methods.
+\subsubsection{Alternative approach: lambda-based}
+While this approach is sufficient for most traversals, it requires some care when multiple inheritance layers are targeted. Method invocation depends on two separate mechanisms, namely direct (single-dispatch via compiler) and reflection based. This ambiguity can be avoided by preventing direct access to visitor methods. This approach takes the decoupling from the extrinsic visitor design one step further by removing publicly defined visitor methods and replacing them with configuration functions which attach handlers.
 
+The basic traversal mechanism is the same, except instead of probing for publicly exposed methods an ordered list of handlers is consulted instead. This also prevents ambiguity when multiple layers of inheritance are targeted by explicitly stating the order of evaluation. Such handlers must contain at least:
+\begin{enumerate}
+	\item Type of the node handled
+	\item Return type of the handler (similar to the upcast restraint)
+	\item Delegate containing the transformation function
+\end{enumerate}
 
+The previous distinction between methods which replace nodes and those who only act on them can be removed by offering two types of delegates. In .NET these are represented by the Func\textless T, T\textgreater and Action\textless T\textgreater  delegates, indicating respectively a function which takes an object of type T and returns an object of type T and a function which takes an object of type T but doesn't return anything. These can be interleaved as in returning nothing in essence indicates no change to the initial object; it would behave 'as-if' it would return itself.
 
-Examples
+Considering the logic determining which visitor function should be invoked is now entirely encapsulated by the visitor itself, a simple but useful feature would be an optional predicate preceding invocation of the function. This, together with a lambda-style approach to defining visitor methods allows for more configuration flexibility. Such handlers must additionally hold:
+\begin{enumerate}
+	\setcounter{enumi}{3}
+	\item Return type of the delegate
+	\item Delegate containing a predicate
+\end{enumerate}
+
+Additionally, fall-through handlers could be supported with this approach. The decision not to do so is based on the fact that fall-through statements have been mostly banned from the switch construct in modern imperative languages such as Java and C\#. The recent HeartBleed-bug in OpenSSL was also caused by an improperly handled fall-through.
+
+Suppose we have two handlers (in-order):
+	F(IntConst, Node)
+	F(IntConst, Expression)
+
+In the BinOp example previously defined the second handler would be invoked as they are held in properties of type Expression. 
+
+Adding 
+
 \subsection{Parser / Lexer Extensibility}
 More flexible Parser/Lexer generator support, such as ANTLR4 (LL(*) with EBNF).
 

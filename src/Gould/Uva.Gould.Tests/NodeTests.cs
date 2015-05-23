@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Uva.Gould.Tests.Fixtures;
 
 namespace Uva.Gould.Tests
 {
@@ -11,6 +12,12 @@ namespace Uva.Gould.Tests
             [Child] public Node A { get; set; }
             public Node B { get; set; }
             [Child] public Node C { get; set; }
+        }
+        
+        public class DerivedTestNode : TestNode
+        {
+            [Child] public new Expression A { get; set; }
+            [Child] public new Expression C { get; set; }
         }
 
         [TestMethod]
@@ -36,6 +43,20 @@ namespace Uva.Gould.Tests
 
             Assert.IsTrue(testNode.Children().Count() == 1);
             Assert.IsTrue(testNode.Children().First() == innerTest);
+        }
+
+        [TestMethod]
+        public void ListsOverriddenPropsFirst()
+        {
+            var derivedNode = new DerivedTestNode();
+            derivedNode.A = new Expression();
+            var props = derivedNode.ChildProperties;
+            Assert.IsNotNull(props);
+            Assert.IsTrue(props.Count == 4);
+
+            var value = props[2].GetValue(derivedNode);
+            Assert.IsNotNull(value);
+            Assert.IsInstanceOfType(value, typeof(Expression));
         }
     }
 }

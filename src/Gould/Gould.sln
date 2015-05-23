@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uva.Gould", "Uva.Gould\Uva.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uva.Gould.Tests", "Uva.Gould.Tests\Uva.Gould.Tests.csproj", "{B1AA14B2-770F-4FEE-984C-37DA4887273C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uva.Gould.PerfTests", "Uva.Gould.PerfTests\Uva.Gould.PerfTests.csproj", "{D5A0C2F6-D1AE-4939-8471-AFE5140239A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B1AA14B2-770F-4FEE-984C-37DA4887273C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1AA14B2-770F-4FEE-984C-37DA4887273C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1AA14B2-770F-4FEE-984C-37DA4887273C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A0C2F6-D1AE-4939-8471-AFE5140239A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A0C2F6-D1AE-4939-8471-AFE5140239A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A0C2F6-D1AE-4939-8471-AFE5140239A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A0C2F6-D1AE-4939-8471-AFE5140239A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

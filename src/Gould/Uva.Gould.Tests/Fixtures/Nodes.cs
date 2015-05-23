@@ -1,6 +1,5 @@
 ﻿namespace Uva.Gould.Tests.Fixtures
 {
-    // A node with an ID.
     public class IdNode : Node
     {
         public IdNode(int id)
@@ -9,7 +8,15 @@
         }
 
         public int Id { get; protected set; }
+
+        public static int StartId = 0;
+
+        public override string ToString()
+        {
+            return Id + " (" + GetType().Name + ")";
+        }
     }
+
     // Non-generic, sometimes easier.
     public class BiNode : BiNode<BiNode, BiNode>
     {
