@@ -443,13 +443,13 @@ class ConcreteVisitor : IVisitor
 		\end{lstlisting}
 		\end{comment}
 		
-		The classic oversized example of the pattern is not shown here, as it would only demonstrate components which are to be eliminated. Rather the design process of the improved traversals is explained. The primary design requirement was that there must not be any boilerplate code on the concrete node classes. This is to aid in the development of the AST without distraction. Another high priority was clarity of the visitor classes to aid in a transparent feel. Low on the list of priorities is performance, as this an educational compiler which above else should be flexible and easy to understand.
+		The classic example of the pattern is not shown here, as it only demonstrates unwanted code. The main design goals for the upcomming three visitor implementations are a maximumum reduction of clutter and a transparant algorithm. Less clutter means faster or at least more time spent on actual development and should everything go wrong, it should at least be clear where it goes wrong.
 		
 		\subsection{View-Only Visitor}
-			The first algorithm presented traverses an AST as constructed in section \ref{sec:type-safe-ast} and invokes publicly defined \emph{void Visit(...)} methods on a class without allowing the structure of the tree to be altered significantly (replacing nodes is not supported). This scenario most closely resembles the visitor pattern adapted for reflection. Any visitor operating on the type-safe AST requires information on which properties it are traversible, as was anticipated and demonstrated in snippet \ref{reflection-base}. The view-only visitor is presented in snippet \ref{readonly}. Unbeknownst to the author of this paper, a generalized version of the visitor pattern named \emph{Walkabout} presented in 2007 by \citeauthor{palsberg1998essence}. The algorithm is near identical in setup, and may be easier to follow if unfamiliar with C\# (see snippet \ref{walkabout}).
+			The first algorithm presented traverses an AST as defined in section \ref{sec:type-safe-ast} and invokes publicly defined \emph{Visit(...)} methods on the class. This scenario most closely resembles the default visitor pattern adapted for reflection. As anticipated in the design of the AST, a reflection based visitor requires meta-information on which properties are traversible and in what order. Access to child properties is provided by the \code{Node.ChildProperties} property, which returns a read-only list of child properties. Traversal of children is performed by the \code{VisitChildren()} method, which closely resembles a reflection based version of the catch-all function in the C-based framework. 
 			
-			The \code{VisitChildren()} method closely resembles the catch-all function of the C-based framework. If no concrete handler is found by the generic visit method the non-null children are traversed. The generic visit method could be stripped of it's generics, but an additional check must then be done to ensure the method lookup doesn't return itself.
-						
+			The view-only visitor is presented in snippet \ref{readonly}. Unbeknownst to the author of this paper, a generalized version of the visitor pattern titled \emph{Walkabout} was presented in 2007 by \citeauthor{palsberg1998essence}. The algorithm is (unsurprisingly) identical in form, and may be easier to follow if unfamiliar with C\# (see snippet \ref{walkabout}).
+									
 			\begin{lstlisting}[caption=Walkabout algorithm by \citeauthor{palsberg1998essence},label=walkabout]
 class Walkabout
 {
@@ -464,8 +464,7 @@ class Walkabout
 	}
 }
 			\end{lstlisting}
-						
-			\begin{lstlisting}[caption=Read-only visitor,label=readonly]
+			\begin{lstlisting}[caption=View-only visitor,label=readonly]
 public abstract class ViewOnlyVisitor
 {
 	public void Visit<T>(T node) where T : Node
@@ -504,45 +503,51 @@ public abstract class ViewOnlyVisitor
 }
 			\end{lstlisting}
 		
-		\subsection{Generalized Visitor}
+		\subsection{General Purpose Visitor}
 			Transformations often require the replacement of nodes with nodes of another type but with a common ancestor. In this section the view-only visitor is modified to support node replacement.
 			
-			The traversal flexibility from the C-based framework can added to the view-only visitor by requiring every visitor method to return a node of a type at most as derived as the the argument passed in. Using the walkabout as a foundation we can easily draft how a generalized visitor should behave (snippet \ref{walkabout-gen}). As strongly typed results are required from the visitor method, the method must be made generic and the result of the method invocation cast to the given type. The \code{VisitChildren()} method is easily updated to replace non-null properties with the output of the  visit function. The generalized visitor is presented in snippet \ref{gen-visit}.
+			The flexibility found in the C-based traversal can be applied to the view-only visitor by adding return values to visitor handlers. It is important to realize that a transformation from type A to type B is not always applicable, even if they share a common ancestor. The reason for this is that every node in the tree is bounded by the type of the property. Thus, if a type A node is held in a property of type A, replacing it with a type B node would cause a runtime exception or compilation error and should be prevented.
 			
-			\begin{lstlisting}[caption=Walkabout with return values,label=walkabout-gen]
-class Walkabout
-{
-	Object visit(Object v)
-	{
-		if ( v != null )
-			if (/* this has a public visit method for the class of v, with convertible return type */)
-				return this.visit(v);
-			else
-				for (each field f of v)
-					v.f = this.visit(v.f);
-		
-		return v;
-	}
-}
-			\end{lstlisting}
+			An additional parameter is required on the generic visitor function which can be used internally by the  \code{VisitChildren()} method to pass the enclosing type of the propererty. Consumers of the visitor should not need this type parameter, as they only invoke the generic visitor if no overload in their implementation matches, in which case the maximum upcast is as it was before, the generic type parameter. The general purpose visitor is presented in snippet \ref{gen-visit-changes}.
 			
+			This visitor is able to deal with out-of-bound handlers by utilizing two mechanics: 1) user code directly invoking the unfit handler won't compile because of static type checking and 2) automatic child traversal or forced invocations of the generic visitor are properly bound to a safe limit.
+			
+			One final test remains, what happens when multiple matching handlers are defined? It is possible to write a handler for a base type as well as one for a concrete type. For automatic traversals, the most derived handler is automatically chosen because the runtime type if always used for method selection. However, user code is bound to the single-dispatch mechanism which selects a method is based on the type of the \emph{reference} holding the object. A derived type inside a variable of the base type will be routed to to the base type handler.
+			
+			This is not as bad as it seems as pre-compile inspection will show which method will be invoked. If this behavior is unwanted, the argument to the visitor function can be dynamically cast to delay method selection until runtime (since C\# 4.0 \cite{schildt2010c}). 
+			
+			This leaves two unsupported cases:
+			\begin{enumerate}
+				\item Two or more handlers differing only in return type
+				\item Two or more handlers, where the derived handler returns a more generic type than the less derived handler
+			\end{enumerate}
+			
+			The first one is an illegal construct in C\# and most other imperative languages which cannot be avoided. The second one is a result from reliance on the \code{Type.GetMethod(...)} function to choose a function based on the first argument. This matching process is done without accounting for suitable return type, so if the most derived guess fails the second test, no other options are evaluated. Solving this issue means a full implementation of multiple-dispatch, which is preferably avoided.
+						
 			\begin{lstlisting}[caption=Generalized visitor,label=gen-visit]
-abstract class Visitor
+public abstract class Visitor
 {
-	T Visit(T node) where T : Node
+	public T Visit<T>(T node) where T : Node
+	{
+		return Visit(node, typeof (T));
+	}
+	
+	private T Visit<T>(T node, Type maxUpcast) where T : Node
 	{
 		if (node != null)
 		{
 			// If this visitor has a public method for this class, with convertible return type, invoke.
 			var nodeType = node.GetType();
 			var method = this.GetType().GetMethod("Visit", new[] { nodeType });
-			if (method != null && (method.ReturnType == typeof(T) || method.ReturnType.IsSubclassOf(typeof(T))))
+			if (method != null && (method.ReturnType == maxUpcast || method.ReturnType.IsSubclassOf(maxUpcast)))
 			{
 				return (T) method.Invoke(this, new [] {node});
-			}
-			
+			}	
 			// Otherwise traverse children.
-			VisitChildren(node);
+			else
+			{		
+				VisitChildren(node);
+			}
 		}
 		
 		return node;
@@ -555,7 +560,7 @@ abstract class Visitor
 			Node value = (Node) prop.GetValue();
 			if (value != null)
 			{
-				value = Visit(value);
+				value = Visit(value, prop.PropertyType);
 				prop.SetValue(value);
 			}
 		}
@@ -563,147 +568,85 @@ abstract class Visitor
 }
 			\end{lstlisting}
 			
-			This generalized visitor allows the replacement of nodes with an instance of a shared base class. However, this approach is inherently flawed. At line 26 the \emph{object} returned from \code{prop.GetValue()} is cast to \emph{Node} to provide the generic visitor with a type parameter derived from \emph{Node}. This type feeds into the return type check from line 10, rendering them useless as they always returns true. A user defined function is invoked, the result is cast to \emph{Node}, which is fed into the property setter and instantly throws a runtime exception as the type backing the property has not been taken into account.
-			
-			The type behind a property is easily accessible as \emph{prop.PropertyType}, however as types are not first-class citizens, this information cannot be supplied to the generic visitor. One solution is to provide an additional type parameter to the generic visitor containing the \emph{actual} maximum upcast. Users of the class have no need for this additional parameter as they only invoke the generic visitor if no overload in their implementation matches, in which case the maximum upcast is as it was before, the generic type parameter. Changes to the visitor are shown in snippet \ref{gen-visit-changes}.
-			
-			\begin{lstlisting}[caption=Enforcing a safe upperbound,label=gen-visit-changes]
-/* Public generic visitor method is now a wrapper */
-public T Visit<T>(T node) where T : Node
-{
-	return Visit(node, typeof (T));
-}
-
-/* Private visitor method has limiting type parameter. */
-private T Visit<T>(T node, Type maxUpcast) where T : Node
-{
-	..
-	if (method != null && (method.ReturnType == maxUpcast || method.ReturnType.IsSubclassOf(maxUpcast)))
-	{
-		return (T) method.Invoke(this, new object[] {node});
-	}
-	..
-}
-
-public void VisitChildren(Node node)
-{
-	..
-	value = Visit(value, prop.PropertyType);
-	..
-}
-			\end{lstlisting}
-			
-			The modified visitor is now able to cope with out-of-bound handlers with two mechanics: 1) user code directly invoking the unfit handler won't compile because of static type checking and 2) automatic child traversal or forced invocations of the generic visitor are properly bound to a safe limit.
-			
-			One final test remains, what happens when multiple matching handlers are defined? It is possible to write a handler for a base type as well as a specific handler as their arguments do not collide. For automatic traversals, the most derived handler is automatically chosen because the runtime type if always used for method selection. User code is bound to the single-dispatch mechanism normally used, i.e. a method is selected based on the type of the \emph{reference} holding the object. A derived type inside a variable of the base type will route to a method on the base type.
-			
-			This is not as bad as it seems as pre-compile inspection will show which method will be invoked. If this behavior is unwanted, the argument to the visitor function can be dynamically cast to delay method selection until runtime (since C\# 4.0 \cite{schildt2010c}). This leaves the only one case unsupported, which is when there are two visitor methods differing only in return type.
-			
 		\subsection{Lambda Visitor}
-			While this approach is sufficient for most traversals, it requires some care when multiple inheritance layers are targeted. Method invocation depends on two separate mechanisms, namely direct (single-dispatch via compiler) and reflection based. This ambiguity can be avoided by preventing direct access to visitor methods. This approach takes the decoupling from the extrinsic visitor design one step further by removing publicly defined visitor methods and replacing them with configuration functions which attach handlers.
+			While the general purpose visitor is sufficient for most traversals, it requires some care when multiple layers of an inheritance hierarchy are targeted. Method invocation depends on two seperate mechanisms (single-dispatch and reflection), one of which is not very flexible. As an alternative to a full multiple-dispatch implementation, this section will discuss the lambda visitor, which removes publicly defined method alltogether. Performance benchmarks are also presented for the general purpose visitor, the lambda visitor and several optimizations of the lambda visitor.
 			
-			The basic traversal mechanism is the same, except instead of probing for publicly exposed methods an ordered list of handlers is consulted instead. This also prevents ambiguity when multiple layers of inheritance are targeted by explicitly stating the order of evaluation. Such handlers must contain at least:
+			Eliminating single-dispatch means replacing the publicly defined visitor handlers with an ordered list of delegates and configuration functions to modify the list. The basic traversal mechanism remains the same, but instead of probing for publicly exposed methods the list of handlers is consulted instead. Multiple-dispatch related ambiguity with targets across multiple layers of inheritance is solved by explicitly stating the order of evaluation. Such handlers must contain at least:
 			\begin{enumerate}
 				\item Type of the node handled
-				\item Return type of the handler (similar to the upcast restraint)
+				\item Return type of the handler
 				\item Delegate containing the transformation function
 			\end{enumerate}
 			
-			The previous distinction between methods which replace nodes and those who only act on them can be removed by offering two types of delegates. In .NET these are represented by the Func<T, T> and Action<T>  delegates, indicating respectively a function which takes an object of type T and returns an object of type T and a function which takes an object of type T but doesn't return anything. These can be interleaved as in returning nothing in essence indicates no change to the initial object; it would behave 'as-if' it would return itself.
+			The distinction previously made between replace method and 'view-only' methods can be removed by offering two types of delegates. In .NET these are represented by the \code{Func<TArg, TRet>} and \code{Action<TArg>}  delegates, indicating respectively a function which takes an object of type TArg and returns an object of type TRet and a function which takes an object of type TArg but doesn't return anything (void function). These can be interleaved as in returning nothing in the context of tree traversals indicates ``no change'' to the initial object; it would behave as if it would return itself.
 			
-			Considering the logic determining which visitor function should be invoked is now entirely encapsulated by the visitor itself, a simple but useful feature would be an optional predicate preceding invocation of the function. This, together with a lambda-style approach to defining visitor methods allows for more configuration flexibility. Such handlers must additionally hold:
+			The logic determining which handler should be invoked is now entirely encapsulated by the visitor, a simple but useful feature would be an optional predicate preceding invocation of the function. This, together with a lambda-style approach to defining visitor methods allows for more configuration flexibility. Such handlers must additionally hold:
 			\begin{enumerate}
 				\setcounter{enumi}{3}
-				\item Return type of the delegate
+				\item Delegate type (void or returns)
 				\item Delegate containing a predicate
 			\end{enumerate}
-			
-			
-			Additionally, fall-through handlers could be supported with this approach. The decision not to do so is based on the fact that fall-through statements have been mostly banned from the switch construct in modern imperative languages such as Java and C\#. The recent HeartBleed-bug in OpenSSL was also caused by an improperly handled fall-through.
-			
-			Suppose we have two handlers (in-order):
-			F(IntConst, Node)
-			F(IntConst, Expression)
-			
-			In the BinOp example previously defined the second handler would be invoked as they are held in properties of type Expression. 
-			
-			
-			TODO: clean below
-			\begin{comment}
-			
-			Adding 
-			
-			The idea for the traversals in the updated framework is that 
-			
-			Traditionally it does not offer the same functionality as the existing Civic framework.
-			
-			
-			C\# 4.0 introduced the \code{dynamic} keyword \cite{schildt2010c}, which allows dynamic casts and allows a much simpler 
-			
-			The basic visitor pattern has it's root languages where  somewhat convoluted pattern has many variants, which are more applicable to AST traversals. 
 						
-			It must be noted however that the visitor pattern is essentially an object-oriented workaround for a languages lacking double-dispatch.  
+			Additionally, fall-through handlers could be supported with this approach, though the decision not to do so is based on the fact that fall-through statements have been mostly expelled from switch constructs in modern languages as they are a frequent cause of bugs. A documented version of the lambda visitor is presented in snippet \ref{lambda}. Configuration functions have been omitted for brevity, but an example is include in snippet \ref{lambda}.
 			
-			Optimal way to traverse and modify a tree? Visitor pattern, algorithm seperate from structure, not much choice.
+			Some performance improvements could be made, as the \code{DynamicInvoke()} function is supposedly one of the worst performing reflection methods \cite{website:msdn-reflection}. To remove the call to invoke call, 
 			
-			Outcome: stuck with some form of visitor, more in section x..
+			\begin{lstlisting}[caption=Lambda-based visitor,label=lambda]
+private T Visit<T>(T node, Type maxUpcast)
+	where T : Node
+{
+	if (node == null)
+		return null;
+	
+	// If a handler exist for this class with convertible return type, invoke.
+	var nodeType = node.GetType();
+	foreach (var handle in _handlers)
+	{
+		// Test for matching type (or subtype).
+		if (!handle.Type.IsAssignableFrom(nodeType))
+			continue;
+		
+		// Test for fitness of transformation result.
+		if (!maxUpcast.IsAssignableFrom(handle.MaxUpcast))
+			continue;
+		
+		// Test for predicate.
+		if (handle.Predicate != null)
+		{
+			bool result = (bool) handle.Predicate.DynamicInvoke(node);
+			if (!result)
+				continue;	
+		}
+		
+		// Check if this is an action or function.
+		if (handle.Function != null)
+		{
+			return (T) handle.Function.DynamicInvoke(node);
+		}
+		else
+		{
+			handle.Action.DynamicInvoke(node);
+			return node;
+		}
+	}
+	
+	// If no handlers are found or if all fail, traverse children.
+	VisitChildren(node);
+	
+	return node;
+}
+
+internal class Handler
+{
+	public Type Type { get; set; }
+	public Type MaxUpcast { get; set; }
+	
+	public Delegate Function { get; set; }
+	public Delegate Action { get; set; }
+	public Delegate Predicate { get; set; }
+}
+			\end{lstlisting}
 			
-			Action based traversal formalizes and extends existing traversal process with conditionals and inheritance based actions
-			
-			Extrinsic visitor: Easy addition of new methods, seperation of dissimilar operators, concrete elements visited is small, trade runtime performance for reduced intrusiveness of visitor pattern (Nordman)
-			
-			Walkabout is exactly what I built (essense of visitor pattern).
-			
-			When transforming an AST, it makes sense to use a type of depth-first traversal as actions on child nodes are often dependent on the root node and less on their cousins.
-			
-			The visitor pattern is a well established software pattern which separates algorithm from object structure. Specifically, it tackles traversal of a structure whose objects are part of an inheritance hierarchy.
-			
-			In the traditional double-dispatch version this is done by adding an \textit{accept(IVisitor)} method to all participating objects which directly return control to the visitor, invoking the \textit{visit(Object)} method on the visitor determined by the run-time type (Essense of the visitor pattern).
-			
-			There are many variations on the visitor pattern, such as the extrinsic visitor pattern (Nordman), reflection, type test and delegate (C\# patterns), hierarchical etc (C2.com).
-			
-			Introduction to composite and visitor pattern, example with no inheritance.
-			
-			Review of existing hybrid visitor pattern, does not translate to with inheritance. Visitor may return more generic node than given. Invoked method depends on declared node type (single dispatch).
-			
-			Double dispatch, calling visitor method with runtime type. However:
-			- does not allow handling of types higher up in the inheritance chain
-			- not natively supported by C\#, even possible?
-			
-			Alternatives (unsure):
-			- store parent in every node, but who is responsible for setting it? Lifts responsibility to handler. Which property handled?
-			
-			Introduce case with multiple matching methods, implies declaration order matters.
-			
-			Define handler:
-			- type in
-			- type out
-			- action or function (can be method invocation)
-			
-			Define visitor:
-			- ordered list of handlers
-			- generic visitor method with reflection lookup
-			
-			Added features:
-			- type out omitted -> wrap with return of same type
-			- conditionals on handler declaration
-			
-			AbstractA
-			/      \
-			ConcreteB	ConcreteC
-			|
-			ConcreteB2
-			
-			Visitor with:
-			AbstractA Visit(AbstractA node)
-			ConcreteB Visit(ConcreteB node)
-			AbstractA Visit(ConcreteB2 node)
-			
-			Goal: preserve type safety in visitor methods without using casts:
-			wrong:	expr.Left = (Expression)Visit(expr.Left);
-			good:	expr.Left = Visit(expr.Left);
-			
-			\end{comment}
 	
 				
 	\section{Pluggable Architecture}

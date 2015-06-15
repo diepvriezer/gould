@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -47,6 +47,11 @@ Jens Palsberg and C~Barry Jay.
 \newblock In \emph{Computer Software and Applications Conference, 1998.
   COMPSAC'98. Proceedings. The Twenty-Second Annual International}, pages
   9--15. IEEE, 1998.
+
+\bibitem[Pobar(2005)]{website:msdn-reflection}
+Joel Pobar.
+\newblock Dodge common performance pitfalls to craft speedy applications, 2005.
+\newblock URL \url{https://msdn.microsoft.com/en-us/magazine/cc163759.aspx}.
 
 \bibitem[Ray et~al.(2014)Ray, Posnett, Filkov, and Devanbu]{Ray2014}
 Baishakhi Ray, Daryl Posnett, Vladimir Filkov, and Premkumar Devanbu.

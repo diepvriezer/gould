@@ -8,11 +8,19 @@ using Uva.Gould.Traversals;
 
 namespace Uva.Gould.PerfTests
 {
+    public class Asdf : Visitor
+    {
+        public Int Visit(Bool b)
+        {
+            return new Int();
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            const int iters = 1000;
+            const int iters = 500;
             const int trials = 3;
 
             var stopwatch = new Stopwatch();

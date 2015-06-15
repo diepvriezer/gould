@@ -14,15 +14,15 @@
 \contentsline {section}{\numberline {3.1}Language Selection}{13}{section.3.1}
 \contentsline {section}{\numberline {3.2}Type-Safe AST}{14}{section.3.2}
 \contentsline {section}{\numberline {3.3}Improved Traversal Mechanism}{16}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}View-Only Visitor}{17}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Generalized Visitor}{18}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Lambda Visitor}{21}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Pluggable Architecture}{21}{section.3.4}
+\contentsline {subsection}{\numberline {3.3.1}View-Only Visitor}{16}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}General Purpose Visitor}{18}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Lambda Visitor}{19}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Pluggable Architecture}{20}{section.3.4}
 \contentsline {section}{\numberline {3.5}Collections}{21}{section.3.5}
-\contentsline {section}{\numberline {3.6}Development Environment}{22}{section.3.6}
+\contentsline {section}{\numberline {3.6}Development Environment}{21}{section.3.6}
 \contentsline {subsection}{\numberline {3.6.1}Updated Lexer/Parser}{22}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Platform Updates}{23}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Documentation Generator}{23}{subsection.3.6.3}
-\contentsline {section}{\numberline {3.7}Validation}{23}{section.3.7}
-\contentsline {chapter}{\numberline {4}Discussion}{25}{chapter.4}
-\contentsline {chapter}{\numberline {5}References}{27}{chapter.5}
+\contentsline {subsection}{\numberline {3.6.2}Platform Updates}{22}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Documentation Generator}{22}{subsection.3.6.3}
+\contentsline {section}{\numberline {3.7}Validation}{22}{section.3.7}
+\contentsline {chapter}{\numberline {4}Discussion}{23}{chapter.4}
+\contentsline {chapter}{\numberline {5}References}{25}{chapter.5}
