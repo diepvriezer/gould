@@ -13,14 +13,13 @@
 
 \usepackage[a4paper,scale={0.7,0.8},twoside]{geometry}
 
-\usepackage[sf]{titlesec}
+\usepackage[sf,bf]{titlesec}
 \titleformat{\chapter}[display]
-{\sffamily\raggedleft
-\titlerule\vspace{1pc}}
-{\vspace{1ex}\Large \MakeUppercase{\chaptertitlename}\ \thechapter}
-{3ex}
-{\Huge}
-[\vspace{1pc}\titlerule]
+{\sffamily\raggedleft}
+{\vspace{0.25pc}\Large \MakeUppercase{\chaptertitlename}\ \thechapter}
+{0.25pc}
+{\Huge\bfseries}
+[\vspace{0.5pc}\titlerule]
 
 \usepackage[svgnames]{xcolor}
 \usepackage[absolute,overlay]{textpos}
@@ -56,11 +55,11 @@
 	\end{textblock*}
 	
 	\textblockcolor{LightGray}
-	\begin{textblock*}{2cm}(3cm,2cm)
+	\begin{textblock*}{2cm}(3cm,1cm)
 		\vspace*{26cm}\hspace*{1em}
 	\end{textblock*}
 
-	\begin{textblock*}{2cm}(3.7cm,25cm)
+	\begin{textblock*}{2cm}(4.2cm,25cm)
 		\begin{rotate}{90}
 			\noindent\scshape\Huge\textcolor{Grey}{
 				Computer Science --- University of Amsterdam}

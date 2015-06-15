@@ -6,29 +6,23 @@
 \BOOKMARK [1][-]{section.1.5}{Scope And Limitations}{chapter.1}% 6
 \BOOKMARK [0][-]{chapter.2}{Analysis Of Civic Framework}{}% 7
 \BOOKMARK [1][-]{section.2.1}{Architecture}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.2}{Key Concepts}{chapter.2}% 9
-\BOOKMARK [2][-]{subsection.2.2.1}{Seperate Specification And Implementation}{section.2.2}% 10
-\BOOKMARK [2][-]{subsection.2.2.2}{Flexible Traversals}{section.2.2}% 11
-\BOOKMARK [2][-]{subsection.2.2.3}{Tree Validation}{section.2.2}% 12
-\BOOKMARK [1][-]{section.2.3}{Development Environment}{chapter.2}% 13
-\BOOKMARK [1][-]{section.2.4}{Strengths \046 Weaknesses}{chapter.2}% 14
-\BOOKMARK [0][-]{chapter.3}{Design Considerations}{}% 15
-\BOOKMARK [1][-]{section.3.1}{Language}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.2}{Architecture}{chapter.3}% 17
-\BOOKMARK [1][-]{section.3.3}{Code-First vs. Specification}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.4}{Validation}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.5}{Traversals}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.6}{Collections}{chapter.3}% 21
-\BOOKMARK [0][-]{chapter.4}{Framework Changes}{}% 22
-\BOOKMARK [1][-]{section.4.1}{Code Defined AST}{chapter.4}% 23
-\BOOKMARK [1][-]{section.4.2}{Pluggable Phases and Traversals}{chapter.4}% 24
-\BOOKMARK [1][-]{section.4.3}{Improved Traversal Mechanism}{chapter.4}% 25
-\BOOKMARK [2][-]{subsection.4.3.1}{Read-Only Visitor}{section.4.3}% 26
-\BOOKMARK [2][-]{subsection.4.3.2}{Extrinsic Visitor}{section.4.3}% 27
-\BOOKMARK [2][-]{subsection.4.3.3}{Lambda Visitor}{section.4.3}% 28
-\BOOKMARK [1][-]{section.4.4}{Development Environment}{chapter.4}% 29
-\BOOKMARK [2][-]{subsection.4.4.1}{Updated Lexer/Parser}{section.4.4}% 30
-\BOOKMARK [2][-]{subsection.4.4.2}{Platform Updates}{section.4.4}% 31
-\BOOKMARK [2][-]{subsection.4.4.3}{Documentation Generator}{section.4.4}% 32
-\BOOKMARK [0][-]{chapter.5}{Discussion}{}% 33
-\BOOKMARK [0][-]{chapter.6}{Bibliography}{}% 34
+\BOOKMARK [1][-]{section.2.2}{Code Generation From XML}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.3}{Flexible Traversals}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.4}{Tree Validation}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.5}{Development Environment}{chapter.2}% 12
+\BOOKMARK [0][-]{chapter.3}{Re-design: Code Over Specification}{}% 13
+\BOOKMARK [1][-]{section.3.1}{Language Selection}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.2}{Type-Safe AST}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.3}{Improved Traversal Mechanism}{chapter.3}% 16
+\BOOKMARK [2][-]{subsection.3.3.1}{View-Only Visitor}{section.3.3}% 17
+\BOOKMARK [2][-]{subsection.3.3.2}{Generalized Visitor}{section.3.3}% 18
+\BOOKMARK [2][-]{subsection.3.3.3}{Lambda Visitor}{section.3.3}% 19
+\BOOKMARK [1][-]{section.3.4}{Pluggable Architecture}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.5}{Collections}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.6}{Development Environment}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.6.1}{Updated Lexer/Parser}{section.3.6}% 23
+\BOOKMARK [2][-]{subsection.3.6.2}{Platform Updates}{section.3.6}% 24
+\BOOKMARK [2][-]{subsection.3.6.3}{Documentation Generator}{section.3.6}% 25
+\BOOKMARK [1][-]{section.3.7}{Validation}{chapter.3}% 26
+\BOOKMARK [0][-]{chapter.4}{Discussion}{}% 27
+\BOOKMARK [0][-]{chapter.5}{References}{}% 28

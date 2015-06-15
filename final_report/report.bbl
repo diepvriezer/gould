@@ -1,9 +1,78 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{11}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Gamma et~al.(1994)Gamma, Helm, Johnson, and Vlissides]{gof1994}
+Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
+\newblock \emph{Design patterns: elements of reusable object-oriented
+  software}.
+\newblock Pearson Education, 1994.
+
+\bibitem[Hanenberg et~al.(2014)Hanenberg, Kleinschmager, Robbes, Tanter, and
+  Stefik]{Hanenberg2014}
+Stefan Hanenberg, Sebastian Kleinschmager, Romain Robbes, Eric Tanter, and
+  Andreas Stefik.
+\newblock An empirical study on the impact of static typing on software
+  maintainability.
+\newblock \emph{Empirical Software Engineering}, 19\penalty0 (5):\penalty0
+  1335--1382, 2014.
+\newblock ISSN 1382-3256.
+\newblock \doi{10.1007/s10664-013-9289-1}.
+\newblock URL \url{http://dx.doi.org/10.1007/s10664-013-9289-1}.
+
+\bibitem[Lattner(2002)]{lattner2002llvm}
+Chris~Arthur Lattner.
+\newblock \emph{LLVM: An infrastructure for multi-stage optimization}.
+\newblock PhD thesis, University of Illinois at Urbana-Champaign, 2002.
+
+\bibitem[Meyerovich and Rabkin(2013)]{Meyerovich2013}
+Leo~A. Meyerovich and Ariel~S. Rabkin.
+\newblock Empirical analysis of programming language adoption.
+\newblock \emph{SIGPLAN Not.}, 48\penalty0 (10):\penalty0 1--18, October 2013.
+\newblock ISSN 0362-1340.
+\newblock \doi{10.1145/2544173.2509515}.
+\newblock URL \url{http://doi.acm.org/10.1145/2544173.2509515}.
+
+\bibitem[{Nanz} and {Furia}(2014)]{Nanz2014}
+S.~{Nanz} and C.~A. {Furia}.
+\newblock {A Comparative Study of Programming Languages in Rosetta Code}.
+\newblock \emph{ArXiv e-prints}, August 2014.
+
+\bibitem[Palsberg and Jay(1998)]{palsberg1998essence}
+Jens Palsberg and C~Barry Jay.
+\newblock The essence of the visitor pattern.
+\newblock In \emph{Computer Software and Applications Conference, 1998.
+  COMPSAC'98. Proceedings. The Twenty-Second Annual International}, pages
+  9--15. IEEE, 1998.
+
+\bibitem[Ray et~al.(2014)Ray, Posnett, Filkov, and Devanbu]{Ray2014}
+Baishakhi Ray, Daryl Posnett, Vladimir Filkov, and Premkumar Devanbu.
+\newblock A large scale study of programming languages and code quality in
+  github.
+\newblock In \emph{Proceedings of the 22Nd ACM SIGSOFT International Symposium
+  on Foundations of Software Engineering}, FSE 2014, pages 155--165, New York,
+  NY, USA, 2014. ACM.
+\newblock ISBN 978-1-4503-3056-5.
+\newblock \doi{10.1145/2635868.2635922}.
+\newblock URL \url{http://doi.acm.org/10.1145/2635868.2635922}.
+
+\bibitem[SAC-Home(2015)]{website:sac}
+SAC-Home.
+\newblock Homepage of the sac project, May 2015.
+\newblock URL \url{http://www.sac-home.org/}.
+
+\bibitem[Schildt(2010)]{schildt2010c}
+Herbert Schildt.
+\newblock \emph{C\# 4.0: The complete reference}.
+\newblock McGraw-Hill, 2010.
+
+\bibitem[Schreiner()]{book:schreiner}
+Axel-Tobias Schreiner.
+\newblock \emph{Object-Oriented Programming With ANSI-C}.
+\newblock Hanser.
 
 \bibitem[Source?(2012)]{unknown}
 Source?
