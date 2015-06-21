@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmurphy{n+nt}{\PYGmurphyZlt{}traversal} \PYGmurphy{n+na}{id=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[PFX]\PYGmurphyZdq{}} name=\PYGmurphy{l+s}{\PYGmurphyZdq{}[Friendly Name]\PYGmurphyZdq{}} default=\PYGmurphy{l+s}{\PYGmurphyZdq{}[sons/user]\PYGmurphyZdq{}} include=\PYGmurphy{l+s}{\PYGmurphyZdq{}[header.h]\PYGmurphyZdq{}}\PYGmurphyZgt{}
+	\PYGmurphy{c}{\PYGmurphyZlt{}!\PYGmurphyZhy{}\PYGmurphyZhy{} TravUser element only applicable for \PYGmurphyZsq{}sons\PYGmurphyZsq{} mode \PYGmurphyZhy{}\PYGmurphyZhy{}\PYGmurphyZgt{}}
+	\PYGmurphy{n+nt}{\PYGmurphyZlt{}travuser\PYGmurphyZgt{}}
+		\PYGmurphy{n+nt}{\PYGmurphyZlt{}node} \PYGmurphy{n+na}{name=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[NodeName]\PYGmurphyZdq{}}/\PYGmurphyZgt{}
+	\PYGmurphy{n+nt}{\PYGmurphyZlt{}/travuser\PYGmurphyZgt{}}
+\PYGmurphy{n+nt}{\PYGmurphyZlt{}/traversal\PYGmurphyZgt{}}
+\end{Verbatim}

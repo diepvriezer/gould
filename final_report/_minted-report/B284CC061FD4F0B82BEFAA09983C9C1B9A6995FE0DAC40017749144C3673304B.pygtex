@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{node} \PYGmanni{o}{*}\PYGmanni{n+nf}{TRAVsons} \PYGmanni{p}{(}\PYGmanni{n}{node} \PYGmanni{o}{*}\PYGmanni{n}{arg\PYGmanniZus{}node}\PYGmanni{p}{,} \PYGmanni{n}{info} \PYGmanni{o}{*}\PYGmanni{n}{arg\PYGmanniZus{}info}\PYGmanni{p}{)}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{switch} \PYGmanni{p}{(}\PYGmanni{n}{NODE\PYGmanniZus{}TYPE} \PYGmanni{p}{(}\PYGmanni{n}{arg\PYGmanniZus{}node}\PYGmanni{p}{))} \PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k}{case} \PYGmanni{n+nl}{N\PYGmanniZus{}program}\PYGmanni{p}{:}
+		\PYGmanni{n}{TRAV} \PYGmanni{p}{(}\PYGmanni{n}{PROGRAM\PYGmanniZus{}DECLARATIONS} \PYGmanni{p}{(}\PYGmanni{n}{arg\PYGmanniZus{}node}\PYGmanni{p}{),} \PYGmanni{n}{arg\PYGmanniZus{}info}\PYGmanni{p}{);}
+		\PYGmanni{k}{break}\PYGmanni{p}{;}
+
+		\PYGmanni{k}{case} \PYGmanni{n+nl}{N\PYGmanniZus{}declarations}\PYGmanni{p}{:}
+		\PYGmanni{n}{TRAV} \PYGmanni{p}{(}\PYGmanni{n}{DECLARATIONS\PYGmanniZus{}DECLARATION} \PYGmanni{p}{(}\PYGmanni{n}{arg\PYGmanniZus{}node}\PYGmanni{p}{),} \PYGmanni{n}{arg\PYGmanniZus{}info}\PYGmanni{p}{);}
+		\PYGmanni{p}{...}
+	\PYGmanni{p}{\PYGmanniZcb{}}	
+
+	\PYGmanni{k}{return} \PYGmanni{n}{arg\PYGmanniZus{}node}\PYGmanni{p}{;}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

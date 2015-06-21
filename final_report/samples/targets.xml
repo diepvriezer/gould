@@ -1,0 +1,16 @@
+<son name="IntCast">
+	<targets>
+		<target mandatory="no">
+			<set name="Expression"/>
+			<phases>
+				<range from="phase1" to="phase3" />
+			</phases>
+		</target>
+		<target mandatory="yes">
+			<node name="IntConst" />
+			<phases>
+				<range from="phase4" to="phase7" />
+			</phases>
+		</target>
+	</targets>
+</son>

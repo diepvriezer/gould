@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{struct} \PYGmanni{n}{NODE} \PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{n}{nodetype}             \PYGmanni{n}{nodetype}\PYGmanni{p}{;}       \PYGmanni{c+cm}{/* type of node */}
+	\PYGmanni{k+kt}{int}                  \PYGmanni{n}{lineno}\PYGmanni{p}{;}         \PYGmanni{c+cm}{/* line of definition */}
+	\PYGmanni{n}{node}\PYGmanni{o}{*}                \PYGmanni{n}{error}\PYGmanni{p}{;}          \PYGmanni{c+cm}{/* error node */}
+	\PYGmanni{k}{struct} \PYGmanni{n}{SONUNION}      \PYGmanni{n}{sons}\PYGmanni{p}{;}           \PYGmanni{c+cm}{/* child node structure */}
+	\PYGmanni{k}{struct} \PYGmanni{n}{ATTRIBUNION}   \PYGmanni{n}{attribs}\PYGmanni{p}{;}        \PYGmanni{c+cm}{/* attributes node structure */}
+\PYGmanni{p}{\PYGmanniZcb{};}
+
+\PYGmanni{k}{typedef} \PYGmanni{k}{struct} \PYGmanni{n}{NODE} \PYGmanni{n}{node}\PYGmanni{p}{;}
+\end{Verbatim}

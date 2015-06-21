@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmurphy{n+nt}{\PYGmurphyZlt{}node} \PYGmurphy{n+na}{name=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[node\PYGmurphyZus{}name]\PYGmurphyZdq{}}\PYGmurphyZgt{}
+	\PYGmurphy{n+nt}{\PYGmurphyZlt{}sons\PYGmurphyZgt{}}
+		\PYGmurphy{n+nt}{\PYGmurphyZlt{}son} \PYGmurphy{n+na}{name=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[child]\PYGmurphyZdq{}}\PYGmurphyZgt{}
+			\PYGmurphy{n+nt}{\PYGmurphyZlt{}targets\PYGmurphyZgt{}}
+				\PYGmurphy{n+nt}{\PYGmurphyZlt{}target} \PYGmurphy{n+na}{mandatory=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[yes/no]\PYGmurphyZdq{}}\PYGmurphyZgt{}
+					\PYGmurphy{n+nt}{\PYGmurphyZlt{}node} \PYGmurphy{n+na}{name=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[child\PYGmurphyZus{}name]\PYGmurphyZdq{}}/\PYGmurphyZgt{}
+					\PYGmurphy{n+nt}{\PYGmurphyZlt{}phases\PYGmurphyZgt{}\PYGmurphyZlt{}all} \PYGmurphy{n+nt}{/\PYGmurphyZgt{}\PYGmurphyZlt{}/phases\PYGmurphyZgt{}}
+				\PYGmurphy{n+nt}{\PYGmurphyZlt{}/target\PYGmurphyZgt{}}
+			\PYGmurphy{n+nt}{\PYGmurphyZlt{}/targets\PYGmurphyZgt{}}
+		\PYGmurphy{n+nt}{\PYGmurphyZlt{}/son\PYGmurphyZgt{}}
+	\PYGmurphy{n+nt}{\PYGmurphyZlt{}/sons\PYGmurphyZgt{}}
+	\PYGmurphy{n+nt}{\PYGmurphyZlt{}attributes\PYGmurphyZgt{}}
+		\PYGmurphy{n+nt}{\PYGmurphyZlt{}attribute} \PYGmurphy{n+na}{name=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[attr]\PYGmurphyZdq{}}\PYGmurphyZgt{}
+			\PYGmurphy{n+nt}{\PYGmurphyZlt{}type} \PYGmurphy{n+na}{name=}\PYGmurphy{l+s}{\PYGmurphyZdq{}String\PYGmurphyZdq{}}\PYGmurphyZgt{}
+				\PYGmurphy{n+nt}{\PYGmurphyZlt{}targets\PYGmurphyZgt{}}
+					\PYGmurphy{n+nt}{\PYGmurphyZlt{}target} \PYGmurphy{n+na}{mandatory=}\PYGmurphy{l+s}{\PYGmurphyZdq{}[yes/no]\PYGmurphyZdq{}}\PYGmurphyZgt{}
+						\PYGmurphy{n+nt}{\PYGmurphyZlt{}phases\PYGmurphyZgt{}\PYGmurphyZlt{}all} \PYGmurphy{n+nt}{/\PYGmurphyZgt{}\PYGmurphyZlt{}/phases\PYGmurphyZgt{}}
+					\PYGmurphy{n+nt}{\PYGmurphyZlt{}/target\PYGmurphyZgt{}}
+				\PYGmurphy{n+nt}{\PYGmurphyZlt{}/targets\PYGmurphyZgt{}}
+			\PYGmurphy{n+nt}{\PYGmurphyZlt{}/type\PYGmurphyZgt{}}
+		\PYGmurphy{n+nt}{\PYGmurphyZlt{}/attribute\PYGmurphyZgt{}}
+	\PYGmurphy{n+nt}{\PYGmurphyZlt{}/attributes\PYGmurphyZgt{}}
+\PYGmurphy{n+nt}{\PYGmurphyZlt{}/node\PYGmurphyZgt{}}
+\end{Verbatim}

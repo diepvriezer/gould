@@ -8,4 +8,7 @@ node *TRAVsons (node *arg_node, info *arg_info)
 		case N_declarations:
 		TRAV (DECLARATIONS_DECLARATION (arg_node), arg_info);
 		...
+	}	
+	
+	return arg_node;
 }

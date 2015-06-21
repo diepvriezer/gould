@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{n}{node} \PYGmanni{o}{*}\PYGmanni{n}{n}\PYGmanni{p}{,} \PYGmanni{n}{info} \PYGmanni{o}{*}\PYGmanni{n}{info}\PYGmanni{p}{;}	\PYGmanni{c+cm}{/* retrieved elsewhere */}
+
+	\PYGmanni{n}{TRAVpush}\PYGmanni{p}{(}\PYGmanni{n}{TR\PYGmanniZus{}mytrav}\PYGmanni{p}{);}	\PYGmanni{c+cm}{/* push traversal ID */}
+	\PYGmanni{n}{n} \PYGmanni{o}{=} \PYGmanni{n}{TRAVdo}\PYGmanni{p}{(}\PYGmanni{n}{n}\PYGmanni{p}{,} \PYGmanni{n}{info}\PYGmanni{p}{);}	\PYGmanni{c+cm}{/* initiate */}
+	\PYGmanni{n}{TRAVpop}\PYGmanni{p}{();}			  \PYGmanni{c+cm}{/* pop traversal */}
+
+	\PYGmanni{k}{return} \PYGmanni{n}{n}\PYGmanni{p}{;}				\PYGmanni{c+cm}{/* return control */}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

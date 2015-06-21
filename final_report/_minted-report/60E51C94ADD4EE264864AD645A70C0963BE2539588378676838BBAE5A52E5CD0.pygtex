@@ -1,0 +1,352 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}codebox\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Traversals\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}codebox\PYGmurphyZcb{}[label=c\PYGmurphyZhy{}trav\PYGmurphyZhy{}structure]\PYGmurphyZob{}Template for specification of a traversal\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}xmlfile\PYGmurphyZob{}samples/trav\PYGmurphyZus{}structure.xml\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}codebox\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{			Traversals do not have a single, well\PYGmurphyZhy{}defined structure but rather translate into control flow statements and traverse tables. Every AST traversal must be declared in the \PYGmurphyZbs{}code\PYGmurphyZob{}AST.xml\PYGmurphyZcb{} file as a child of the \PYGmurphyZbs{}code\PYGmurphyZob{}\PYGmurphyZlt{}phases\PYGmurphyZgt{}\PYGmurphyZcb{} element. All traversals adhere to the template presented in \PYGmurphyZbs{}cref\PYGmurphyZob{}xml\PYGmurphyZhy{}trav\PYGmurphyZhy{}structure\PYGmurphyZcb{} and require a unique and preferably short prefix, a friendly name, mode of operation and header file with entry points.}
+
+\PYGmurphy{x}{			Traversals are supported in two modes: 1) user mode and 2) child mode. User mode traversals are required to implement handlers for every node type in the AST, child mode requires only handlers for a specific set of nodes. Every node not on that list is  handled by a catch\PYGmurphyZhy{}all function which automatically traverses child nodes until one a node is found which is specified by the user.}
+
+\PYGmurphy{x}{			Users can push a traversal onto the stack and request the start of a traversal (snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}old\PYGmurphyZhy{}arch:start\PYGmurphyZhy{}trav\PYGmurphyZcb{}), triggering a lookup to a table for the active traversal holding the function which should be called index on node type. By default all child nodes are traversed using a switch statement based on node type (snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}old\PYGmurphyZhy{}arch:switch\PYGmurphyZhy{}trav\PYGmurphyZcb{}). The \PYGmurphyZbs{}code\PYGmurphyZob{}INFO\PYGmurphyZcb{} struct passed along provides statefulness to receiving functions, though this is not essential for traversal.}
+
+\PYGmurphy{x}{			On traversals, the mechanism, output generated and implementation}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Phases\PYGmurphyZcb{}}
+\PYGmurphy{x}{			Phase.mac file, entry point to traversal}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Tree Validation\PYGmurphyZcb{}}
+\PYGmurphy{x}{		\PYGmurphyZbs{}label\PYGmurphyZob{}tree\PYGmurphyZhy{}validation\PYGmurphyZcb{}}
+\PYGmurphy{x}{			..}
+
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Strenghts And Weaknesses\PYGmurphyZcb{}}
+\PYGmurphy{x}{		....}
+
+
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}begin\PYGmurphyZob{}comment\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Code Generation From XML\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}label\PYGmurphyZob{}sec:old\PYGmurphyZhy{}sec\PYGmurphyZcb{}}
+\PYGmurphy{x}{			One defining characteristic of the framework is an abstraction layer over the AST and traversal mechanisms. To better understand this layer, this section will first summarize how nodes and traversals are internally represented, then detail how the abstraction assists in this process and conclude with a summation of all parts of the framework affected by the layer.}
+
+\PYGmurphy{x}{			Nodes are stored as a C\PYGmurphyZhy{}struct containing the type of the node and two structures representing their children and attributes (snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}old\PYGmurphyZhy{}arch:node\PYGmurphyZcb{}). For each node type there are two data structures with it\PYGmurphyZsq{}s specific attributes and references to child nodes, the union of which is refered to in the \PYGmurphyZbs{}code\PYGmurphyZob{}NODE\PYGmurphyZcb{} struct (snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}old\PYGmurphyZhy{}arch:union\PYGmurphyZcb{}). Access macro\PYGmurphyZsq{}s are created for each attribute and child node as well as (de\PYGmurphyZhy{})allocation code.}
+
+\PYGmurphy{x}{			Traversals do not have a well defined single structure but translate into control flow statements and traverse tables. Users can push a traversal onto the stack and request the start of a traversal (snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}old\PYGmurphyZhy{}arch:start\PYGmurphyZhy{}trav\PYGmurphyZcb{}), triggering a lookup to a table for the active traversal holding the function which should be called index on node type. By default all child nodes are traversed using a switch statement based on node type (snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}old\PYGmurphyZhy{}arch:switch\PYGmurphyZhy{}trav\PYGmurphyZcb{}). The \PYGmurphyZbs{}code\PYGmurphyZob{}INFO\PYGmurphyZcb{} struct passed along provides statefulness to receiving functions, though this is not essential for traversal.}
+
+\PYGmurphy{x}{			To illustrate the complexity involved, consider the introduction of a new node to the AST. To achieve this, every traverse table must be supplemented, the default traverse function must be updated, two new structures must be added to the node union, allocation and de\PYGmurphyZhy{}allocation routines must be written as well as access macro\PYGmurphyZsq{}s and the copy, free and check system traversals must be modified. Besides being tedious, performing these tasks manually introduces a significant risk of error. The framework provides XSLT transformations of a specification to automate most of this process. It takes only a couple of lines of XML to add a node to the AST, and all previously mentioned tasks are automatically executed. This does however mean that the specification forming the abstraction is not isolated from the target language (or leaky). For instance, to define a node with a \PYGmurphyZbs{}code\PYGmurphyZob{}char*\PYGmurphyZcb{} attribute requires the specification to know about the difference in copying C\PYGmurphyZhy{}strings and integers.}
+
+\PYGmurphy{x}{			Specifications and accompanying translations are given for:}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Nodes which form the abstract syntax tree, along with their applicable attributes and child nodes}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Mapping from friendly attribute names to C\PYGmurphyZhy{}types, and relevant methods used for copying and free\PYGmurphyZhy{}ing}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Node constraints on:}
+\PYGmurphy{x}{				\PYGmurphyZbs{}begin\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{					\PYGmurphyZbs{}item Type: only certain child nodes or attribute are valid}
+\PYGmurphy{x}{					\PYGmurphyZbs{}item Requirement: attributes or child node must be present}
+\PYGmurphy{x}{					\PYGmurphyZbs{}item Applicable phase: some attributes are not always required}
+\PYGmurphy{x}{				\PYGmurphyZbs{}end\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Traversals, their mode of operation, affected nodes and function prefix}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Flexible Traversals\PYGmurphyZcb{}}
+\PYGmurphy{x}{			Internals of the traversal have been briefly shown in section \PYGmurphyZbs{}ref\PYGmurphyZob{}sec:old\PYGmurphyZhy{}sec\PYGmurphyZcb{} and will be explained in more detail in this section.}
+
+\PYGmurphy{x}{			Traversals are supported in two modes: 1) user mode and 2) child mode. User mode traversals are required to implement handlers for every node type defined in the AST, child mode requires only handlers for a specified list of nodes. Every node which is not on the user specified list is routed instead to a catch\PYGmurphyZhy{}all function which automatically traverses child nodes of the unhandled node. This function is automatically updated when a node is added or removed or a change is made to any of the child node properties.}
+
+\PYGmurphy{x}{			All traversals are elements in the \PYGmurphyZbs{}code\PYGmurphyZob{}\PYGmurphyZlt{}phases\PYGmurphyZgt{}\PYGmurphyZcb{} element of the specification document, and must contain a unique identifier, readable short name, operation mode (user or child), associated header file and \PYGmurphyZhy{} depending on the chosen mode \PYGmurphyZhy{} a list of nodes handled by the traversal. When the compiler is built, enumerations of all node and traversal identifiers are generated. All nodes and traversals are assigned a zero\PYGmurphyZhy{}indexed integer to be used as an index. Every traversal adds an array of function pointers to the traverse table. The row is added at the index dictated by the enumeration and the array is indexed by the node index. References to the funtions are constructed by concatenating the traversal identifier with the friendly name of the node. In child mode, unhandled node types are routed to the catch\PYGmurphyZhy{}all function explained in the last paragraph.}
+
+\PYGmurphy{x}{			Every handler has the same function signature, requiring pointers to a node and an info structure, and returning a pointer to a node which replaces the current node. If a traversal is to be used as an entry point for a sub\PYGmurphyZhy{}phase, it must be added to the \PYGmurphyZbs{}code\PYGmurphyZob{}phase.mac\PYGmurphyZcb{} file, where an entry point is referenced with the same signature as a handler function: \PYGmurphyZbs{}\PYGmurphyZbs{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}code\PYGmurphyZob{}node *PFXnodeType (node *arg\PYGmurphyZbs{}\PYGmurphyZus{}node, info *arg\PYGmurphyZbs{}\PYGmurphyZus{}info)\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{			The framework maintains a stack of active traversals manipulated with the \PYGmurphyZbs{}code\PYGmurphyZob{}TRAVpush (id)\PYGmurphyZcb{} and \PYGmurphyZbs{}code\PYGmurphyZob{}TRAVpop ()\PYGmurphyZcb{} functions. An active traversal can be controlled with the \PYGmurphyZbs{}code\PYGmurphyZob{}TRAVdo (node*, info*)\PYGmurphyZcb{}, \PYGmurphyZbs{}code\PYGmurphyZob{}TRAVopt (node*, info*)\PYGmurphyZcb{} and \PYGmurphyZbs{}code\PYGmurphyZob{}TRAVcont (node*, info*)\PYGmurphyZcb{} functions. All return the result of the traversal of a given subtree, additionally the latter two respectively ignore null node arguments and invoke the catch\PYGmurphyZhy{}all handler.}
+
+\PYGmurphy{x}{			This approach to traversals encourages users to create small, reusable traversals in similar way the visitor pattern is implemented in an object\PYGmurphyZhy{}oriented language \PYGmurphyZbs{}cite\PYGmurphyZob{}gof1994\PYGmurphyZcb{}.}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Tree Validation\PYGmurphyZcb{}\PYGmurphyZbs{}label\PYGmurphyZob{}sec:validation\PYGmurphyZcb{}}
+\PYGmurphy{x}{			As explained in section \PYGmurphyZbs{}ref\PYGmurphyZob{}sec:old\PYGmurphyZhy{}sec\PYGmurphyZcb{}, nodes all share the same structure. Semantically all node structures are valid trees, yet most combinations of AST nodes should yield an invalid tree. This section briefly explains the validation mechanisms present in the framework.}
+
+\PYGmurphy{x}{			The first line of defense against illegal node operations is the tagged union implemented for nodes. A tagged union is a structure which can take on different but fixed types \PYGmurphyZbs{}cite\PYGmurphyZob{}unknown\PYGmurphyZcb{}. An \PYGmurphyZbs{}code\PYGmurphyZob{}enum\PYGmurphyZcb{} is used to distinguish all different node types and used in the generated traversals to always pick the correct structure when traversing. Unlike functional languages, C provides no compile time checks to enforce the tagged union except for a simple check on the node type. However, access to nodes and traversal mechanisms are largely controlled from generated macro\PYGmurphyZsq{}s which do provide a level of security. It must be noted that the macro property accessors do not check the node type, as they are used on both the left\PYGmurphyZhy{} and righthand side of assignments and assignments to conditionals are illegal in C.}
+
+\PYGmurphy{x}{			The main validation mechanism lies in the \PYGmurphyZsq{}check\PYGmurphyZsq{} traversal generated from the AST. This traversal walks the AST and ensures that every node has child nodes and attributes of the correct type, and that any attribute or child node marked as mandatory for the current phase is present. The check traversal must be manually added as part of a phase, so invalid trees are still possible during execution of any traversal up to the check.}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Development Environment\PYGmurphyZcb{}}
+\PYGmurphy{x}{		Todo:}
+\PYGmurphy{x}{		\PYGmurphyZbs{}begin\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item Error handling}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item Pre\PYGmurphyZhy{}configured scanner, parser}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item Debug helpers}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item Compact base library}
+\PYGmurphy{x}{		\PYGmurphyZbs{}end\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}end\PYGmurphyZob{}comment\PYGmurphyZcb{}}
+
+
+
+\PYGmurphy{x}{\PYGmurphyZbs{}chapter\PYGmurphyZob{}Re\PYGmurphyZhy{}design: Code Over Specification\PYGmurphyZcb{}}
+\PYGmurphy{x}{	This chapter approaches the framework described in the previous chapter from the perspective of a modern object\PYGmurphyZhy{}oriented language.}
+
+\PYGmurphy{x}{	Modern language, infrastructure approach, type\PYGmurphyZhy{}safety, code\PYGmurphyZhy{}based AST. Key questions:}
+\PYGmurphy{x}{	\PYGmurphyZbs{}begin\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{		\PYGmurphyZbs{}item Which programming languages are realistic alternatives to the current language, keeping in mind the current experience of students?}
+\PYGmurphy{x}{		\PYGmurphyZbs{}item Which areas or concepts could be improved or introduced to improve the framework\PYGmurphyZsq{}s efficiency?}
+\PYGmurphy{x}{		\PYGmurphyZbs{}begin\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item In what way are these concepts dependent on implementation language or on choice of architecture?}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item Which concepts are invariant of platform or architecture?}
+\PYGmurphy{x}{		\PYGmurphyZbs{}end\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}end\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{	In theory the existing architecture could be re\PYGmurphyZhy{}used with the code generator outputting C\PYGmurphyZbs{}}\PYGmurphy{esc}{ instead, cleaner strategies exist which will be discussed in this section. The applicability of an abstractian layer will be tested by developing a model for a type-safe AST, followed by a proposal for a code-configured pluggable architecture.}
+
+\PYGmurphy{esc}{		Fundamentally changed:}
+\PYGmurphy{esc}{		- language choice}
+\PYGmurphy{esc}{		\begin{itemize}}
+\PYGmurphy{esc}{			\item Code-First vs specification (for AST, traversals and phases - also validation omitted)}
+\PYGmurphy{esc}{			\item Managed Language}
+\PYGmurphy{esc}{			\item Package updates}
+\PYGmurphy{esc}{		\end{itemize}}
+\PYGmurphy{esc}{		Untouched or adapted:}
+\PYGmurphy{esc}{		\begin{itemize}}
+\PYGmurphy{esc}{			\item Traversal Mechanism (added lambda)}
+\PYGmurphy{esc}{			\item Collection representation}
+\PYGmurphy{esc}{			\item Base lib (arguments, default ANTLR4, documentation)}
+\PYGmurphy{esc}{		\end{itemize}}
+
+\PYGmurphy{esc}{	\section{Language Selection}}
+\PYGmurphy{esc}{		While C is arguably as modern and widely used as any other general purpose programming language, and can even be called object-oriented \cite{book:schreiner}, it is definiatly not strongly typed. Programming in C requires defensive programming and dynamic type casts to achieve a level of safety other languages get for free, as internally every structure is a \code{void*}. In this section the language options for a modernized Civic framework are briefly discussed.}
+
+\PYGmurphy{esc}{		Choosing a language is a non-trivial task and depends on many factors. For this project, the first criteria was that the language must be high-level and preferably managed to reduce the time spent debugging memory allocation and null references in C. Student familiarity with the language was also considered, as well as the exclusion of any fully functional languages. The reason for the latter being removal of the functional programming course from the undergraduate program. One final consideration was the availability of relevant libraries and support infrastructure.}
+
+\PYGmurphy{esc}{		With functional languages excluded, procedural and scripting languages remain. A recent study found the most common languages on GitHub in these categories to be C++, C\#, Objective-C, Java, Go, JavaScript, Python, Perl, Php and Ruby \cite{Ray2014}. A study by \citeauthor{Meyerovich2013} found that 97\}\PYGmurphy{x}{ of computer science majors knew at least one imperative/OO language against 78\PYGmurphyZbs{}\PYGmurphyZpc{} for dynamic languages \PYGmurphyZbs{}cite\PYGmurphyZob{}Meyerovich2013\PYGmurphyZcb{}. Studies on static versus dynamic typing are somewhat inconclusive, though evidence suggests static typing improves maintainability, increases understanding of undocumented code and measurably reduces defects \PYGmurphyZbs{}cite\PYGmurphyZob{}Hanenberg2014,Ray2014\PYGmurphyZcb{}.}
+
+\PYGmurphy{x}{		When considering only statically typed managed languages, only C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{, Java and Go remain. The TIOBE index is a  programming language popularity index based on the number of hits in various search engines. While Java and C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ occupy position 3 and 6 respectively, Go takes the 30th place, just below Ada \PYGmurphyZbs{}cite\PYGmurphyZob{}Nanz2014\PYGmurphyZcb{}. With both C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ and Java able to use the LL(*) ANTLR4 parser generator, either of these languages would suit the project.}
+
+\PYGmurphy{x}{		Todo:}
+\PYGmurphy{x}{		\PYGmurphyZbs{}begin\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ has more powerful semantics, lambdas, properties, optional dynamic typing}
+\PYGmurphy{x}{			\PYGmurphyZbs{}item But it is somewhat plaform bound, whereas Java is not}
+\PYGmurphy{x}{		\PYGmurphyZbs{}end\PYGmurphyZob{}itemize\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Type\PYGmurphyZhy{}Safe AST\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}label\PYGmurphyZob{}sec:type\PYGmurphyZhy{}safe\PYGmurphyZhy{}ast\PYGmurphyZcb{}}
+\PYGmurphy{x}{		Working with a strongly typed OO\PYGmurphyZhy{}language grants the ability to model AST nodes in greater detail than before. Different node types can be represented by different classes with node specific attributes exposed as properties, sharing a common interface or base class which can be used in traversals. Child nodes on a node should also be strongly typed and accessible in the same way as attributes. This poses an interesting challenge: if traversible properties are placed on the derived class, how can a traversal operating on the base class access them?}
+
+\PYGmurphy{x}{		Two possible solutions come to mind: the first one \PYGmurphyZhy{} used in the existing framework \PYGmurphyZhy{} is to supplement the traversal with knowledge of the traversible properties, resulting in large switch statements. The second option is to mark traversible properties with an attribute (in Java attributes are known as annotations) and use reflection to retrieve them at runtime. A basic working version is shown in snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}reflection\PYGmurphyZhy{}base\PYGmurphyZhy{}simple\PYGmurphyZcb{}. A note for those unfamiliar with C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{, the \PYGmurphyZbs{}code\PYGmurphyZob{}\PYGmurphyZbs{}\PYGmurphyZob{} get; set; \PYGmurphyZbs{}\PYGmurphyZcb{}\PYGmurphyZcb{} represent an automatic property, similar to simple field\PYGmurphyZhy{}backed get/set methods in Java. The \PYGmurphyZbs{}code\PYGmurphyZob{}.Where(p =\PYGmurphyZgt{} p...)\PYGmurphyZcb{} method call on line 23 is an example of a lambda filter applied to all elements returned from \PYGmurphyZbs{}code\PYGmurphyZob{}GetType().GetProperties()\PYGmurphyZcb{}, the \PYGmurphyZbs{}code\PYGmurphyZob{}.Any(att =\PYGmurphyZgt{} att..)\PYGmurphyZcb{} clause inside the lambda returns a boolean if any of the attributes declared on a property match the nested expression.}
+
+\PYGmurphy{x}{		This basic setup fails on several counts. First of all, the order in which properties are declared on a class is not guaranteed to match the order in which they are returned from reflection. Second, it is possible to place the \PYGmurphyZbs{}code\PYGmurphyZob{}[Child]\PYGmurphyZcb{} attribute on any attribute which is then added to the list of traversible children. C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ 4.5 exposes declaration information via attributes, which is used to populate a field on the attribute. This order can be used to sort the list of properties, as shown in snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}reflection\PYGmurphyZhy{}base\PYGmurphyZcb{}.}
+
+\PYGmurphy{x}{		The \PYGmurphyZbs{}code\PYGmurphyZob{}Node\PYGmurphyZcb{} abstract base class and the \PYGmurphyZbs{}code\PYGmurphyZob{}ChildAttribute\PYGmurphyZcb{} attribute form the basis of the approach chosen for a type\PYGmurphyZhy{}safe AST. Nodesets from the previous framework can be exchanged for (abstract) base\PYGmurphyZhy{}classes for easy targeting of expressions, statements, or variable declarations. Because C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ (and Java) only support single\PYGmurphyZhy{}inheritance, a node is limited to only one branch of inheritance, which is probably a good thing.\PYGmurphyZbs{}footnote\PYGmurphyZob{}An effort has been made to implement a object composition model, which required too much documentation to explain and provided identical results.\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{		It must be noted that the order in which child properties are returned is somewhat ambiguous when working with an inheritance hierarchy where traversible properties are defined on multiple classes. Properties are correctly retrieved, but are sorted on line number, which is valid only for a single file. This poses a problem for classes defined over multiple files. This behavior is arguably undefined, though such a list might be ordered first by order of inheritance, and then by line number. Sorting this way is non\PYGmurphyZhy{}trivial and unnecessarily costly, considering there were no real use cases for such hierarchies, so no action was required.}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Improved Traversal Mechanisms\PYGmurphyZcb{}}
+\PYGmurphy{x}{		This section reviews common traversal and manipulation mechanisms applicable for trees with nodes in an inheritance tree and presents three traversal mechanisms for the type\PYGmurphyZhy{}safe AST. The section concludes with the benchmarking and optimization of the general purpose visitor and the lambda\PYGmurphyZhy{}based visitor.}
+
+\PYGmurphy{x}{		In the analysis of the existing framework the traversal mechanism was identified as some form of visitor pattern. The visitor pattern was first formally defined by \PYGmurphyZbs{}citeauthor\PYGmurphyZob{}gof1994\PYGmurphyZcb{} in 1994, who defined its intent as: ``Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.\PYGmurphyZsq{}\PYGmurphyZsq{}. Parallels with the requirements for the traversal mechanism on an AST are easily drawn, coincidentally the one example they present is \PYGmurphyZbs{}emph\PYGmurphyZob{}about a fictional AST\PYGmurphyZcb{}! To quickly summarize the example, instead of seperating compilation phases into logical units, functionality is placed in a method accessible on \PYGmurphyZbs{}emph\PYGmurphyZob{}every\PYGmurphyZcb{} node. Thus, the type checking phase would add an overridable \PYGmurphyZbs{}code\PYGmurphyZob{}TypeCheck ()\PYGmurphyZcb{} function to the base class, and responsibility for traversing child nodes is placed on the node as well.}
+
+\PYGmurphy{x}{		The visitor pattern disapproves the modification of a node class for every new operation on a tree. It defines a \PYGmurphyZbs{}code\PYGmurphyZob{}NodeVisitor\PYGmurphyZcb{} base class which contains a visit method for every node in the hierarchy (\PYGmurphyZbs{}code\PYGmurphyZob{}VisitAssignment(AssignmentNode)\PYGmurphyZcb{}, \PYGmurphyZbs{}code\PYGmurphyZob{}VisitDeclaration(Declaration)\PYGmurphyZcb{}, etc). A method accepting the visitor class is added to every node (\PYGmurphyZbs{}code\PYGmurphyZob{}Accept(NodeVisitor)\PYGmurphyZcb{}), whose sole purpose is to return control to the visitor class by calling the visit method for that node. Each new operation of the tree results in a derived visitor containing only the relevant functionality.}
+
+\PYGmurphy{x}{		The classic example of the pattern is not shown here, as it only demonstrates unwanted code. The main design goals for the upcomming three visitor implementations are a maximumum reduction of clutter and a transparant algorithm. Less clutter means faster or at least more time spent on actual development and should everything go wrong, it should at least be clear where it goes wrong.}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}View\PYGmurphyZhy{}Only Visitor\PYGmurphyZcb{}}
+\PYGmurphy{x}{			The first algorithm presented traverses an AST as defined in section \PYGmurphyZbs{}ref\PYGmurphyZob{}sec:type\PYGmurphyZhy{}safe\PYGmurphyZhy{}ast\PYGmurphyZcb{} and invokes publicly defined \PYGmurphyZbs{}emph\PYGmurphyZob{}Visit(...)\PYGmurphyZcb{} methods on the class. This scenario most closely resembles the default visitor pattern adapted for reflection. As anticipated in the design of the AST, a reflection based visitor requires meta\PYGmurphyZhy{}information on which properties are traversible and in what order. Access to child properties is provided by the \PYGmurphyZbs{}code\PYGmurphyZob{}Node.ChildProperties\PYGmurphyZcb{} property, which returns a read\PYGmurphyZhy{}only list of child properties. Traversal of children is performed by the \PYGmurphyZbs{}code\PYGmurphyZob{}VisitChildren()\PYGmurphyZcb{} method, which closely resembles a reflection based version of the catch\PYGmurphyZhy{}all function in the C\PYGmurphyZhy{}based framework.}
+
+\PYGmurphy{x}{			The view\PYGmurphyZhy{}only visitor is presented in snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}readonly\PYGmurphyZcb{}. Unbeknownst to the author of this paper, a generalized version of the visitor pattern titled \PYGmurphyZbs{}emph\PYGmurphyZob{}Walkabout\PYGmurphyZcb{} was presented in 2007 by \PYGmurphyZbs{}citeauthor\PYGmurphyZob{}palsberg1998essence\PYGmurphyZcb{}. The algorithm is (unsurprisingly) identical in form, and may be easier to follow if unfamiliar with C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ (see snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}walkabout\PYGmurphyZcb{}).}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}General Purpose Visitor\PYGmurphyZcb{}}
+\PYGmurphy{x}{			Transformations often require the replacement of nodes with nodes of another type but with a common ancestor. In this section the view\PYGmurphyZhy{}only visitor is modified to support node replacement.}
+
+\PYGmurphy{x}{			The flexibility found in the C\PYGmurphyZhy{}based traversal can be applied to the view\PYGmurphyZhy{}only visitor by adding return values to visitor handlers. It is important to realize that a transformation from type A to type B is not always applicable, even if they share a common ancestor. The reason for this is that every node in the tree is bounded by the type of the property. Thus, if a type A node is held in a property of type A, replacing it with a type B node would cause a runtime exception or compilation error and should be prevented.}
+
+\PYGmurphy{x}{			An additional parameter is required on the generic visitor function which can be used internally by the  \PYGmurphyZbs{}code\PYGmurphyZob{}VisitChildren()\PYGmurphyZcb{} method to pass the enclosing type of the propererty. Consumers of the visitor should not need this type parameter, as they only invoke the generic visitor if no overload in their implementation matches, in which case the maximum upcast is as it was before, the generic type parameter. The general purpose visitor is presented in snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}gen\PYGmurphyZhy{}visit\PYGmurphyZhy{}changes\PYGmurphyZcb{}.}
+
+\PYGmurphy{x}{			This visitor is able to deal with out\PYGmurphyZhy{}of\PYGmurphyZhy{}bound handlers by utilizing two mechanics: 1) user code directly invoking the unfit handler won\PYGmurphyZsq{}t compile because of static type checking and 2) automatic child traversal or forced invocations of the generic visitor are properly bound to a safe limit.}
+
+\PYGmurphy{x}{			One final test remains, what happens when multiple matching handlers are defined? It is possible to write a handler for a base type as well as one for a concrete type. For automatic traversals, the most derived handler is automatically chosen because the runtime type if always used for method selection. However, user code is bound to the single\PYGmurphyZhy{}dispatch mechanism which selects a method is based on the type of the \PYGmurphyZbs{}emph\PYGmurphyZob{}reference\PYGmurphyZcb{} holding the object. A derived type inside a variable of the base type will be routed to to the base type handler.}
+
+\PYGmurphy{x}{			This is not as bad as it seems as pre\PYGmurphyZhy{}compile inspection will show which method will be invoked. If this behavior is unwanted, the argument to the visitor function can be dynamically cast to delay method selection until runtime (since C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ 4.0 \PYGmurphyZbs{}cite\PYGmurphyZob{}schildt2010c\PYGmurphyZcb{}).}
+
+\PYGmurphy{x}{			This leaves two unsupported cases:}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}enumerate\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Two or more handlers differing only in return type}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Two or more handlers, where the derived handler returns a more generic type than the less derived handler}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}enumerate\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{			The first one is an illegal construct in C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ and most other imperative languages which cannot be avoided. The second one is a result from reliance on the \PYGmurphyZbs{}code\PYGmurphyZob{}Type.GetMethod(...)\PYGmurphyZcb{} function to choose a function based on the first argument. This matching process is done without accounting for suitable return type, so if the most derived guess fails the second test, no other options are evaluated. Solving this issue means a full implementation of multiple\PYGmurphyZhy{}dispatch, which is preferably avoided.}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Lambda Visitor\PYGmurphyZcb{}}
+\PYGmurphy{x}{			While the general purpose visitor is sufficient for most traversals, it requires some care when multiple layers of an inheritance hierarchy are targeted. Method invocation depends on two seperate mechanisms (single\PYGmurphyZhy{}dispatch and reflection), one of which is not very flexible. As an alternative to a full multiple\PYGmurphyZhy{}dispatch implementation, this section will discuss the lambda visitor, which removes publicly defined method alltogether.}
+
+\PYGmurphy{x}{			Eliminating single\PYGmurphyZhy{}dispatch means replacing the publicly defined visitor handlers with an ordered list of delegates and configuration functions to modify the list. The basic traversal mechanism remains the same, but instead of probing for publicly exposed methods the list of handlers is consulted instead. Multiple\PYGmurphyZhy{}dispatch related ambiguity with targets across multiple layers of inheritance is solved by explicitly stating the order of evaluation. Such handlers must contain at least:}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}enumerate\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Type of the node handled}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Return type of the handler}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Delegate containing the transformation function}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}enumerate\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{			The distinction previously made between replace method and \PYGmurphyZsq{}view\PYGmurphyZhy{}only\PYGmurphyZsq{} methods can be removed by offering two types of delegates. In .NET these are represented by the \PYGmurphyZbs{}code\PYGmurphyZob{}Func\PYGmurphyZlt{}TArg, TRet\PYGmurphyZgt{}\PYGmurphyZcb{} and \PYGmurphyZbs{}code\PYGmurphyZob{}Action\PYGmurphyZlt{}TArg\PYGmurphyZgt{}\PYGmurphyZcb{}  delegates, indicating respectively a function which takes an object of type TArg and returns an object of type TRet and a function which takes an object of type TArg but doesn\PYGmurphyZsq{}t return anything (void function). These can be interleaved as in returning nothing in the context of tree traversals indicates ``no change\PYGmurphyZsq{}\PYGmurphyZsq{} to the initial object; it would behave as if it would return itself.}
+
+\PYGmurphy{x}{			The logic determining which handler should be invoked is now entirely encapsulated by the visitor, a simple but useful feature would be an optional predicate preceding invocation of the function. This, together with a lambda\PYGmurphyZhy{}style approach to defining visitor methods allows for more configuration flexibility. Such handlers must additionally hold:}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}enumerate\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}setcounter\PYGmurphyZob{}enumi\PYGmurphyZcb{}\PYGmurphyZob{}3\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Delegate type (void or returns)}
+\PYGmurphy{x}{				\PYGmurphyZbs{}item Delegate containing a predicate}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}enumerate\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{			Additionally, fall\PYGmurphyZhy{}through handlers could be supported with this approach, though the decision not to do so is based on the fact that fall\PYGmurphyZhy{}through statements have been mostly expelled from switch constructs in modern languages as they are a frequent cause of bugs. A documented version of the lambda visitor is presented in snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}lambda\PYGmurphyZcb{}.}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Benchmarks \PYGmurphyZbs{}\PYGmurphyZam{} Optimization\PYGmurphyZcb{}}
+\PYGmurphy{x}{			The two traversal mechanisms compared in this section are the general purpose visitor and the lambda\PYGmurphyZhy{}visitor. A small benchmark suite has been developed which provides somewhat realistic data structures and can easily run tests on any number of visitor implementations. The view\PYGmurphyZhy{}only visitor was not included as it does not perform the same tasks as the other two.}
+
+\PYGmurphy{x}{			First of all realistic test data must be produced. Part of the unit test suite included in the library of the framework provides static methods which generates small trees from a 10\PYGmurphyZhy{}node AST. Abstract classes are used as markers and the diversity of the nodes meets the criteria used in unit tests making them suitable for use in a benchmark suite.}
+
+\PYGmurphy{x}{			The idea is to start with a small tree (n=14) with three layers of depth, and perform replacements with the same tree on certain blocks, providing a growth factor of roughly 5.5. After 4 iterations of the visitor the tree will have grown to 12098 nodes, which is likely below the limit where memory allocation starts to play a major role and above the threshold for measurable differences.}
+
+\PYGmurphy{x}{			The first test run with 250 iterations, repeated 3 times produced the results shown in figure \PYGmurphyZbs{}ref\PYGmurphyZob{}fig:first\PYGmurphyZhy{}run\PYGmurphyZcb{}. Well, at least the performance impact of the \PYGmurphyZbs{}code\PYGmurphyZob{}DynamicInvoke(...)\PYGmurphyZcb{} call are not quite as significant as some sources proclaim \PYGmurphyZbs{}cite\PYGmurphyZob{}website:msdn\PYGmurphyZhy{}reflection\PYGmurphyZcb{}. It does beg the question if the results should be explained by a largely similar algorithm, or if there is another bottleneck in the system.}
+
+\PYGmurphy{x}{			The tests were run again and profiled using an educational copy of the JetBrains dotTrace profiling software. The number of iterations was brought down to 200 and the number of tries to 1. After 50 seconds the results were in: 42 seconds were spent inside in the system libraries on 700 million library calls. A mere 6 seconds were spent on all benchmarking code (responsible for 5.5 million node creations 30 million fixture calls), and less than a second was spend on garbage collection. The culprit was quickly identified: over 3 million cold calls were made to the extension method which enumerates the properties on a type which have the child attribute. These lists were cached, but on the objects themselves; perhaps a static dictionary is better suited. The results were drastic: the profiler ran in only 1.9 seconds, a reduction of factor 20. The first run was repeated and saw an factor 10 reduction in runtime (figure \PYGmurphyZbs{}ref\PYGmurphyZob{}fig:second\PYGmurphyZhy{}run\PYGmurphyZcb{}).}
+
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}figure\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}centering}
+\PYGmurphy{x}{				\PYGmurphyZbs{}begin\PYGmurphyZob{}tikzpicture\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}begin\PYGmurphyZob{}axis\PYGmurphyZcb{}[}
+\PYGmurphy{x}{					xbar, xmin=0,}
+\PYGmurphy{x}{					width=12cm, height=3.5cm, enlarge y limits=0.5,}
+\PYGmurphy{x}{					symbolic y coords=\PYGmurphyZob{}GP,Lambda\PYGmurphyZcb{},}
+\PYGmurphy{x}{					ytick=data,}
+\PYGmurphy{x}{					nodes near coords, nodes near coords align=\PYGmurphyZob{}horizontal\PYGmurphyZcb{},}
+\PYGmurphy{x}{				]}
+\PYGmurphy{x}{				\PYGmurphyZbs{}addplot[fill=lightgray] coordinates \PYGmurphyZob{}(12549,GP) (13605,Lambda)\PYGmurphyZcb{};}
+\PYGmurphy{x}{				\PYGmurphyZbs{}end\PYGmurphyZob{}axis\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}end\PYGmurphyZob{}tikzpicture\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}caption\PYGmurphyZob{}Initial run \PYGmurphyZhy{} \PYGmurphyZbs{}emph\PYGmurphyZob{}avg. miliseconds per run\PYGmurphyZcb{}, \PYGmurphyZbs{}emph\PYGmurphyZob{}iters\PYGmurphyZcb{}=250, \PYGmurphyZbs{}emph\PYGmurphyZob{}n\PYGmurphyZcb{}=3\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}label\PYGmurphyZob{}fig:first\PYGmurphyZhy{}run\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}figure\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}figure\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}centering}
+\PYGmurphy{x}{				\PYGmurphyZbs{}begin\PYGmurphyZob{}tikzpicture\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}begin\PYGmurphyZob{}axis\PYGmurphyZcb{}[}
+\PYGmurphy{x}{					xbar, xmin=0,}
+\PYGmurphy{x}{					width=12cm, height=3.5cm, enlarge y limits=0.5,}
+\PYGmurphy{x}{					symbolic y coords=\PYGmurphyZob{}GP,Lambda\PYGmurphyZcb{},}
+\PYGmurphy{x}{					ytick=data,}
+\PYGmurphy{x}{					nodes near coords, nodes near coords align=\PYGmurphyZob{}horizontal\PYGmurphyZcb{},}
+\PYGmurphy{x}{				]}
+\PYGmurphy{x}{				\PYGmurphyZbs{}addplot[fill=lightgray] coordinates \PYGmurphyZob{}(1088,GP) (1219,Lambda)\PYGmurphyZcb{};}
+\PYGmurphy{x}{				\PYGmurphyZbs{}end\PYGmurphyZob{}axis\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}end\PYGmurphyZob{}tikzpicture\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}caption\PYGmurphyZob{}Second run \PYGmurphyZhy{} \PYGmurphyZbs{}emph\PYGmurphyZob{}avg. miliseconds per run\PYGmurphyZcb{}, \PYGmurphyZbs{}emph\PYGmurphyZob{}iters\PYGmurphyZcb{}=250, \PYGmurphyZbs{}emph\PYGmurphyZob{}n\PYGmurphyZcb{}=3\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}label\PYGmurphyZob{}fig:second\PYGmurphyZhy{}run\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}figure\PYGmurphyZcb{}}
+
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Pluggable Architecture\PYGmurphyZcb{}}
+\PYGmurphy{x}{		\PYGmurphyZhy{} XSLT not necessary for AST generation, or check/copy travs (present copy function)}
+
+\PYGmurphy{x}{		Phases reduced to list of traversals, as there is no need for logical seperation.}
+\PYGmurphy{x}{		\PYGmurphyZhy{} phases defined with interface, code\PYGmurphyZhy{}based configuration of phases (optionally based on console arguments)}
+\PYGmurphy{x}{		\PYGmurphyZhy{} grouping easy to add if required}
+
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Collections\PYGmurphyZcb{}}
+\PYGmurphy{x}{		While an AST as defined in section \PYGmurphyZbs{}ref\PYGmurphyZob{}sec:type\PYGmurphyZhy{}safe\PYGmurphyZhy{}ast\PYGmurphyZcb{} has more depth than what was previously possible, it is still the same basic tree structure as before. One area which could be improved is in the representation of a collection of nodes. A function may have an arbitrary number of parameters, variables, nested functions and statements, is it possible to represent these structures more clearly with built\PYGmurphyZhy{}in lists?}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}begin\PYGmurphyZob{}figure\PYGmurphyZcb{}[ht]}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}minipage\PYGmurphyZcb{}[b]\PYGmurphyZob{}0.45\PYGmurphyZbs{}linewidth\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}centering}
+\PYGmurphy{x}{				\PYGmurphyZbs{}includegraphics[width=\PYGmurphyZbs{}textwidth]\PYGmurphyZob{}figures/collections/sll\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}caption\PYGmurphyZob{}Singly linked list\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}label\PYGmurphyZob{}fig:sll\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}minipage\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}hspace\PYGmurphyZob{}0.5cm\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}begin\PYGmurphyZob{}minipage\PYGmurphyZcb{}[b]\PYGmurphyZob{}0.45\PYGmurphyZbs{}linewidth\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}centering}
+\PYGmurphy{x}{				\PYGmurphyZbs{}includegraphics[width=\PYGmurphyZbs{}textwidth]\PYGmurphyZob{}figures/collections/dll\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}caption\PYGmurphyZob{}Doubly linked list\PYGmurphyZcb{}}
+\PYGmurphy{x}{				\PYGmurphyZbs{}label\PYGmurphyZob{}fig:dll\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}end\PYGmurphyZob{}minipage\PYGmurphyZcb{}}
+\PYGmurphy{x}{		\PYGmurphyZbs{}end\PYGmurphyZob{}figure\PYGmurphyZcb{}}
+\PYGmurphy{x}{		\PYGmurphyZbs{}begin\PYGmurphyZob{}figure\PYGmurphyZcb{}[h]}
+\PYGmurphy{x}{			\PYGmurphyZbs{}centering}
+\PYGmurphy{x}{			\PYGmurphyZbs{}includegraphics\PYGmurphyZob{}figures/collections/list\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}caption\PYGmurphyZob{}Dynamic array or list structure\PYGmurphyZcb{}}
+\PYGmurphy{x}{			\PYGmurphyZbs{}label\PYGmurphyZob{}fig:list\PYGmurphyZcb{}}
+\PYGmurphy{x}{		\PYGmurphyZbs{}end\PYGmurphyZob{}figure\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{		A variable number of nodes is implemented in an AST by nesting container nodes up to the depth required, forming either a singly\PYGmurphyZhy{}linked list (fig. \PYGmurphyZbs{}ref\PYGmurphyZob{}fig:sll\PYGmurphyZcb{}) or a doubly\PYGmurphyZhy{}linked list (fig. \PYGmurphyZbs{}ref\PYGmurphyZob{}fig:dll\PYGmurphyZcb{}). A node holding any number of child nodes might be represented in C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ as in snippet \PYGmurphyZbs{}ref\PYGmurphyZob{}fig:col\PYGmurphyZhy{}sample\PYGmurphyZcb{}.}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}includecode\PYGmurphyZob{}lists\PYGmurphyZus{}as\PYGmurphyZus{}attribs.cs\PYGmurphyZcb{}\PYGmurphyZob{}col\PYGmurphyZhy{}sample\PYGmurphyZcb{}\PYGmurphyZob{}Example of lists as traversible attributes\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{		This poses the question how such a list should be treated. I should we see a list of nodes as a special type of node with no traversible children but traversible or can the functionality  \PYGmurphyZbs{}code\PYGmurphyZob{}ChildAttribute\PYGmurphyZcb{} defined in section \PYGmurphyZbs{}ref\PYGmurphyZob{}sec:type\PYGmurphyZhy{}safe\PYGmurphyZhy{}ast\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{		Case with collections:}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Node child may be node (or derived) or list of nodes}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Discriminated union in C\PYGmurphyZbs{}}\PYGmurphy{err}{\PYGmurphyZsh{}}\PYGmurphy{x}{ (https://stackoverflow.com/questions/3151702/discriminated\PYGmurphyZhy{}union\PYGmurphyZhy{}in\PYGmurphyZhy{}c\PYGmurphyZhy{}sharp)}
+\PYGmurphy{x}{		\PYGmurphyZhy{} What doesn\PYGmurphyZsq{}t work: Every node is also a list of nodes}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Cyclic dependency in inheritance (Node : IList?)}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Advantages: easy to add, iterate and replace}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Disadvantages: Traversal issues (can a handler return a list?), complicates everything}
+
+\PYGmurphy{x}{		Case without collections:}
+\PYGmurphy{x}{		\PYGmurphyZhy{} More natural to traversals}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Singly\PYGmurphyZhy{}linked or doubly\PYGmurphyZhy{}linked}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Difficult to append to or modify}
+\PYGmurphy{x}{		\PYGmurphyZhy{} Can be overcome with extension methods}
+
+\PYGmurphy{x}{		Outcome: chosen for no collection types in lists, to avoid confusion with traversals.}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Development Environment\PYGmurphyZcb{}}
+\PYGmurphy{x}{		Implications of unmanaged vs managed, reduction of base library, debug upgrade..?}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Updated Lexer/Parser\PYGmurphyZcb{}}
+\PYGmurphy{x}{			More flexible Parser/Lexer generator support, such as ANTLR4 (LL(*) with EBNF).}
+
+\PYGmurphy{x}{			Language dependency: Plenty of parsers exist for any language, first version of AST most likely constructed in code; change of language not essential.}
+
+\PYGmurphy{x}{			Platform dependency: Depends on extensibility of parser generator, ANTLR4 has multiple ways of traversing a generated parse tree, YACC does not (embedding of code in parse phase restricts construction of AST)}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Platform Updates\PYGmurphyZcb{}}
+\PYGmurphy{x}{			NuGet}
+
+\PYGmurphy{x}{		\PYGmurphyZbs{}subsection\PYGmurphyZob{}Documentation Generator\PYGmurphyZcb{}}
+\PYGmurphy{x}{			Inheritance graph plotter, AST graph plotter}
+
+\PYGmurphy{x}{	\PYGmurphyZbs{}section\PYGmurphyZob{}Validation\PYGmurphyZcb{}}
+\PYGmurphy{x}{		Type\PYGmurphyZhy{}safety is more than enough?}
+
+\PYGmurphy{x}{		Old method was not type safe, simply prevented untracable errors}
+
+\PYGmurphy{x}{		Tree corruption unnoticed until check routine ran}
+
+\PYGmurphy{x}{		Classes as f}
+
+\PYGmurphy{x}{\PYGmurphyZbs{}chapter\PYGmurphyZob{}Discussion\PYGmurphyZcb{}}
+\PYGmurphy{x}{	vNext immutable AST,}
+
+\PYGmurphy{x}{	Language choice, developers switch language often}
+\PYGmurphy{x}{		We found that developers rapidly and frequently learn}
+\PYGmurphy{x}{		languages. Factors such as age play a smaller role than suggested}
+\PYGmurphy{x}{		by media. In contrast, which languages developers}
+\PYGmurphy{x}{		learn is influenced by their education, and in particular, curriculum}
+\PYGmurphy{x}{		design.}
+
+\PYGmurphy{x}{	Functional}
+\PYGmurphy{x}{		Promisingly, developers who learned a functional or	math\PYGmurphyZhy{}oriented language in school are more than twice as likely to know one later than those who did not.}
+
+\PYGmurphy{x}{\PYGmurphyZbs{}chapter\PYGmurphyZob{}Code Samples \PYGmurphyZhy{} To Remove\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}c\PYGmurphyZus{}node\PYGmurphyZus{}union.c\PYGmurphyZcb{}\PYGmurphyZob{}old\PYGmurphyZhy{}arch:union\PYGmurphyZcb{}\PYGmurphyZob{}Sample child node and attribute union structures for node\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}c\PYGmurphyZus{}init\PYGmurphyZus{}trav.c\PYGmurphyZcb{}\PYGmurphyZob{}old\PYGmurphyZhy{}arch:start\PYGmurphyZhy{}trav\PYGmurphyZcb{}\PYGmurphyZob{}Starting a traversal\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}c\PYGmurphyZus{}trav\PYGmurphyZus{}sons.c\PYGmurphyZcb{}\PYGmurphyZob{}old\PYGmurphyZhy{}arch:switch\PYGmurphyZhy{}trav\PYGmurphyZcb{}\PYGmurphyZob{}Excerpt from catch\PYGmurphyZhy{}all switch construct\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}ast1.cs\PYGmurphyZcb{}\PYGmurphyZob{}reflection\PYGmurphyZhy{}base\PYGmurphyZhy{}simple\PYGmurphyZcb{}\PYGmurphyZob{}Using reflection to retrieve marked properties from a derived class\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}ast2.cs\PYGmurphyZcb{}\PYGmurphyZob{}reflection\PYGmurphyZhy{}base\PYGmurphyZcb{}\PYGmurphyZob{}Updated code for the base class and attribute\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}walkabout.java\PYGmurphyZcb{}\PYGmurphyZob{}walkabout\PYGmurphyZcb{}\PYGmurphyZob{}Walkabout algorithm by \PYGmurphyZbs{}citeauthor\PYGmurphyZob{}palsberg1998essence\PYGmurphyZcb{}\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}viewonly.cs\PYGmurphyZcb{}\PYGmurphyZob{}readonly\PYGmurphyZcb{}\PYGmurphyZob{}View\PYGmurphyZhy{}only visitor\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}gen\PYGmurphyZus{}visitor.cs\PYGmurphyZcb{}\PYGmurphyZob{}gen\PYGmurphyZhy{}visit\PYGmurphyZcb{}\PYGmurphyZob{}Generalized visitor\PYGmurphyZcb{}}
+\PYGmurphy{x}{	\PYGmurphyZbs{}includecode\PYGmurphyZob{}lambda\PYGmurphyZus{}visitor.cs\PYGmurphyZcb{}\PYGmurphyZob{}lambda\PYGmurphyZcb{}\PYGmurphyZob{}Lambda\PYGmurphyZhy{}based visitor\PYGmurphyZcb{}}
+
+\PYGmurphy{x}{\PYGmurphyZbs{}bibliography\PYGmurphyZob{}report\PYGmurphyZcb{}}
+\PYGmurphy{x}{\PYGmurphyZbs{}bibliographystyle\PYGmurphyZob{}plainnat\PYGmurphyZcb{}}
+\PYGmurphy{x}{\PYGmurphyZbs{}end\PYGmurphyZob{}document\PYGmurphyZcb{}}
+\end{Verbatim}

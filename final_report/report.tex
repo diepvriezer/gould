@@ -8,6 +8,9 @@
 \usepackage{sourcecodepro}
 \usepackage[T1]{fontenc}
 
+% Multiline comments
+\usepackage{verbatim}
+
 % Random text
 \usepackage{lipsum}
 \setlipsumdefault{131}
@@ -20,14 +23,13 @@
 % Figures and graphics
 \usepackage{graphicx}
 \usepackage{epstopdf}
-\usepackage{float}
 \usepackage{pgfplots} % plotting
 
 % References
 \usepackage{hyperref}
 \hypersetup{pdfborder={0 0 0}} % remove borders around PDF links
 \usepackage[noabbrev]{cleveref}
-\crefdefaultlabelformat{#2#1#3}
+
 
 % Remove leading paragraph indent
 \usepackage{parskip}
@@ -38,69 +40,75 @@
 \usepackage[format=plain,labelfont=sf,bf,up,textfont=it,up]{caption}
 \usepackage{subfig}
 
-% Code formatting
-\usepackage{color}
-\usepackage{listings}
+% Minted setup.
+\usepackage{xcolor}
+\usepackage[chapter,newfloat]{minted}
 
-\lstdefinestyle{cstyle}{
-	language=C++,
-	escapeinside={\%*}{*)},
-	morecomment=[l]{//},
-	morecomment=[s]{/*}{*/},
-	morekeywords={  abstract, event, new, struct,
-		as, explicit, null, switch, base, extern, object, this,
-		bool, false, operator, throw,
-		break, finally, out, true, byte, fixed, override, try,
-		case, float, params, typeof, catch, for, private, uint,
-		char, foreach, protected, ulong, checked, goto, public, unchecked,
-		class, if, readonly, unsafe, const, implicit, ref, ushort,
-		continue, in, return, using, decimal, int, sbyte, virtual,
-		default, interface, sealed, volatile, delegate, internal, short, void,
-		do, is, sizeof, while, double, lock, stackalloc,
-		else, long, static, enum, namespace, string},
+\definecolor{mintedbackground}{rgb}{0.98,0.98,0.98}
+\definecolor{mintedframecol}{rgb}{0.75,0.75,0.75}
+
+%\usemintedstyle{murphy}
+%\usemintedstyle{xcode}
+\setminted{
+	autogobble=true,
+	breakbytoken=true,
+	breaklines=true,
+	escapeinside=\#\%,
+	fontsize=\footnotesize,
+	tabsize=4,
+	baselinestretch=1.2,
+	frame=none,
+	framerule=0.4pt,
+	framesep=3mm,
+	rulecolor=\color{mintedframecol},
+	numberblanklines=true,
+	numbersep=2pt,
+	xleftmargin=0pt,
+	style=manni
+}
+\setminted[xml]{
+	style=murphy
 }
 
-\lstdefinestyle{xmlstyle}{
-	language=XML,
-	keywords={traversal,node,son,attribute}
+% Use line no's with [frame=leftline,linenos]
+\newminted{c}{}
+\newminted{xml}{}
+\newminted{csharp}{}
+\newmintedfile{c}{}
+\newmintedfile{xml}{}
+\newmintedfile{csharp}{}
+
+% Colorbox.
+\usepackage[skins]{tcolorbox}
+\tcbset{
+	enhanced,
+	label type=listing,
+	fonttitle=\sffamily,
+	colback=mintedbackground, colbacktitle=mintedbackground, coltitle=darkgray, 
+	arc=0pt,outer arc=0pt, 
+	boxrule=0mm, 
+	toptitle=2mm, bottomtitle=1mm,
+	titlerule=1pt, colframe=gray, titlerule style={mintedbackground, dashed} 
 }
 
-\lstset{	
-	basicstyle=\ttfamily\footnotesize, 		% the size of the fonts that are used for the code
-	numbers=left,                   % where to put the line-numbers
-	numberstyle=\footnotesize\color{gray},		% the size of the fonts that are used for the line-numbers
-	stepnumber=0,                   % the step between two line-numbers. If it is 1 each line will be numbered
-	numbersep=10pt,                  % how far the line-numbers are from the code
-	showspaces=false,               % show spaces adding particular underscores
-	showstringspaces=false,         % underline spaces within strings
-	showtabs=false,                 % show tabs within strings adding particular underscores	
-	frame=top, frame=bottom,        % adds a frame around the code
-	xleftmargin=17pt,				% padding..
-	framexleftmargin=17pt, framexrightmargin=17pt, framexbottommargin=5pt, framextopmargin=5pt,
-	tabsize=2,          			% sets default tabsize to 2 spaces
-	captionpos=t,           		% sets the caption-position to bottom
-	breaklines=true,        		% sets automatic line breaking
-	breakatwhitespace=true,    		% sets if automatic breaks should only happen at whitespace,
-	style=cstyle
+% Usage: \begin{codebox}[label=...,other options]{Title} contents from minted \end{codebox}
+\newtcolorbox[use counter=listing,number within=chapter]{codebox}[2][] {
+	title={\textbf{Listing \thetcbcounter}: \textit{#2}},
+	#1
+}
+\newtcolorbox{codespan}{
+	toptitle=0mm,
+	bottomtitle=0mm,
 }
 
-\DeclareCaptionFormat{listing}{\rule{\dimexpr\textwidth+17pt\relax}{0.4pt}\par\vskip1pt#1#2#3}
-\captionsetup[lstlisting]{format=listing,singlelinecheck=false,margin=0pt}
-\renewcommand\lstlistingname{Listing}
-\definecolor{lightgray}{gray}{0.80} % for optional xml.
-\newcommand{\includecode}[3]{\begin{figure}\lstinputlisting[caption=#3,label=#2]{samples/#1}\end{figure}}
-\newcommand{\includexml}[3]{\begin{figure}\lstinputlisting[caption=#3,label=#2,style=xmlstyle]{samples/#1}\end{figure}}
+% To remove
+\newcommand{\includecode}[3]{}
+\newcommand{\includexml}[3]{}
 
-% Add code listing to cleveref.
-\crefname{lstlisting}{listing}{listings}
-\Crefname{lstlisting}{Listing}{Listings}
-
-% Inline formating
+% Inline formating - could be done by mint.
 \newcommand{\file}[1]{\texttt{#1}}
 \newcommand{\code}[1]{\texttt{\footnotesize#1}}
-
-% Multiline comments
-\usepackage{verbatim}
+\newcommand{\cs}{Ctexttt{\#}}
 
 \title{An object-oriented \\implementation of the CiviC compiler framework}
 \author{Floris den Heijer\\5873355}
@@ -117,6 +125,7 @@
 
 
 \chapter{Introduction}
+	
 	\section{Problem Statement}
 		Computer Science undergraduates at the University of Amsterdam have the option to learn the essentials of compiler construction by taking an eight week course where the main deliverable is a working compiler for a C-like model language called Civic. Construction of the compiler is assisted by a toolchain which consists of a custom virtual machine, assembler and development framework. In general, the course is received well and produces functional compilers. A recurrent issue however is the difficulty in getting up to speed with development, largely due to the technical challenges the chosen language (C99) poses and the lack of documentation for the framework.
 		
@@ -188,10 +197,11 @@
 			\label{build-dep}
 		\end{figure}
 		
-		The framework is written in C and XLST and runs on most *nix distributions, provided they support the required packages \footnote{gcc, gzip, flex, bison, xsltproc, dot, indent}. A schematic overview of the architecture is presented in \cref{build-dep}. The framework relies on an XSLT processor to transform a specification of the AST and traverals into C header and source files which can be used by the rest of the compiler. This process is triggered on each build and replaces key files if the specifications are altered.
+		The framework is written in C and XLST and runs on most *nix distributions, provided they support the required packages\footnote{gcc, gzip, flex, bison, xsltproc, dot, indent}. A schematic overview of the architecture is presented in \cref{build-dep}. The framework relies on an XSLT processor to transform a specification of the AST and traverals into C header and source files which can be used by the rest of the compiler. This process is triggered on each build and replaces key files if the specifications are altered.
 		
 		
 	\section{Workflow}
+	\label{c-workflow}
 		The framework enforces a specific workflow and code organization structure. It presents the process of compilation as a pipeline of phases, each phase consisting of one or more traversals. Users can modify or expand the pipeline by introducing new phases and traversals, but are bound by this structured approach. Configuration of the pipeline is possible through code and supported by C macro's further explained in the next section. Seperated from code are the specification of the AST and traversal definitions. 
 		
 		This workflow directs user code largely to:	
@@ -214,50 +224,86 @@
 	
 		
 	\section{Technical Implementation}
-		The most defining characteristic of the framework is the abstraction layer over the AST and traversal mechanisms. To better understand this layer, this section will detail the internal representation of nodes, traversals and phases and discuss the role of code generation. This section assumes knowledge of the C programming section.
-		
+		The most defining characteristic of the framework is the abstraction layer over the AST and traversal mechanisms. To better understand this layer, this section will detail the internal representation of nodes, traversals and phases and discuss the role of code generation. \emph{This section assumes knowledge of the C programming language.}
+				
 		\subsection{Abstract Syntax Tree}
-			\includexml{node_structure.xml}{xml-node-structure}{Template for specification of a node}
-			\includecode{c_node_structure.c}{c-node-structure}{Internal structure of a node}
+		\label{c-ast}
+			\begin{codebox}[label=xml-node-structure]{Template for specification of a node}
+				\xmlfile{samples/node_structure.xml}
+			\end{codebox}
 			
-			Nodes in the AST are defined as a \code{<node>} XML element in the \code{<syntaxtree>} element of the \code{AST.xml} specification file. Every node has a name, and optionally a list of named child nodes (or \emph{sons}) and attributes, following the template shown in \cref{xml-node-structure}. The difference between an attribute and a child node is that child nodes \emph{can be traversed}, whereas attributes are simple properties, though they might in fact reference other nodes. The \code{<targets>} element inside either a child or attribute declaration is optional, and is further explained in \cref{tree-validation}.
+			\begin{codebox}[label=c-node-structure]{Internal structure of a node}
+				\cfile{samples/c_node_structure.c}
+			\end{codebox}
+			
+			Nodes in the AST are defined as a \code{<node>} XML element in the \code{<syntaxtree>} element of the \code{AST.xml} specification file. Every node has a name, and optionally a list of named child nodes (or \emph{sons}) and attributes, following the template shown in \cref{xml-node-structure}. The difference between an attribute and a child node is that child nodes can be traversed, whereas attributes are simple properties, though they might in fact reference other nodes. The \code{<targets>} element inside either a child or attribute element is among other things used to declare a property as mandatory, this is further explained in \cref{tree-validation}.
 			
 			Internally, nodes are represented by the \code{NODE} structure shown in \cref{c-node-structure}. This structure holds the type of the node as an \code{enum} and references to two union structures representing applicable child nodes and attributes. These structures are generated and union'ed based on the XML specification, which translates a \code{<son>} element to a \code{node*} member of the former and an \code{<attribute>} element to a typed member of the latter. The C-type used for members of the attribute structure comes from a mapping section in the specification.
 			
 			Besides one being traversible, child nodes and attributes are accessed the same way through generated macro's. These macro's primarily exist to avoid manually selecting which union struct variable should be accessed. A side effect is that it also hides which properties are children and which are attributes, and it implies an attribute cannot have the same name as a child node. Access macro's \emph{do not} ensure they are used on the correct node by validating the node type, as they are used both as a setter on the left-hand side and a getter on the right-hand side, and assignment to condidionals is illegal in C.
-
+			
+			Creating nodes is a straightforward process as allocation code for each node is generated from the specification. Every node has a create function, which accepts references to child nodes as well as attributes marked mandatory. Free-ing nodes is a recursive operation which requires a traversal and is covered in the next section.
+			
 		\subsection{Traversals}
-			\includexml{trav_structure.xml}{xml-trav-structure}{Template for specification of a traversal}
+		\label{c-trav}
+			\begin{codebox}[label=xml-trav-structure]{Template for specification of a traversal}
+				\xmlfile{samples/trav_structure.xml}
+			\end{codebox}
+									
+			Traversals do not have a single, well-defined structure but rather translate into control flow statements and traverse tables. Every traversal must be declared in the \code{AST.xml} file as a child of the \code{<phases>} element and must adhere to the template presented in \cref{xml-trav-structure}. They require a unique prefix, a friendly name, mode of operation and header file with handler declarations.
 			
-			\begin{figure}
-				\begin{lstlisting}[style=xmlstyle,caption=test,label=test2123]
-<traversal id="[PFX]" name="[Friendly Name]" default="[sons/user]" include="[header.h]">
-	<!-- Element applicable for 'sons' mode -->
-	<travuser>
-		<node name="[NodeName]"/>
-	</travuser>
-</traversal>
-				\end{lstlisting}
-			\end{figure}
+			All handlers have the same function signature: passed in are pointers to an input node and info structure, a pointer to the output node is returned. The info structure may be defined by the traversal and can be used to share state between traversal methods. Handler declarations are not generated and must be declared by hand.
 			
-			Traversals do not have a single, well-defined structure but rather translate into control flow statements and traverse tables. Every AST traversal must be declared in the \code{AST.xml} file as a child of the \code{<phases>} element. All traversals adhere to the template presented in \cref{xml-trav-structure} and require a unique and preferably short prefix, a friendly name, mode of operation and header file with entry points.
+			Two operation modes are supported: 1) user mode and 2) child mode. User mode traversals are required to implement handlers for every node type in the AST, child mode requires only handlers for a set of nodes specified in the \code{<travuser>} element. In child mode, every node not in that list is handled by a catch-all function which automatically traverses child until one a node is found for which a handler is registered.
 			
-			Traversals are supported in two modes: 1) user mode and 2) child mode. User mode traversals are required to implement handlers for every node type in the AST, child mode requires only handlers for a specific set of nodes. Every node not on that list is  handled by a catch-all function which automatically traverses child nodes until one a node is found which is specified by the user.
+			To initiate a traversal, users must push it's identifier onto the stack and invoke the \code{TRAVdo} or \code{TRAVopt} traverse functions\footnote{TRAVdo does not allow traversal of a null argument, the TRAVopt function only invokes TRAVdo on a not-null argument.}. These functions have the same signature as handlers and should in fact be seen as a smart wrapper around them, choosing the correct handler based on node type and active traversal. Traversals may be nested by pushing another traversal onto the stack and calling the traverse function again, though not all traversals support this kind of initiation. More specifically, only traverals devoid of an info structure support this approach, as the allocation and de-allocation of this structure is always static to the owning traversal. Initiation of a traversal is illustrated in \cref{c-trav-example}.
 			
-			Users can push a traversal onto the stack and request the start of a traversal (snippet \ref{old-arch:start-trav}), triggering a lookup to a table for the active traversal holding the function which should be called index on node type. By default all child nodes are traversed using a switch statement based on node type (snippet \ref{old-arch:switch-trav}). The \code{INFO} struct passed along provides statefulness to receiving functions, though this is not essential for traversal.
+			Once a node is passed into the main traversal function, a lookup on node type to the function table for the active traversal will return a handler for that node. The traverse tables are generated from specification, with user mode requiring function references for all node types, and child mode filling in the gaps with the \code{TRAVsons} function. This is the catch-all automatic traversal function which uses a large switch statement on node type to invoke the traversal function on every child node, the result of which is put back to the property. Once all children are traversed the input node is passed back to the original caller. An excerpt of a generated \code{TRAVsons} function is shown in \cref{c-trav-sons}. 
 			
-			On traversals, the mechanism, output generated and implementation
-		
+			\begin{codebox}[label=c-trav-example]{Example of traversal invocation}
+				\cfile{samples/c_init_trav.c}
+			\end{codebox}
+			
+			\begin{codebox}[label=c-trav-sons]{Part of the generated TRAVsons catch-all function}
+				\cfile{samples/c_trav_sons.c}
+			\end{codebox}
+			
+			Three important traversals are generated on every build:
+			\begin{enumerate}
+				\item Copy traversal, which creates a deep copy of the structure (child nodes) and a shallow copy of all attributes
+				\item Free traversal, which de-allocates a tree and - if applicable - it's attributes
+				\item Check traversal, responsible for validating AST integrity
+			\end{enumerate}
+			
+			Attributes are copied and freed based on their specification in the previously mentioned \code{<asttypes>} element, which identifies three situations: 1) node references, 2) strings and 3) value types and other references. Node references as attributes are not followed and only the reference is copied, freeing a node attribute only nulls the reference but leaves the structure intact. Strings are copied and freed using string library functions, and all other value and reference types are copied using straight C assignment. The check traversal will be discussed in \cref{tree-validation}.
+					
 		\subsection{Phases}
-			Phase.mac file, entry point to traversal
+			As briefly described in \cref{c-workflow}, configuration of the phase pipeline is done through code with the assistance of helper macro's. Configuration is achieved through the \code{phase.mac} file, where users can define a phase as a logical distinction or practical grouping of traversals. A friendly name can be assigned to each phase, which, in debug mode, is written to \code{stdout}. In addition each phase is assigned a unique identifier which can be used for validation as detailed in the next section. Traversals in a phase must also specify a friendly name for the same debugging purpose as their parents and more importantly the name of the entry point to the traversal. Traversal entry points are nearly identical in signature to handlers, except they do not accept an info structure as an argument. Entry points usually allocate an info structure, though this may be ommitted, and push a traversal onto the stack, much like \cref{c-trav-example}.
+			
+			On compilation, macro's in the \code{phase.mac} file are resolved and the traversals are flattened into a sequence and wired up to feed the result of one traversal into the next. Debugging code which allows command line arguments to specify which phases should run is also integrated. At runtime the pipeline can be conditionally halted or aborted by the user during transformation with the \code{CTI*}\footnote{CTIterminateCompilation, CTIwarn, CTIabort, CTIerror, CTIerrorContinued, etc.} range of functions.
 		
 		\subsection{Tree Validation}
 		\label{tree-validation}
-			..
+			As explained in section \cref{c-ast} all nodes share the same structure, differing only on node type and which variables of two union structures are used. The nodetype \code{enum} in conjunction with the switching mechanism and access macro's provide the basis for a tagged union construct, though this is not enforced in any way. Thus, semantically all nodes are valid trees, yet most combinations of AST nodes should be recognized as an invalid tree. 
+			
+			This is where the check traversal mentioned in \cref{c-trav} comes in. This generated phase validates all constraints set in the AST specification and aborts compilation on an invalid tree. Constraints can be set in the \code{<targets>} element optionally placed inside a child declaration or type element of an attribute (see \cref{xml-node-structure}). Both child node and attribute properties support the \emph{mandatory} constraint, which invalidates the tree if found empty. 
+			
+			While a type definition is always required on an attribute, child nodes allow any node unless specified otherwise. The \code{<node name="..."/>} element signals the check traversals that there is only one node type valid for the child position. Often this is not sufficient, as children operate may operate on \emph{sets} of nodes. An example of this is any expression language, where an operator may act on any expression, itself included. The framework allows flexibility in the specification of valid child nodes through \emph{nodesets}, which are defined as children of the \code{<nodesets>} element. A nodeset has a name and list of named nodes which belong to the set. Nodesets may not be nested.
+			
+			Constraints may only be valid during or after certain phases. The framework supports this by allowing multiple \code{<target>} elements for properties. Users can specify a range of phases to which the constraint applies, using the phase identifier from the last section. The example in \cref{c-targets} shows a hypothetical node which during early compilation phases may contain any node from the expression set, while in later phases the node must contain a reference to an integer constant node.
+			
+			\begin{codebox}[label=c-targets]{Phase ranged constraints and targeting of a nodesets}
+				\xmlfile{samples/targets.xml}
+			\end{codebox}
 		
 	
-	\section{Strenghts And Weaknesses}
+	\section{Strengths And Weaknesses}
+		This section will provide an overview of strengths and weaknesses of the framework. 
 		....
+		
+		Reordering child nodes causes create function to shift args
+		
+		TRAVcont doesn't check for null
 	
 		
 		
