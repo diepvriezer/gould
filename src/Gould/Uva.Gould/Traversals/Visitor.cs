@@ -40,7 +40,7 @@ namespace Uva.Gould.Traversals
             // Traverse child nodes using attributes and replace with result from visitor.
             foreach (var prop in node.ChildProperties)
             {
-                var value = (Node) prop.GetValue(node);
+                var value = (Node) prop.GetValue(node); 
                 if (value != null)
                 {
                     value = Visit(value, prop.PropertyType);

@@ -1,0 +1,23 @@
+<node name="[node_name]">
+	<sons>
+		<son name="[child]">
+			<targets>
+				<target mandatory="[yes/no]">
+					<node name="[child_name]"/>
+					<phases><all /></phases>
+				</target>
+			</targets>
+		</son>
+	</sons>
+	<attributes>
+		<attribute name="[attr]">
+			<type name="String">
+				<targets>
+					<target mandatory="[yes/no]">
+						<phases><all /></phases>
+					</target>
+				</targets>
+			</type>
+		</attribute>
+	</attributes>
+</node>

@@ -10,14 +10,12 @@ namespace Uva.Gould
     /// </summary>
     public abstract class Node
     {
-        private List<PropertyInfo> _properties;
-
         /// <summary>
         /// Properties which have the [Child] attribute, ordered by line of declaration.
         /// </summary>
         public IReadOnlyList<PropertyInfo> ChildProperties
         {
-            get { return _properties ?? (_properties = GetType().GetChildNodeProperties().ToList()); }
+            get { return GetType().GetChildNodeProperties(); }
         }
 
         /// <summary>

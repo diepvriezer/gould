@@ -6,23 +6,28 @@
 \contentsline {section}{\numberline {1.5}Scope And Limitations}{6}{section.1.5}
 \contentsline {chapter}{\numberline {2}Analysis Of Civic Framework}{7}{chapter.2}
 \contentsline {section}{\numberline {2.1}Architecture}{7}{section.2.1}
-\contentsline {section}{\numberline {2.2}Code Generation From XML}{8}{section.2.2}
-\contentsline {section}{\numberline {2.3}Flexible Traversals}{10}{section.2.3}
-\contentsline {section}{\numberline {2.4}Tree Validation}{10}{section.2.4}
-\contentsline {section}{\numberline {2.5}Development Environment}{11}{section.2.5}
+\contentsline {section}{\numberline {2.2}Workflow}{8}{section.2.2}
+\contentsline {section}{\numberline {2.3}Technical Implementation}{9}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Abstract Syntax Tree}{9}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Traversals}{10}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Phases}{10}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Tree Validation}{11}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Strenghts And Weaknesses}{11}{section.2.4}
 \contentsline {chapter}{\numberline {3}Re-design: Code Over Specification}{13}{chapter.3}
 \contentsline {section}{\numberline {3.1}Language Selection}{13}{section.3.1}
 \contentsline {section}{\numberline {3.2}Type-Safe AST}{14}{section.3.2}
-\contentsline {section}{\numberline {3.3}Improved Traversal Mechanism}{16}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}View-Only Visitor}{16}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}General Purpose Visitor}{18}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Lambda Visitor}{19}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Pluggable Architecture}{20}{section.3.4}
-\contentsline {section}{\numberline {3.5}Collections}{21}{section.3.5}
-\contentsline {section}{\numberline {3.6}Development Environment}{21}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Updated Lexer/Parser}{22}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Platform Updates}{22}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Documentation Generator}{22}{subsection.3.6.3}
-\contentsline {section}{\numberline {3.7}Validation}{22}{section.3.7}
-\contentsline {chapter}{\numberline {4}Discussion}{23}{chapter.4}
-\contentsline {chapter}{\numberline {5}References}{25}{chapter.5}
+\contentsline {section}{\numberline {3.3}Improved Traversal Mechanisms}{15}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}View-Only Visitor}{15}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}General Purpose Visitor}{16}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Lambda Visitor}{16}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Benchmarks \& Optimization}{17}{subsection.3.3.4}
+\contentsline {section}{\numberline {3.4}Pluggable Architecture}{18}{section.3.4}
+\contentsline {section}{\numberline {3.5}Collections}{18}{section.3.5}
+\contentsline {section}{\numberline {3.6}Development Environment}{19}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Updated Lexer/Parser}{19}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Platform Updates}{19}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Documentation Generator}{19}{subsection.3.6.3}
+\contentsline {section}{\numberline {3.7}Validation}{19}{section.3.7}
+\contentsline {chapter}{\numberline {4}Discussion}{21}{chapter.4}
+\contentsline {chapter}{\numberline {5}Code Samples - To Remove}{23}{chapter.5}
+\contentsline {chapter}{\numberline {6}References}{31}{chapter.6}

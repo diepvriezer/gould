@@ -20,7 +20,7 @@ namespace Uva.Gould.PerfTests
     {
         static void Main(string[] args)
         {
-            const int iters = 500;
+            const int iters = 250;
             const int trials = 3;
 
             var stopwatch = new Stopwatch();
@@ -28,15 +28,15 @@ namespace Uva.Gould.PerfTests
             var candidates = new List<IVisitor>()
             {
                 new ReflectionLookup(),
-                new DynCastNoGenerics2(),
-                new DynInvoke(),
-                new DynInvokeNoGenerics(),
-                new DynCast(),
+//                new DynCastNoGenerics2(),
+//                new DynInvoke(),
+//                new DynInvokeNoGenerics(),
+//                new DynCast(),
                 new DynCastNoGenerics(),
-                new DynInvokeOld()
+//                new DynInvokeOld()
             }.ToDictionary(c => c, c => new List<long>(trials));
             
-            Thread.Sleep(250);
+            //Thread.Sleep(250);
             
             for (int i = 0; i < trials; i++)
             {
@@ -48,8 +48,13 @@ namespace Uva.Gould.PerfTests
                     for (int j = 0; j < iters; j++)
                     {
                         Node tree = Trees.ForFixedForAndStatementBlock();
+//                                                var n = tree.Children(allInTree: true).Count();
                         tree = candidate.Key.Visit(tree);
-                        candidate.Key.Visit(tree);
+                        tree = candidate.Key.Visit(tree);
+                        tree = candidate.Key.Visit(tree);
+                        tree = candidate.Key.Visit(tree);
+
+//                        var n = tree.Children(allInTree: true).Count();
                     }
 
                     stopwatch.Stop();
@@ -76,7 +81,7 @@ namespace Uva.Gould.PerfTests
                 Console.WriteLine();
             }
 
-            Console.ReadKey();
+//            Console.ReadLine();
         }
 
         // Tests:

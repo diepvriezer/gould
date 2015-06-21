@@ -1,0 +1,6 @@
+<traversal id="[PFX]" name="[Friendly Name]" default="[sons/user]" include="[header.h]">
+	<!-- Element applicable for 'sons' mode -->
+	<travuser>
+		<node name="[NodeName]"/>
+	</travuser>
+</traversal>

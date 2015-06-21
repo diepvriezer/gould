@@ -1,4 +1,4 @@
-\begin{thebibliography}{12}
+\begin{thebibliography}{11}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -74,14 +74,9 @@ Herbert Schildt.
 \newblock \emph{C\# 4.0: The complete reference}.
 \newblock McGraw-Hill, 2010.
 
-\bibitem[Schreiner()]{book:schreiner}
+\bibitem[Schreiner(1993)]{book:schreiner}
 Axel-Tobias Schreiner.
 \newblock \emph{Object-Oriented Programming With ANSI-C}.
-\newblock Hanser.
-
-\bibitem[Source?(2012)]{unknown}
-Source?
-\newblock Everything explained vol. 2.
-\newblock March 2012.
+\newblock Hanser, 1993.
 
 \end{thebibliography}

@@ -33,17 +33,25 @@ namespace Uva.Gould
 
             return name;
         }
+
+        internal static readonly Dictionary<Type, IReadOnlyList<PropertyInfo>> CachedProperties = new Dictionary<Type, IReadOnlyList<PropertyInfo>>(); 
         
         /// <summary>
         /// Enumeration of the [Child] attributes on Node properties on a type.
         /// </summary>
-        public static IEnumerable<PropertyInfo> GetChildNodeProperties(this Type t)
+        public static IReadOnlyList<PropertyInfo> GetChildNodeProperties(this Type t)
         {
-            return t
-                .GetProperties()
-                .Where(p => p.CustomAttributes.Any(att => att.AttributeType == typeof(ChildAttribute))
-                            && (p.PropertyType == typeof(Node) || p.PropertyType.IsSubclassOf(typeof(Node))))
-                .OrderBy(p => p.GetCustomAttribute<ChildAttribute>().Order);
+            if (!CachedProperties.ContainsKey(t))
+            {
+                CachedProperties[t] = t
+                    .GetProperties()
+                    .Where(p => p.CustomAttributes.Any(att => att.AttributeType == typeof (ChildAttribute))
+                                && (p.PropertyType == typeof (Node) || p.PropertyType.IsSubclassOf(typeof (Node))))
+                    .OrderBy(p => p.GetCustomAttribute<ChildAttribute>().Order)
+                    .ToList();
+            }
+
+            return CachedProperties[t];
         }
 
         /// <summary>
