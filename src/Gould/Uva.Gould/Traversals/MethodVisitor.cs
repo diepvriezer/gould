@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Uva.Gould.Properties;
 
 namespace Uva.Gould.Traversals
 {
@@ -45,7 +46,7 @@ namespace Uva.Gould.Traversals
                 cachedMethods.Add(visitorType, new Dictionary<Type, MethodInfo>());
 
             if (!cachedMethods[visitorType].ContainsKey(nodeType))
-                cachedMethods[visitorType][nodeType] = visitorType.GetMethod("Visit", new[] {nodeType});
+                cachedMethods[visitorType][nodeType] = visitorType.GetMethod(Settings.Default.VisitorMethodName, new[] {nodeType});
 
             return cachedMethods[visitorType][nodeType];
         }

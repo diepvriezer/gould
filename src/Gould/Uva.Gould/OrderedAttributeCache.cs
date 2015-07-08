@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Uva.Gould.Properties;
 
 namespace Uva.Gould
 {
@@ -20,7 +21,7 @@ namespace Uva.Gould
             if (!cache.ContainsKey(type))
             {
                 cache[type] = type
-                    .GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)
+                    .GetMembers(Settings.Default.AttributeBindingFlags)
                     .Select(m => new {m, attrib = m.GetCustomAttribute<TAttrib>()})
                     .Where(m => m.attrib != null)
                     .OrderBy(m => m.attrib.Order)

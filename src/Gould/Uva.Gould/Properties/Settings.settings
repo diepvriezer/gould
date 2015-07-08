@@ -2,8 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Uva.Gould.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DotPath" Type="System.String" Scope="Application">
+    <Setting Name="DotPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files (x86)\Graphviz2.38\bin\dot.exe</Value>
+    </Setting>
+    <Setting Name="AttributeBindingFlags" Type="System.Reflection.BindingFlags" Scope="User">
+      <Value Profile="(Default)">Instance, Static, Public, NonPublic</Value>
+    </Setting>
+    <Setting Name="VisitorMethodName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Visit</Value>
     </Setting>
   </Settings>
 </SettingsFile>
