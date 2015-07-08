@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{public} \PYGmanni{n}{Derived} \PYGmanni{n+nf}{Visit}\PYGmanni{p}{(}\PYGmanni{n}{A} \PYGmanni{n}{node}\PYGmanni{p}{)}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{if} \PYGmanni{p}{(}\PYGmanni{n}{method} \PYGmanni{p}{!=} \PYGmanni{k}{null} \PYGmanni{p}{\PYGmanniZam{}\PYGmanniZam{}} \PYGmanni{p}{(}\PYGmanni{n}{method}\PYGmanni{p}{.}\PYGmanni{n}{ReturnType} \PYGmanni{p}{==} \PYGmanni{n}{M} \PYGmanni{p}{||} \PYGmanni{n}{method}\PYGmanni{p}{.}\PYGmanni{n}{ReturnType}\PYGmanni{p}{.}\PYGmanni{n}{IsSubclassOf}\PYGmanni{p}{(}\PYGmanni{n}{M}\PYGmanni{p}{)))}
+\end{Verbatim}

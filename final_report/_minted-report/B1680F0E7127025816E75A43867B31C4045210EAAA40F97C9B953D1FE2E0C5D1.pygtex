@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k+kt}{var} \PYGmanni{n}{p} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{n}{Name} \PYGmanni{p}{=} \PYGmanni{l+s}{\PYGmanniZdq{}Peter\PYGmanniZdq{}}\PYGmanni{p}{,} \PYGmanni{n}{Age} \PYGmanni{p}{=} \PYGmanni{l+m}{25} \PYGmanni{p}{\PYGmanniZcb{};}
+\PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{n}{p}\PYGmanni{p}{.}\PYGmanni{n}{Name}\PYGmanni{p}{);}       \PYGmanni{c+cm}{/* prints \PYGmanniZdq{}Peter\PYGmanniZdq{} */}
+\PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{n}{p}\PYGmanni{p}{.}\PYGmanni{n}{Age} \PYGmanni{p}{*} \PYGmanni{l+m}{2}\PYGmanni{p}{);}    \PYGmanni{c+cm}{/* prints 50 */}
+\end{Verbatim}

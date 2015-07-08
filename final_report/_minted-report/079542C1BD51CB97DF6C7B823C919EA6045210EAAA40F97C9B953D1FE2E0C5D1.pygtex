@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{for} \PYGmanni{p}{(}\PYGmanni{n}{each} \PYGmanni{n}{field} \PYGmanni{n}{f} \PYGmanni{n}{of} \PYGmanni{n}{v}\PYGmanni{p}{)}
+	\PYGmanni{n}{v}\PYGmanni{p}{.}\PYGmanni{n}{f} \PYGmanni{p}{=} \PYGmanni{k}{this}\PYGmanni{p}{.}\PYGmanni{n}{visit}\PYGmanni{p}{(}\PYGmanni{n}{v}\PYGmanni{p}{.}\PYGmanni{n}{f}\PYGmanni{p}{);}
+\end{Verbatim}

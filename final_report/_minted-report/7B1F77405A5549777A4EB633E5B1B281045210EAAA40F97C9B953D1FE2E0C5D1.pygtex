@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{c+c1}{// Create runner and register stages}
+\PYGmanni{k+kt}{var} \PYGmanni{n}{compiler} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{PhaseRunner}\PYGmanni{p}{();}
+
+\PYGmanni{n}{compiler}\PYGmanni{p}{.}\PYGmanni{n}{Phases}\PYGmanni{p}{.}\PYGmanni{n}{AddRange}\PYGmanni{p}{(}\PYGmanni{k}{new} \PYGmanni{n}{IPhase}\PYGmanni{p}{[]}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{new} \PYGmanni{n+nf}{ParsePhase}\PYGmanni{p}{(}\PYGmanni{n}{options}\PYGmanni{p}{.}\PYGmanni{n}{InputPath}\PYGmanni{p}{),}
+	\PYGmanni{k}{new} \PYGmanni{n+nf}{PrintTree}\PYGmanni{p}{(),}
+	\PYGmanni{k}{new} \PYGmanni{n+nf}{SymbolResolution}\PYGmanni{p}{(),}
+	\PYGmanni{k}{new} \PYGmanni{n+nf}{RenameUserSymbols}\PYGmanni{p}{(),}
+	\PYGmanni{k}{new} \PYGmanni{n+nf}{TypeChecking}\PYGmanni{p}{(),}
+	\PYGmanni{k}{new} \PYGmanni{n+nf}{ExpandArrayDimensions}\PYGmanni{p}{(),}
+	\PYGmanni{p}{...}
+\PYGmanni{p}{\PYGmanniZcb{});}
+
+\PYGmanni{c+c1}{// Run phases.}
+\PYGmanni{n}{compiler}\PYGmanni{p}{.}\PYGmanni{n}{Run}\PYGmanni{p}{();}
+\end{Verbatim}

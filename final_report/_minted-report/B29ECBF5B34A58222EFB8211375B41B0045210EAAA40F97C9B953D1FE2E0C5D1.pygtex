@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{void} \PYGmanni{n}{View}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{Action}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{action}\PYGmanni{p}{)}
+	\PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{Node}\PYGmanni{p}{;}
+\end{Verbatim}

@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{public} \PYGmanni{k}{void} \PYGmanni{n+nf}{VisitChildren}\PYGmanni{p}{(}\PYGmanni{n}{Node} \PYGmanni{n}{node}\PYGmanni{p}{)}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{if} \PYGmanni{p}{(}\PYGmanni{n}{node} \PYGmanni{p}{==} \PYGmanni{k}{null}\PYGmanni{p}{)}
+		\PYGmanni{k}{return}\PYGmanni{p}{;}
+
+	\PYGmanni{c+c1}{// Traverse child nodes using attributes and replace with result from visitor.}
+	\PYGmanni{k}{foreach} \PYGmanni{p}{(}\PYGmanni{k+kt}{var} \PYGmanni{n}{prop} \PYGmanni{k}{in} \PYGmanni{n}{node}\PYGmanni{p}{.}\PYGmanni{n}{ChildProperties}\PYGmanni{p}{)}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k+kt}{var} \PYGmanni{k}{value} \PYGmanni{p}{=} \PYGmanni{p}{(}\PYGmanni{n}{Node}\PYGmanni{p}{)} \PYGmanni{n}{prop}\PYGmanni{p}{.}\PYGmanni{n}{GetValue}\PYGmanni{p}{(}\PYGmanni{n}{node}\PYGmanni{p}{);}
+		\PYGmanni{k}{if} \PYGmanni{p}{(}\PYGmanni{k}{value} \PYGmanni{p}{!=} \PYGmanni{k}{null}\PYGmanni{p}{)}
+		\PYGmanni{p}{\PYGmanniZob{}}
+			\PYGmanni{k}{value} \PYGmanni{p}{=} \PYGmanni{n}{Visit}\PYGmanni{p}{(}\PYGmanni{k}{value}\PYGmanni{p}{,} \PYGmanni{n}{prop}\PYGmanni{p}{.}\PYGmanni{n}{PropertyType}\PYGmanni{p}{);}
+			\PYGmanni{n}{prop}\PYGmanni{p}{.}\PYGmanni{n}{SetValue}\PYGmanni{p}{(}\PYGmanni{n}{node}\PYGmanni{p}{,} \PYGmanni{k}{value}\PYGmanni{p}{);}
+		\PYGmanni{p}{\PYGmanniZcb{}}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

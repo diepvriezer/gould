@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{public} \PYGmanni{k}{class} \PYGmanni{n+nc}{LinkedNode}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{p}{:} \PYGmanni{n}{Node}
+    \PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{Node}
+\PYGmanni{p}{\PYGmanniZob{}}
+\PYGmanni{n+na}{    [Child]} \PYGmanni{k}{public} \PYGmanni{n}{T} \PYGmanni{n}{Node} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{k}{get}\PYGmanni{p}{;} \PYGmanni{k}{set}\PYGmanni{p}{;} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{n+na}{    [Child]} \PYGmanni{k}{public} \PYGmanni{n}{LinkedNode}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{Next} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{k}{get}\PYGmanni{p}{;} \PYGmanni{k}{set}\PYGmanni{p}{;} \PYGmanni{p}{\PYGmanniZcb{}}
+
+    \PYGmanni{c+c1}{// Retrieves the last linked list node in the chain.}
+    \PYGmanni{k}{public} \PYGmanni{n}{LinkedNode}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{Last}\PYGmanni{p}{();}
+    \PYGmanni{c+c1}{// Inserts node directly adjecent to this one.}
+    \PYGmanni{k}{public} \PYGmanni{k}{void} \PYGmanni{n+nf}{InsertAfter}\PYGmanni{p}{(}\PYGmanni{n}{T} \PYGmanni{n}{node}\PYGmanni{p}{);}
+    \PYGmanni{c+c1}{// Inserts a collection of nodes directly adjecent to this node.}
+    \PYGmanni{k}{public} \PYGmanni{k}{void} \PYGmanni{n+nf}{InsertAfter}\PYGmanni{p}{(}\PYGmanni{n}{IEnumerable}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{nodes}\PYGmanni{p}{);}
+    \PYGmanni{c+c1}{// Appends a node at the back of the linked list.}
+    \PYGmanni{k}{public} \PYGmanni{k}{void} \PYGmanni{n+nf}{Append}\PYGmanni{p}{(}\PYGmanni{n}{T} \PYGmanni{n}{node}\PYGmanni{p}{);}
+    \PYGmanni{c+c1}{// Appends a collection of nodes at the back of the linked list.}
+    \PYGmanni{k}{public} \PYGmanni{k}{void} \PYGmanni{n+nf}{Append}\PYGmanni{p}{(}\PYGmanni{n}{IEnumerable}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{nodes}\PYGmanni{p}{);}
+    \PYGmanni{c+c1}{// Enumerates all stored nodes in the list, excluding the containers.}
+    \PYGmanni{k}{public} \PYGmanni{n}{IEnumerable}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{NodesInLinkedList}\PYGmanni{p}{();}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k}{static} \PYGmanni{k}{class} \PYGmanni{n+nc}{Extensions}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{c+c1}{// Convers a collection of nodes of type T to a chain of linked list nodes.}
+	\PYGmanni{k}{public} \PYGmanni{k}{static} \PYGmanni{n}{LinkedNode}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{ToLinkedNode}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{k}{this} \PYGmanni{n}{IEnumerable}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{collection}\PYGmanni{p}{);}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

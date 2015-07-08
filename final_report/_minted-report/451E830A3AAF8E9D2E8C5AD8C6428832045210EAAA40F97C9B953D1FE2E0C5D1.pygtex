@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{c+c1}{// Without var:}
+\PYGmanni{n}{SomeExtremelyLongClassName} \PYGmanni{n}{onlyRelevantData} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{SomeExtremelyLongClassName}\PYGmanni{p}{();}
+\PYGmanni{k}{foreach} \PYGmanni{p}{(}\PYGmanni{n}{SomeExtremelyLongClassName} \PYGmanni{n}{item} \PYGmanni{k}{in} \PYGmanni{p}{...)}
+	\PYGmanni{p}{...}
+
+\PYGmanni{c+c1}{// With var:}
+\PYGmanni{k+kt}{var} \PYGmanni{n}{onlyRelevantData} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{SomeExtremelyLongClassName}\PYGmanni{p}{();}
+\PYGmanni{k}{foreach} \PYGmanni{p}{(}\PYGmanni{k+kt}{var} \PYGmanni{n}{item} \PYGmanni{k}{in} \PYGmanni{p}{...)}
+	\PYGmanni{p}{...}
+
+\PYGmanni{k+kt}{var} \PYGmanni{n}{a} \PYGmanni{p}{=} \PYGmanni{l+m}{5.0}\PYGmanni{p}{;}        \PYGmanni{c+cm}{/* equivalent to float a = 5.0; */}
+\PYGmanni{k+kt}{var} \PYGmanni{n}{b} \PYGmanni{p}{=} \PYGmanni{k}{null}\PYGmanni{p}{;}       \PYGmanni{c+cm}{/* illegal, type cannot be infered */}
+\end{Verbatim}

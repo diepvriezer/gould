@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Generalized}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{Root}\PYGmanni{p}{\PYGmanniZgt{}}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{n}{T} \PYGmanni{n+nf}{visit}\PYGmanni{p}{(}\PYGmanni{n}{T} \PYGmanni{n}{v}\PYGmanni{p}{)} \PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{Root}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k}{return} \PYGmanni{n+nf}{Visit}\PYGmanni{p}{(}\PYGmanni{n}{v}\PYGmanni{p}{,} \PYGmanni{k}{typeof}\PYGmanni{p}{(}\PYGmanni{n}{T}\PYGmanni{p}{));}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+
+	\PYGmanni{k}{private} \PYGmanni{n}{T} \PYGmanni{n+nf}{visit}\PYGmanni{p}{(}\PYGmanni{n}{T} \PYGmanni{n}{v}\PYGmanni{p}{,} \PYGmanni{n}{Type} \PYGmanni{n}{max}\PYGmanni{p}{)} \PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{Root}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k}{if} \PYGmanni{p}{(} \PYGmanni{n}{v} \PYGmanni{p}{==} \PYGmanni{k}{null} \PYGmanni{p}{)}
+			\PYGmanni{k}{return} \PYGmanni{k}{null}\PYGmanni{p}{;}
+
+		\PYGmanni{k}{if}  \PYGmanni{p}{(}\PYGmanni{c+cm}{/* this visitor has a public visit method for the runtime type of v */}\PYGmanni{p}{)}
+		\PYGmanni{n}{and} \PYGmanni{p}{(}\PYGmanni{c+cm}{/* the return type of this method is equal to or a subclass of max  */}\PYGmanni{p}{)}
+			\PYGmanni{k}{return} \PYGmanni{p}{(}\PYGmanni{n}{T}\PYGmanni{p}{)} \PYGmanni{n}{invoke}\PYGmanni{p}{(}\PYGmanni{n}{method}\PYGmanni{p}{(}\PYGmanni{n}{v}\PYGmanni{p}{));}
+		\PYGmanni{k}{else}
+			\PYGmanni{n+nf}{for} \PYGmanni{p}{(}\PYGmanni{n}{each} \PYGmanni{n}{field} \PYGmanni{n}{f} \PYGmanni{n}{of} \PYGmanni{n}{v}\PYGmanni{p}{,} \PYGmanni{n}{with} \PYGmanni{n}{type} \PYGmanni{n}{ft}\PYGmanni{p}{)}
+				\PYGmanni{n}{v}\PYGmanni{p}{.}\PYGmanni{n}{f} \PYGmanni{p}{=} \PYGmanni{n}{Visit}\PYGmanni{p}{(}\PYGmanni{n}{v}\PYGmanni{p}{.}\PYGmanni{n}{f}\PYGmanni{p}{,} \PYGmanni{n}{ft}\PYGmanni{p}{);}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

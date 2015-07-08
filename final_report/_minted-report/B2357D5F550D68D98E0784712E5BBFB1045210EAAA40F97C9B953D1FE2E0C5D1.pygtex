@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Person}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}}
+\PYGmanni{p}{\PYGmanniZob{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

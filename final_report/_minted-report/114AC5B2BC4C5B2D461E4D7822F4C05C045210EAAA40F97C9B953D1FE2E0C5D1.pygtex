@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{MethodInfo} \PYGmanni{n}{method} \PYGmanni{p}{=} \PYGmanni{n}{GetType}\PYGmanni{p}{().}\PYGmanni{n}{GetMethod}\PYGmanni{p}{(}\PYGmanni{l+s}{\PYGmanniZdq{}Visit\PYGmanniZdq{}}\PYGmanni{p}{,} \PYGmanni{k}{new}\PYGmanni{p}{[]} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{n}{R} \PYGmanni{p}{\PYGmanniZcb{});}
+\end{Verbatim}

@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k+kt}{var} \PYGmanni{n}{ints} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{List}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{k+kt}{int}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{l+m}{1}\PYGmanni{p}{,} \PYGmanni{l+m}{2}\PYGmanni{p}{,} \PYGmanni{l+m}{3}\PYGmanni{p}{,} \PYGmanni{l+m}{4}\PYGmanni{p}{,} \PYGmanni{l+m}{5}\PYGmanni{p}{,} \PYGmanni{p}{\PYGmanniZhy{}}\PYGmanni{l+m}{2}\PYGmanni{p}{,} \PYGmanni{p}{\PYGmanniZhy{}}\PYGmanni{l+m}{3}\PYGmanni{p}{,} \PYGmanni{l+m}{0}\PYGmanni{p}{,} \PYGmanni{l+m}{0} \PYGmanni{p}{\PYGmanniZcb{};}
+
+\PYGmanni{c+c1}{// Projection:}
+\PYGmanni{c+c1}{//   .Select(Func\PYGmanniZlt{}int, TResult\PYGmanniZgt{} func) \PYGmanniZhy{}\PYGmanniZgt{} IEnumerable\PYGmanniZlt{}TResult\PYGmanniZgt{}}
+\PYGmanni{n}{ints}\PYGmanni{p}{.}\PYGmanni{n}{Select}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i}\PYGmanni{p}{*}\PYGmanni{l+m}{2}\PYGmanni{p}{);}          \PYGmanni{c+cm}{/* returns enumerable of 2*i */}
+
+\PYGmanni{c+c1}{// List, array, dictionary conversion}
+\PYGmanni{c+c1}{//   .ToList(), .ToArray()}
+\PYGmanni{c+c1}{//   .ToDictionary(Func\PYGmanniZlt{}int, TResult\PYGmanniZgt{} key) \PYGmanniZhy{}\PYGmanniZgt{} IDictionary\PYGmanniZlt{}TResult, TKey\PYGmanniZgt{}}
+\PYGmanni{n}{ints}\PYGmanni{p}{.}\PYGmanni{n}{ToArray}\PYGmanni{p}{();}                 \PYGmanni{c+cm}{/* returns array of ints */}
+
+\PYGmanni{c+c1}{// Counting:}
+\PYGmanni{c+c1}{//   .Count(), .Count(Func\PYGmanniZlt{}int, bool\PYGmanniZgt{} predicate)}
+\PYGmanni{n}{ints}\PYGmanni{p}{.}\PYGmanni{n}{Count}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i} \PYGmanni{p}{\PYGmanniZpc{}} \PYGmanni{l+m}{2} \PYGmanni{p}{==} \PYGmanni{l+m}{0}\PYGmanni{p}{);}    \PYGmanni{c+cm}{/* equals 4 */}
+
+\PYGmanni{c+c1}{// Tests:}
+\PYGmanni{c+c1}{//   .All(int =\PYGmanniZgt{} bool), .Any(int =\PYGmanniZgt{} bool)}
+\PYGmanni{n}{ints}\PYGmanni{p}{.}\PYGmanni{n}{Any}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i} \PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{l+m}{10}\PYGmanni{p}{);}          \PYGmanni{c+cm}{/* returns false */}
+
+\PYGmanni{c+c1}{// And many more, some shown here:}
+\PYGmanni{k+kt}{var} \PYGmanni{n}{sum} \PYGmanni{p}{=} \PYGmanni{n}{ints}
+	\PYGmanni{p}{.}\PYGmanni{n}{Distinct}\PYGmanni{p}{()}          \PYGmanni{c+cm}{/* filter non\PYGmanniZhy{}unique elements */}
+	\PYGmanni{p}{.}\PYGmanni{n}{GroupBy}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i}\PYGmanni{p}{\PYGmanniZpc{}}\PYGmanni{l+m}{0}\PYGmanni{p}{)}   \PYGmanni{c+cm}{/* group on even/uneven */}
+	\PYGmanni{p}{.}\PYGmanni{n}{SelectMany}\PYGmanni{p}{(}\PYGmanni{n}{g} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{g}\PYGmanni{p}{)}  \PYGmanni{c+cm}{/* flatten nested collection */}
+	\PYGmanni{p}{.}\PYGmanni{n}{OrderBy}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i}\PYGmanni{p}{)}     \PYGmanni{c+cm}{/* ordering */}
+	\PYGmanni{p}{.}\PYGmanni{n}{Where}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i} \PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{l+m}{10}\PYGmanni{p}{)}  \PYGmanni{c+cm}{/* filtering */}
+	\PYGmanni{p}{.}\PYGmanni{n}{Sum}\PYGmanni{p}{(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i}\PYGmanni{p}{*}\PYGmanni{l+m}{2}\PYGmanni{p}{);}      \PYGmanni{c+cm}{/* summation */}
+\end{Verbatim}

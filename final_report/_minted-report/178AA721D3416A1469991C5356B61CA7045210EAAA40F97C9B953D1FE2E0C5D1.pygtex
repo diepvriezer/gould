@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Animal} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Fish} \PYGmanni{p}{:} \PYGmanni{n}{Animal} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Salmon} \PYGmanni{p}{:} \PYGmanni{n}{Fish} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Bear} \PYGmanni{p}{:} \PYGmanni{n}{Animal}\PYGmanni{p}{,} \PYGmanni{n}{IEatsAnimal}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{Fish}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k}{interface} \PYGmanni{n}{IEatsAnimal}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{k}{in} \PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}}
+	\PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{Animal}
+\PYGmanni{p}{\PYGmanniZob{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k}{void} \PYGmanni{n}{FeedAnimal}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{TPred}\PYGmanni{p}{,}\PYGmanni{n}{TPrey}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{TPred} \PYGmanni{n}{who}\PYGmanni{p}{,} \PYGmanni{n}{TPrey} \PYGmanni{n}{food}\PYGmanni{p}{)}
+	\PYGmanni{k}{where} \PYGmanni{n}{TPrey} \PYGmanni{p}{:} \PYGmanni{n}{Animal}
+	\PYGmanni{k}{where} \PYGmanni{n}{TPred} \PYGmanni{p}{:} \PYGmanni{n}{IEatsAnimal}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{TPrey}\PYGmanni{p}{\PYGmanniZgt{}}
+\PYGmanni{p}{\PYGmanniZob{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k+kt}{var} \PYGmanni{n}{someAnimal} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{Animal}\PYGmanni{p}{();}
+\PYGmanni{k+kt}{var} \PYGmanni{n}{salmon} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{Salmon}\PYGmanni{p}{();}
+\PYGmanni{k+kt}{var} \PYGmanni{n}{bear} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{Bear}\PYGmanni{p}{();}
+
+\PYGmanni{n}{FeedAnimal}\PYGmanni{p}{(}\PYGmanni{n}{bear}\PYGmanni{p}{,} \PYGmanni{n}{salmon}\PYGmanni{p}{);}      \PYGmanni{c+cm}{/* compiles, as salmon is convertible to fish */}
+\PYGmanni{n}{FeedAnimal}\PYGmanni{p}{(}\PYGmanni{n}{bear}\PYGmanni{p}{,} \PYGmanni{n}{someAnimal}\PYGmanni{p}{);}  \PYGmanni{c+cm}{/* fails to compile, someAnimal is not a fish */}
+\end{Verbatim}

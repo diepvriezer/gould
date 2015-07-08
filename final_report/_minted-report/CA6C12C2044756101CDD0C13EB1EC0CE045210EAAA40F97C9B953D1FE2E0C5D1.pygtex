@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{T} \PYGmanni{n}{Visit}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{T} \PYGmanni{n}{node}\PYGmanni{p}{)} \PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{Node} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{c+cm}{/* return some T */} \PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

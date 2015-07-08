@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{Derived} \PYGmanni{n}{a} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{A}\PYGmanni{p}{();}
+\end{Verbatim}

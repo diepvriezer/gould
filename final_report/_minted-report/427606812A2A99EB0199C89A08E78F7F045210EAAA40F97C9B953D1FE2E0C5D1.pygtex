@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Node} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Derived} \PYGmanni{p}{:} \PYGmanni{n}{Node} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{k}{class} \PYGmanni{n+nc}{A} \PYGmanni{p}{:} \PYGmanni{n}{Derived} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{k}{class} \PYGmanni{n+nc}{B} \PYGmanni{p}{:} \PYGmanni{n}{Derived} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k}{class} \PYGmanni{n+nc}{SomeVisitor} \PYGmanni{p}{:} \PYGmanni{n}{GeneralizedVisitor}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{public} \PYGmanni{n}{B} \PYGmanni{n+nf}{Visit}\PYGmanni{p}{(}\PYGmanni{n}{A} \PYGmanni{n}{node}\PYGmanni{p}{)}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k}{return} \PYGmanni{k}{new} \PYGmanni{n+nf}{B}\PYGmanni{p}{();}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k+kt}{var} \PYGmanni{n}{visitor} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{SomeVisitor}\PYGmanni{p}{();}
+\PYGmanni{n}{A} \PYGmanni{n}{a} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{A}\PYGmanni{p}{();}
+\PYGmanni{n}{a} \PYGmanni{p}{=} \PYGmanni{n}{visitor}\PYGmanni{p}{.}\PYGmanni{n}{Visit}\PYGmanni{p}{(}\PYGmanni{n}{a}\PYGmanni{p}{);}    \PYGmanni{c+cm}{/* what happens? what should happen? */}
+\end{Verbatim}

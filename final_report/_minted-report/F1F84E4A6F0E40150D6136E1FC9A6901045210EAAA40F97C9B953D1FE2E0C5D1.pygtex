@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{public} \PYGmanni{k}{interface} \PYGmanni{n}{IPhase}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{n}{Node} \PYGmanni{n+nf}{Transform}\PYGmanni{p}{(}\PYGmanni{n}{Node} \PYGmanni{n}{node}\PYGmanni{p}{);}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{n+na}{[Phase(\PYGmanniZdq{}Type Checking: Performs rigorous checks on types\PYGmanniZdq{})]}
+\PYGmanni{k}{class} \PYGmanni{n+nc}{TypeChecking} \PYGmanni{p}{:} \PYGmanni{n}{Visitor}\PYGmanni{p}{,} \PYGmanni{n}{IPhase}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{c+c1}{// Entry point}
+	\PYGmanni{k}{public} \PYGmanni{n}{Node} \PYGmanni{n+nf}{Transform}\PYGmanni{p}{(}\PYGmanni{n}{Node} \PYGmanni{n}{node}\PYGmanni{p}{)}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k}{return} \PYGmanni{n+nf}{Visit}\PYGmanni{p}{(}\PYGmanni{n}{node}\PYGmanni{p}{);}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+
+	\PYGmanni{c+c1}{// Visitor methods}
+	\PYGmanni{k}{public} \PYGmanni{n}{Expression} \PYGmanni{n+nf}{Visit}\PYGmanni{p}{(...)}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\end{Verbatim}

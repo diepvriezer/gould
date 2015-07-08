@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{static} \PYGmanni{k}{class} \PYGmanni{n+nc}{Extensions}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{public} \PYGmanni{k}{static} \PYGmanni{k}{void} \PYGmanni{n+nf}{SayHello}\PYGmanni{p}{(}\PYGmanni{k}{this} \PYGmanni{n}{Ext}\PYGmanni{p}{.}\PYGmanni{n}{Object} \PYGmanni{n}{obj}\PYGmanni{p}{)}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{l+s}{\PYGmanniZdq{}External object says hello\PYGmanniZdq{}}\PYGmanni{p}{);}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k+kt}{var} \PYGmanni{n}{externalObject} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{Ext}\PYGmanni{p}{.}\PYGmanni{n}{Object}\PYGmanni{p}{();}
+\PYGmanni{n}{externalObject}\PYGmanni{p}{.}\PYGmanni{n}{SayHello}\PYGmanni{p}{();}    \PYGmanni{c+cm}{/* prints \PYGmanniZdq{}External object says hello\PYGmanniZdq{} */}
+\end{Verbatim}

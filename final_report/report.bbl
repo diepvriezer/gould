@@ -5,6 +5,10 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[web(2015)]{website:antlr4}
+Antlr v4, 2015.
+\newblock URL \url{http://www.antlr.org/}.
+
 \bibitem[Gamma et~al.(1994)Gamma, Helm, Johnson, and Vlissides]{gof1994}
 Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
 \newblock \emph{Design patterns: elements of reusable object-oriented
@@ -36,10 +40,26 @@ Leo~A. Meyerovich and Ariel~S. Rabkin.
 \newblock \doi{10.1145/2544173.2509515}.
 \newblock URL \url{http://doi.acm.org/10.1145/2544173.2509515}.
 
-\bibitem[{Nanz} and {Furia}(2014)]{Nanz2014}
-S.~{Nanz} and C.~A. {Furia}.
-\newblock {A Comparative Study of Programming Languages in Rosetta Code}.
-\newblock \emph{ArXiv e-prints}, August 2014.
+\bibitem[Nguyen et~al.(2007)Nguyen, Deeds-Rubin, Tan, and
+  Boehm]{nguyen2007sloc}
+Vu~Nguyen, Sophia Deeds-Rubin, Thomas Tan, and Barry Boehm.
+\newblock A sloc counting standard.
+\newblock In \emph{COCOMO II Forum}, volume 2007, 2007.
+
+\bibitem[Nordberg~III(1996)]{nordberg1996}
+Martin~E Nordberg~III.
+\newblock Variations on the visitor pattern.
+\newblock \emph{Ann Arbor}, 1001:\penalty0 48108, 1996.
+
+\bibitem[Nystrom et~al.(2003)Nystrom, Clarkson, and Myers]{polyglot}
+Nathaniel Nystrom, MichaelR. Clarkson, and AndrewC. Myers.
+\newblock Polyglot: An extensible compiler framework for java.
+\newblock In Görel Hedin, editor, \emph{Compiler Construction}, volume 2622 of
+  \emph{Lecture Notes in Computer Science}, pages 138--152. Springer Berlin
+  Heidelberg, 2003.
+\newblock ISBN 978-3-540-00904-7.
+\newblock \doi{10.1007/3-540-36579-6_11}.
+\newblock URL \url{http://dx.doi.org/10.1007/3-540-36579-6_11}.
 
 \bibitem[Palsberg and Jay(1998)]{palsberg1998essence}
 Jens Palsberg and C~Barry Jay.
@@ -53,30 +73,10 @@ Joel Pobar.
 \newblock Dodge common performance pitfalls to craft speedy applications, 2005.
 \newblock URL \url{https://msdn.microsoft.com/en-us/magazine/cc163759.aspx}.
 
-\bibitem[Ray et~al.(2014)Ray, Posnett, Filkov, and Devanbu]{Ray2014}
-Baishakhi Ray, Daryl Posnett, Vladimir Filkov, and Premkumar Devanbu.
-\newblock A large scale study of programming languages and code quality in
-  github.
-\newblock In \emph{Proceedings of the 22Nd ACM SIGSOFT International Symposium
-  on Foundations of Software Engineering}, FSE 2014, pages 155--165, New York,
-  NY, USA, 2014. ACM.
-\newblock ISBN 978-1-4503-3056-5.
-\newblock \doi{10.1145/2635868.2635922}.
-\newblock URL \url{http://doi.acm.org/10.1145/2635868.2635922}.
-
-\bibitem[SAC-Home(2015)]{website:sac}
-SAC-Home.
-\newblock Homepage of the sac project, May 2015.
-\newblock URL \url{http://www.sac-home.org/}.
-
-\bibitem[Schildt(2010)]{schildt2010c}
-Herbert Schildt.
-\newblock \emph{C\# 4.0: The complete reference}.
-\newblock McGraw-Hill, 2010.
-
-\bibitem[Schreiner(1993)]{book:schreiner}
-Axel-Tobias Schreiner.
-\newblock \emph{Object-Oriented Programming With ANSI-C}.
-\newblock Hanser, 1993.
+\bibitem[Pryor(2007)]{website:java-generics}
+Jonathan Pryor.
+\newblock Comparing java and c\# generics, 2007.
+\newblock URL
+  \url{http://www.jprl.com/Blog/archive/development/2007/Aug-31.html}.
 
 \end{thebibliography}

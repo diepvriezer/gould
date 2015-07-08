@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{void} \PYGmanni{n}{Replace}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{,} \PYGmanni{n}{TContext}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{Func}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{T}\PYGmanni{p}{,} \PYGmanni{n}{TContext}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{function}\PYGmanni{p}{)}
+	\PYGmanni{k}{where} \PYGmanni{n}{T} \PYGmanni{p}{:} \PYGmanni{n}{TContext}
+	\PYGmanni{k}{where} \PYGmanni{n}{TContext} \PYGmanni{p}{:} \PYGmanni{n}{Node}\PYGmanni{p}{;}
+\end{Verbatim}

@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{k}{class} \PYGmanni{n+nc}{Person}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{public} \PYGmanni{k+kt}{string} \PYGmanni{n}{Name} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{k}{get}\PYGmanni{p}{;} \PYGmanni{k}{set}\PYGmanni{p}{;} \PYGmanni{p}{\PYGmanniZcb{}}
+	\PYGmanni{k}{public} \PYGmanni{k+kt}{string} \PYGmanni{n}{NameInCaps}
+	\PYGmanni{p}{\PYGmanniZob{}}
+		\PYGmanni{k}{get} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{k}{return} \PYGmanni{n}{Name}\PYGmanni{p}{.}\PYGmanni{n}{ToUpper}\PYGmanni{p}{();} \PYGmanni{p}{\PYGmanniZcb{}}
+	\PYGmanni{p}{\PYGmanniZcb{}}
+
+	\PYGmanni{k}{public} \PYGmanni{k+kt}{int} \PYGmanni{n}{Id} \PYGmanni{p}{\PYGmanniZob{}} \PYGmanni{k}{get}\PYGmanni{p}{;} \PYGmanni{k}{private} \PYGmanni{k}{set}\PYGmanni{p}{;} \PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{p}{\PYGmanniZcb{}}
+
+\PYGmanni{k+kt}{var} \PYGmanni{n}{peter} \PYGmanni{p}{=} \PYGmanni{k}{new} \PYGmanni{n}{Person}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{n}{Name} \PYGmanni{p}{=} \PYGmanni{l+s}{\PYGmanniZdq{}Not Peter\PYGmanniZdq{}}
+\PYGmanni{p}{\PYGmanniZcb{};}
+
+\PYGmanni{n}{peter}\PYGmanni{p}{.}\PYGmanni{n}{Name} \PYGmanni{p}{=} \PYGmanni{l+s}{\PYGmanniZdq{}Peter\PYGmanniZdq{}}\PYGmanni{p}{;}                \PYGmanni{c+cm}{/* sets Name property */}
+\PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{n}{test}\PYGmanni{p}{.}\PYGmanni{n}{NameInCaps}\PYGmanni{p}{);}  \PYGmanni{c+cm}{/* prints \PYGmanniZdq{}PETER\PYGmanniZdq{} */}
+\PYGmanni{n}{peter}\PYGmanni{p}{.}\PYGmanni{n}{Id} \PYGmanni{p}{=} \PYGmanni{l+m}{5}\PYGmanni{p}{;}                        \PYGmanni{c+cm}{/* error, id can only be set from private scope */}
+\end{Verbatim}

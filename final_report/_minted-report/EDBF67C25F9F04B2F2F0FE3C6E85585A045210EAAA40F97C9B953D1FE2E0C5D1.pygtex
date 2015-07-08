@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{Func}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{k+kt}{int}\PYGmanni{p}{,} \PYGmanni{k+kt}{int}\PYGmanni{p}{,} \PYGmanni{k+kt}{int}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{k}{add} \PYGmanni{p}{=} \PYGmanni{p}{(}\PYGmanni{n}{a}\PYGmanni{p}{,} \PYGmanni{n}{b}\PYGmanni{p}{)} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{a} \PYGmanni{p}{+} \PYGmanni{n}{b}\PYGmanni{p}{;}
+\PYGmanni{k+kt}{int} \PYGmanni{n}{result} \PYGmanni{p}{=} \PYGmanni{k}{add}\PYGmanni{p}{(}\PYGmanni{l+m}{2}\PYGmanni{p}{,}\PYGmanni{l+m}{5}\PYGmanni{p}{);}     \PYGmanni{c+cm}{/* result = 7 */}
+
+\PYGmanni{n}{Action}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{k+kt}{string}\PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{n}{print} \PYGmanni{p}{=} \PYGmanni{p}{(}\PYGmanni{n}{s}\PYGmanni{p}{)} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{n}{s}\PYGmanni{p}{);}
+\PYGmanni{n}{print}\PYGmanni{p}{(}\PYGmanni{l+s}{\PYGmanniZdq{}Hello\PYGmanniZdq{}}\PYGmanni{p}{);}            \PYGmanni{c+cm}{/* prints \PYGmanniZdq{}Hello\PYGmanniZdq{} */}
+\end{Verbatim}

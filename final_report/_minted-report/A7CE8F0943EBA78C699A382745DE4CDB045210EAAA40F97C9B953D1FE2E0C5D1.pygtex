@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{View}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{IntConst}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{n}{i}\PYGmanni{p}{.}\PYGmanni{n}{Value}\PYGmanni{p}{));}    \PYGmanni{c+cm}{/* prints value of int const nodes */}
+
+\PYGmanni{n}{ReplaceIf}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{IntConst}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{k}{null}\PYGmanni{p}{,} \PYGmanni{n}{i} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{n}{i}\PYGmanni{p}{.}\PYGmanni{n}{Value} \PYGmanni{p}{\PYGmanniZgt{}} \PYGmanni{l+m}{10}\PYGmanni{p}{);}  \PYGmanni{c+cm}{/* removes all int nodes \PYGmanniZgt{} 10 */}
+
+\PYGmanni{n}{Replace}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{Expression}\PYGmanni{p}{,} \PYGmanni{n}{Node}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{ex} \PYGmanni{p}{=\PYGmanniZgt{}} \PYGmanni{k}{new} \PYGmanni{n}{Node}\PYGmanni{p}{());}        \PYGmanni{c+cm}{/* intermediate type target, only}
+\PYGmanni{c+cm}{                                                       executed on expressions in a}
+\PYGmanni{c+cm}{                                                       property of at least Node */}
+
+\PYGmanni{c+cm}{/* Configuration of lambda with statements */}
+\PYGmanni{n}{View}\PYGmanni{p}{\PYGmanniZlt{}}\PYGmanni{n}{Node}\PYGmanni{p}{\PYGmanniZgt{}(}\PYGmanni{n}{n} \PYGmanni{p}{=\PYGmanniZgt{}}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{n}{Console}\PYGmanni{p}{.}\PYGmanni{n}{WriteLine}\PYGmanni{p}{(}\PYGmanni{n}{n}\PYGmanni{p}{.}\PYGmanni{n}{GetType}\PYGmanni{p}{());}
+	\PYGmanni{n}{n}\PYGmanni{p}{.}\PYGmanni{n}{DoSomething}\PYGmanni{p}{();}
+\PYGmanni{p}{\PYGmanniZcb{});}
+
+\PYGmanni{c+cm}{/* Method which converts IntConsts to BinOp\PYGmanniZsq{}s through Expression... */}
+\PYGmanni{n}{Expression} \PYGmanni{n+nf}{TransformInt}\PYGmanni{p}{(}\PYGmanni{n}{IntConst} \PYGmanni{n}{i}\PYGmanni{p}{)}
+\PYGmanni{p}{\PYGmanniZob{}}
+	\PYGmanni{k}{return} \PYGmanni{k}{new} \PYGmanni{n+nf}{BinOp}\PYGmanni{p}{(..);}
+\PYGmanni{p}{\PYGmanniZcb{}}
+\PYGmanni{c+cm}{/* \PYGmanniZbs{}ldots can be added without specifying types, as they are infered from the method */}
+\PYGmanni{n}{Replace}\PYGmanni{p}{(}\PYGmanni{n}{TransformInt}\PYGmanni{p}{);}
+\end{Verbatim}
