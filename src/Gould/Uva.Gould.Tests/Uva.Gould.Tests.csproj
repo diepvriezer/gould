@@ -55,6 +55,7 @@
     <Compile Include="LambdaVisitorTests.cs" />
     <Compile Include="MethodVisitorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SllTests.cs" />
     <Compile Include="Support\LoadResourceAttribute.cs" />
     <Compile Include="Support\Tests\TestBaseTests.cs" />
     <Compile Include="Support\TestBase.cs" />
