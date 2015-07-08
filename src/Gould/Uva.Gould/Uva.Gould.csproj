@@ -46,13 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChildAttribute.cs" />
+    <Compile Include="OrderedAttributes.cs" />
+    <Compile Include="OrderedAttributeCache.cs" />
+    <Compile Include="OrderedAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Sll.cs" />
+    <Compile Include="Traversals\PropertyIter.cs" />
+    <Compile Include="Traversals\PropertyVisitor.cs" />
+    <Compile Include="Traversals\LambdaHandlers.cs" />
+    <Compile Include="Traversals\IVisitor.cs" />
+    <Compile Include="Traversals\LambdaVisitor.cs" />
+    <Compile Include="Traversals\MethodVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

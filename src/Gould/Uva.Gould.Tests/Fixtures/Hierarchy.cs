@@ -20,9 +20,9 @@ namespace Uva.Gould.Tests.Fixtures
     }
 
     /*
-     * Simple AST-like hierarchy:     
+     * Simple AST-like hierarchy:
      * 
-     * Node
+     * IncNode
      *  |
      *  |-- Expression
      *  |----|

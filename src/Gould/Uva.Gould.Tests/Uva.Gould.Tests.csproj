@@ -51,8 +51,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ChildAttributeTests.cs" />
-    <Compile Include="Fixtures\AstNodes.cs" />
-    <Compile Include="Fixtures\Nodes.cs" />
+    <Compile Include="Fixtures\Hierarchy.cs" />
+    <Compile Include="LambdaVisitorTests.cs" />
+    <Compile Include="MethodVisitorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\LoadResourceAttribute.cs" />
     <Compile Include="Support\Tests\TestBaseTests.cs" />
