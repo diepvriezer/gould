@@ -26,7 +26,7 @@ namespace Uva.Gould.Traversals
 
         public bool Valid(object node, Type contextType)
         {
-            return node is T && contextType.IsAssignableFrom(typeof(T));
+            return node is T;
         }
 
         public object Execute(object node)

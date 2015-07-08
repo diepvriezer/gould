@@ -37,19 +37,19 @@ namespace Uva.Gould.Traversals
 
 
         #region Handler configuration shortcuts
-        public void AddTravMethods(object visitor = null)
+        public void AddTravMethods(object host = null)
         {
             // It is possible to add methods from other visitors, if omitted the current class is used.
-            if (visitor == null)
-                visitor = this;
+            if (host == null)
+                host = this;
 
-            foreach (var method in visitor.GetType().GetOrderedTravMethods())
+            foreach (var method in host.GetType().GetOrderedTravMethods())
             {
                 var parms = method.GetParameters();
                 if (parms.Length != 1)
                     throw new InvalidOperationException("TravMethod attribute requires a method with a single argument, which is the targetted node.");
 
-                Handlers.Add(new MethodHandler(method, visitor, parms[0].ParameterType));
+                Handlers.Add(new MethodHandler(method, host, parms[0].ParameterType));
             }
         }
 

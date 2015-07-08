@@ -33,9 +33,10 @@ namespace Uva.Gould.Tests.Fixtures
      *  |-- Statement
      *  |----|
      *  |----|-- If
-     *  |----|-- For
+     *  |----|-- For<T> (abstract)
      *  |----|----|
      *  |----|----|-- ForFixed (bounds are int only)
+     *  |----|----|-- For (bounds are expression)
      *  |----|-- Block
      *  |
      *  |-- FunctionBody
@@ -69,20 +70,16 @@ namespace Uva.Gould.Tests.Fixtures
         [Child] public Statement Then { get; set; }
         [Child] public Statement Else { get; set; }
     }
-    public class For : Statement
+    public abstract class For<T> : Statement
+        where T : Expression
     {
-        [Child] public Expression From { get; set; }
-        [Child] public Expression To { get; set; }
-        [Child] public Expression Step { get; set; }
+        [Child] public T From { get; set; }
+        [Child] public T To { get; set; }
+        [Child] public T Step { get; set; }
         [Child] public Statement Do { get; set; }
     }
-    public class ForFixed : For
-    {
-        [Child] public new Int From { get; set; }
-        [Child] public new Int To { get; set; }
-        [Child] public new Int Step { get; set; }
-        [Child] public new Statement Do { get; set; }
-    }
+    public class ForFixed : For<Int> { }
+    public class For : For<Expression> { }
 
     public class Block : Statement
     {
@@ -143,7 +140,7 @@ namespace Uva.Gould.Tests.Fixtures
 
         public static Block BlockWithStatements()
         {
-            return new Block()
+            return new Block
             {
                 Statement1 = new Statement(),
                 Statement2 = new Statement(),
@@ -161,7 +158,7 @@ namespace Uva.Gould.Tests.Fixtures
          */
         public static Block ForFixedForAndStatementBlock()
         {
-            return new Block()
+            return new Block
             {
                 Statement1 = ForFixed(),
                 Statement2 = For(),
