@@ -47,36 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChildAttribute.cs" />
-    <Compile Include="LinkedNode.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="Phases\IPhase.cs" />
-    <Compile Include="Phases\PhaseRunner.cs" />
-    <Compile Include="Phases\PhaseAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SourceInfo.cs" />
-    <Compile Include="Phases\GraphTree.cs" />
-    <Compile Include="Graphs\DotPngFileWriter.cs" />
-    <Compile Include="Graphs\Graph.cs" />
-    <Compile Include="Graphs\GraphBuilder.cs" />
-    <Compile Include="Graphs\GraphEdge.cs" />
-    <Compile Include="Graphs\GraphNode.cs" />
-    <Compile Include="Graphs\GraphToDotFormatter.cs" />
-    <Compile Include="Support\CTI.cs" />
-    <Compile Include="Support\RuleStackErrorListener.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynCastNoGen2.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynCastNoGen.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynCast.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynInvokeNoGen.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynInvoke.cs" />
-    <Compile Include="Traversals\ViewOnlyVisitor.cs" />
-    <Compile Include="Traversals\Visitor.cs" />
-    <Compile Include="OldVisitor.cs" />
-    <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

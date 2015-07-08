@@ -2,7 +2,7 @@
 namespace Uva.Gould.Tests.Fixtures
 {
     // A node with an auto incremented ID.
-    public class IncNode : Node
+    public class IncNode
     {
         public IncNode()
         {

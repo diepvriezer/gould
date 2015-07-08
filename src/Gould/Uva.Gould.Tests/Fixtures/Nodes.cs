@@ -1,6 +1,6 @@
 ﻿namespace Uva.Gould.Tests.Fixtures
 {
-    public class IdNode : Node
+    public class IdNode
     {
         public IdNode(int id)
         {
