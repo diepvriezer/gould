@@ -11,5 +11,17 @@
     <Setting Name="VisitorMethodName" Type="System.String" Scope="User">
       <Value Profile="(Default)">Visit</Value>
     </Setting>
+    <Setting Name="GraphFont" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Helvetica Bold</Value>
+    </Setting>
+    <Setting Name="GraphFontSize" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">13</Value>
+    </Setting>
+    <Setting Name="GraphFontSmallSize" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">11</Value>
+    </Setting>
+    <Setting Name="GraphFontSmall" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Helvetica Bold</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

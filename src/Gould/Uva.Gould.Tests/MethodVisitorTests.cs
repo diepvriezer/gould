@@ -97,6 +97,11 @@ namespace Uva.Gould.Tests
                 VisitChildren(node);
                 return node;
             }
+            public ForFixed Visit(ForFixed node)
+            {
+                VisitChildren(node);
+                return node;
+            }
 
             public Statement Visit(Statement node)
             {
