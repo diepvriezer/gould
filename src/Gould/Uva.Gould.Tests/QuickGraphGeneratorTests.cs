@@ -41,8 +41,8 @@ namespace Uva.Gould.Tests
         [TestMethod]
         public void TestMethod()
         {
-            new GraphGenerator().CreateAstGraph(typeof (Program)).GenerateDot("AST2.DOT");
-            new GraphGenerator().CreateAstGraph(typeof(Fixtures.IncNode)).GenerateDot("AST3.DOT");
+            //new GraphGenerator().CreateAstGraph(typeof (Program)).GenerateDot("AST2.DOT");
+            new GraphGenerator().CreateAstGraph(typeof(Fixtures.FunctionBody)).GenerateDot("AST4.DOT");
         }
     }
 }

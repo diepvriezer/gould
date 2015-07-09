@@ -81,7 +81,7 @@ namespace Uva.Gould.Graphing
                         repeat = true;
                     }
                 }
-            // Keep repeating until no new derived classes are found
+            // Keep repeating until no new derived classes are found.
             } while (repeat);
 
 
