@@ -7,7 +7,7 @@ namespace Uva.Gould.Tests
     public class QuickGraphGeneratorTests
     {
         /* Simple inheritance hierarchy */
-        public abstract class Expr { }
+        public class Expr { }
         public abstract class Stat { }
 
         public class Program
@@ -41,8 +41,8 @@ namespace Uva.Gould.Tests
         [TestMethod]
         public void TestMethod()
         {
-            var g = new GraphGenerator().CreateAstGraph(typeof (Program));
-            GraphWriter.WriteToFile("AST.DOT", g);
+            new GraphGenerator().CreateAstGraph(typeof (Program)).GenerateDot("AST2.DOT");
+            new GraphGenerator().CreateAstGraph(typeof(Fixtures.IncNode)).GenerateDot("AST3.DOT");
         }
     }
 }

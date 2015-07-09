@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using QuickGraph;
+using Uva.Gould.Graphing.Elements;
 
 namespace Uva.Gould.Graphing
 {
@@ -14,7 +14,7 @@ namespace Uva.Gould.Graphing
         // Static set of all loaded classes.
         private static HashSet<TypeInfo> allClasses = null;
 
-        public BidirectionalGraph<AstVertex, AstEdge> CreateAstGraph(Type root)
+        public Graph<AstVertex, AstEdge> CreateAstGraph(Type root)
         {
             FillAllClasses();
 
@@ -85,10 +85,8 @@ namespace Uva.Gould.Graphing
             } while (repeat);
 
 
-            var g = new BidirectionalGraph<AstVertex, AstEdge>();
-            g.AddVertexRange(vertices.Values);
-            g.AddEdgeRange(edges);
-
+            var g = new Graph<AstVertex, AstEdge>(vertices.Values, edges);
+            GraphStyles.SetupAstGraphStyles(g);
             return g;
         }
 
@@ -98,78 +96,6 @@ namespace Uva.Gould.Graphing
                 return;
 
             allClasses = new HashSet<TypeInfo>(AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.DefinedTypes.Where(t => t.IsClass)));
-        }
-
-        private static string GetCleanTypeName(Type t)
-        {
-            string name = t.Name;
-            if (t.IsGenericType)
-            {
-                name = 
-                    t.Name.Substring(0, t.Name.IndexOf('`')) 
-                    + "<" +  string.Join(", ", t.GetGenericArguments().Select(GetCleanTypeName)) 
-                    + ">";
-            }
-
-            return name;
-        }
-    
-        /// <summary>
-        /// Vertexes represent class types, be it abstract, concrete generic or leaf.
-        /// </summary>
-        public class AstVertex
-        {
-            public AstVertex(Type type)
-            {
-                if (!type.IsClass)
-                    throw new InvalidOperationException("Can only instantiate vertex from classes");
-
-                IsAbstract = type.IsAbstract;
-                DerivedTypes = new HashSet<Type>();
-                Processed = false;
-
-                Name = GetCleanTypeName(type);
-                Type = type;
-            }
-
-            public bool IsRoot { get; set; }
-            public bool Processed { get; set; }
-
-            public Type Type { get; private set; }
-            public bool IsAbstract { get; private set; }
-            public HashSet<Type> DerivedTypes { get; private set; }
-            public string Name { get; private set; }
-
-            public override string ToString()
-            {
-                return Name;
-            }
-        }
-
-        /// <summary>
-        /// Edges represent both inheritance (Target -> Source) and named properties ([Source] Target.Name).
-        /// </summary>
-        public class AstEdge : IEdge<AstVertex>
-        {
-            public AstEdge(AstVertex source, AstVertex target, string name = null)
-            {
-                Source = source;
-                Target = target;
-                Name = name;
-            }
-
-            public AstVertex Source { get; private set; }
-            public AstVertex Target { get; private set; }
-
-            public string Name { get; set; }
-            public bool IsInheritance { get { return Name == null; } }
-
-            public override string ToString()
-            {
-                return IsInheritance
-                    ? Source + " is base class of " + Target
-                    : Source + "." + Name + " is of " + Target;
-            }
         }
     }
 }

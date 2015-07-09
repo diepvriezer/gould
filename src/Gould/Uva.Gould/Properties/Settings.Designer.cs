@@ -58,53 +58,5 @@ namespace Uva.Gould.Properties {
                 this["VisitorMethodName"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Helvetica Bold")]
-        public string GraphFont {
-            get {
-                return ((string)(this["GraphFont"]));
-            }
-            set {
-                this["GraphFont"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("13")]
-        public float GraphFontSize {
-            get {
-                return ((float)(this["GraphFontSize"]));
-            }
-            set {
-                this["GraphFontSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("11")]
-        public float GraphFontSmallSize {
-            get {
-                return ((float)(this["GraphFontSmallSize"]));
-            }
-            set {
-                this["GraphFontSmallSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Helvetica Bold")]
-        public string GraphFontSmall {
-            get {
-                return ((string)(this["GraphFontSmall"]));
-            }
-            set {
-                this["GraphFontSmall"] = value;
-            }
-        }
     }
 }
