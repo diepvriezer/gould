@@ -14,6 +14,13 @@ namespace Uva.Gould.Graphing
         // Static set of all loaded classes.
         private static HashSet<TypeInfo> allClasses = null;
 
+        public void CreateGraphs(Type root)
+        {
+            FillAllClasses();
+
+
+        }
+
         public Graph<AstVertex, AstEdge> CreateAstGraph(Type root)
         {
             FillAllClasses();
