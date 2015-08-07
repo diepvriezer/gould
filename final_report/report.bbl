@@ -1,4 +1,4 @@
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -8,6 +8,12 @@
 \bibitem[web(2015)]{website:antlr4}
 Antlr v4, 2015.
 \newblock URL \url{http://www.antlr.org/}.
+
+\bibitem[Bishop and Horspool(2008)]{bishop2008efficiency}
+Judith Bishop and R~Nigel Horspool.
+\newblock On the efficiency of design patterns implemented in c\# 3.0.
+\newblock In \emph{Objects, Components, Models and Patterns}, pages 356--371.
+  Springer, 2008.
 
 \bibitem[Gamma et~al.(1994)Gamma, Helm, Johnson, and Vlissides]{gof1994}
 Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.

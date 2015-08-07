@@ -139,11 +139,11 @@
 	\section{Problem Statement}
 		Computer Science undergraduates at the University of Amsterdam have the option to learn the essentials of compiler construction by taking an 8-week course where the main deliverable is a working compiler for a model programming language named CiviC, or \emph{Civilized C}. This language exhibits characteristic features of structured imperative programming languages and is designed in a way to be sufficiently restricted in size and complexity for the course. Students may optionally implement more advanced features such as arrays and nested functions for extra credits. Construction is assisted by a framework which offers structured approach to compiler development.
 		
-		The framework functions as a template, providing the necessary infrastructure and hooks for further development. It is written in C, a language most students are familiar with. It can be considered succesful, as nearly all students deliver working compilers with it and the course is received well. A recurrent problem during the first weeks of the course is the difficulty in getting up to speed with the framework. This is in part due to a lack of documentation, but it is suspected language plays a role as well. 
+		The framework functions as a template, providing the necessary infrastructure and hooks for further development. It is written in C, a language most students are familiar with. It can be considered successful, as nearly all students deliver working compilers with it and the course is received well. A recurrent problem during the first weeks of the course is the difficulty in getting up to speed with the framework. This is in part due to a lack of documentation, but it is suspected language plays a role as well. 
 		
-		A recent large-scale study found that features in a programming language considered most important were object inheritance, classes, exceptions and garbage collection\cite{Meyerovich2013}. Although the study might be biased towards users of dynamic programming languages, over 60\% of respondants found static typing to be of at least medium importance. The framework's language (C) delivers little to none of these features. While it is statically typed, it is generally considered a `weakly'-typed language compared to modern object-oriented languages. Languages such as Java and \cs have more rigorous type checking and provide mechanisms to catch runtime violations of the type system. Static types have been demonstrated to serve as a source of documentation and may help programmers to use a new set of classes\cite{Hanenberg2014}.
+		A recent large-scale study found that features in a programming language considered most important were object inheritance, classes, exceptions and garbage collection\cite{Meyerovich2013}. Although the study might be biased towards users of dynamic programming languages, over 60\% of respondents found static typing to be of at least medium importance. The framework's language (C) delivers little to none of these features. While it is statically typed, it is generally considered a `weakly'-typed language compared to modern object-oriented languages. Languages such as Java and \cs have more rigorous type checking and provide mechanisms to catch runtime violations of the type system. Static types have been demonstrated to serve as a source of documentation and may help programmers to use a new set of classes\cite{Hanenberg2014}.
 		
-		While C is unrivalled for it's high-speed, is it the right choice for the CiviC compiler framework? Does the framework utilize techniques which are only possible in C? Are there features made obsolete by simply using a modern statically-typed and object-oriented language? This paper will present an in-depth analysis of the CiviC compiler framework, documenting it's architecture, workflow and implementation. A new framework with the same goals as the existing one will be presented, but written in \cs. Both approaches are rated on usability and maintainability, and the  question \emph{which is better} is discussed.
+		While C is unrivaled for it's high-speed, is it the right choice for the CiviC compiler framework? Does the framework utilize techniques which are only possible in C? Are there features made obsolete by simply using a modern statically-typed and object-oriented language? This paper will present an in-depth analysis of the CiviC compiler framework, documenting it's architecture, workflow and implementation. A new framework with the same goals as the existing one will be presented, but written in \cs. Both approaches are rated on usability and maintainability, and the  question \emph{which is better} is discussed.
 		
 			
 	\section{Context}
@@ -166,7 +166,7 @@
 		
 		
 	\section{Research Questions}
-		The main questsions of this project are:
+		The main questions of this project are:
 		\firstquestion
 		\secondquestion
 		\thirdquestion
@@ -202,9 +202,10 @@
 
 \chapter{Analysis Of Civic Framework}
 \label{analysis}
-	This chapter will provide an in-depth review of the existing framework, detailing it's architecture, workflow and technical implementation. The chapter concludes with a discussion on the 
-				
+	This chapter will establish how and if object-oriented behavior is emulated by the existing framework with an in-depth analysis. The existing framework is described on a high-level in \cref{c-arch,c-workflow} with a technical breakdown of all components and features described in \cref{c-impl}. \Cref{oofeatures} summarizes these features and answers this chapter's question.
+	
 	\section{Architecture}
+	\label{c-arch}
 		On a high level the framework aims to provide a structured approach for phase-based transformations on a language agnostic AST or \emph{abstract syntax tree}. Central to the framework is a specification of the AST and a code generator which produces interaction code and traversal control mechanisms. Interaction code here means an interface through which AST nodes can be created or modified, and composed into a tree. Manipulation of a tree is achieved through \emph{traversals}, which target specific set of nodes and specify code to be executed for each node, much like the visitor pattern introduced in the next chapter. The framework recognizes distinct \emph{phases} of compilation, such as semantic analysis or code generation, and provides a way to group related transformations and execute them sequentially.
 				
 		\begin{figure}[H]
@@ -241,6 +242,7 @@
 	
 		
 	\section{Technical Implementation}
+	\label{c-impl}
 		The most defining characteristic of the framework is the abstraction layer over the AST and traversal mechanisms. To better understand this layer, this section will detail the internal representation of nodes, traversals and phases and discuss the role of code generation. \emph{This section assumes knowledge of the C programming language.}
 				
 		\subsection{Abstract Syntax Tree}
@@ -315,12 +317,15 @@
 			\end{codebox}
 		
 		
-	\section{Features Found In OO-Languages}
+	\section{Object-Oriented Behavior}
 	\label{oofeatures}
-		The framework provides a wide range of features applicable for compiler construction. Some of these features seem at least partially focused around providing a level of type-safety and object-orientation not found in C.
+		It may be obvious that no features found in OO-languages will completely obsolete any of the high-level components of the framework like traversal mechanisms or tree validation, but it should be pointed out. This has more to do with those components being in the application domain which means they should be implemented in \emph{any} language. Rather OO-behavior is found at the implementation level, 
 			
 		\paragraph{Tagged union}
 			Nodes in the framework are represented by the \code{NODE} structure which, depending on node type, holds two other structures with child nodes and attributes. This can be seen as a primitive form of object inheritance, where the node structure functions as an abstract base class and all nodes as concrete implementations. The \code{NODE} struct is abstract because it holds a variable with an enumeration of all possible nodes, which means it's not possible to construct a node from code alone without also modifying that - generated - enum.
+			
+		\paragraph{Nodesets}
+			Traversals often target subsets of AST nodes, implying the existence of a logical ordering within the AST. Nodesets offer a limited form of grouping by ensuring the traversal actions never receive a node not marked as a target. They do not however provide any way to test if a node is in a set, which makes writing code against sets dangerous or impossible. Classes and inheritance solves this problem by guaranteeing an object is \emph{at least} of a certain type. Inheritance in modern OO-languages is usually based on \emph{single-inheritance}, which makes it impossible to define arbitrary node groups. For this purpose \emph{interface} definitions can be used.
 			
 		\paragraph{Access macros}
 			The access macros are obsolete if a node were to be represented as an object, instead of a composition of structures. Although the macros do not check for correct type due to their use on both sides on both sides of an assignment, an OO-language would provide this additional type-safety for free.
@@ -329,7 +334,7 @@
 			The most obvious feature most modern OO-languages offers is automatic memory management. The \emph{free}-traversal can be removed entirely if a language with garbage collection is used. Similarly, object construction is done on a much higher level.
 			
 		\paragraph{Validation traversal}
-			The \emph{check}-traversal is primarily used to ensure nodes have valid children. If child nodes were to be typed properties of an object, this responsibility is handed to the compiler. The \emph{nodesets} defined by the framework are only used in this context, and offer a limited form of inheritance. Inheritance doesn't allow nodes to belong to multiple nodesets directly, which is allowed by the framework; however the framework doesn't allow nesting of nodesets, which \emph{is} allowed by inheritance. 
+			The \emph{check}-traversal is primarily used to ensure nodes have valid children. If child nodes were to be typed properties of an object, this responsibility is handed to the compiler. Compiler enforced type safety cannot however replace progressive or dynamic validation as offered by the existing framework.
 			
 		\paragraph{Info structure}
 			Passed along with every traversal action is a traversal specific \code{INFO} structure, whose sole purpose is the sharing of state between traversal methods. If a traversal were to be seen as a class, this state could be transfered to member variables of the class.
@@ -390,16 +395,24 @@
 	\end{comment}
 	
 	
-\chapter{Re-Design In \cs: Code-First Approach}
-	Expanding on \cref{oofeatures}, this chapter documents the design of an object-oriented framework centered around the same principles as the C-based framework. First the choice of \cs is explained, along with a small primer on some of it's unique features. Then, the applicability of an AST abstraction layer as found in the current framework is challenged by developing a model for a type-safe AST. Development and optimization of two type-safe traversal mechanisms is covered next and the chapter concludes with a model for a code configured compiler pipeline and a discussion on representing collections in an AST.
-		
-		
+\chapter{Re-Design In \cs}
+	This chapter documents the design of an object-oriented framework centered around the same principles as the C-based framework. The core functionality of the existing C-based framework can be summarized in three main features:
+	\begin{enumerate}
+		\item Specification of AST and means to validate integrity
+		\item Stateful traversal mechanism
+		\item Rigid workflow and compiler development path
+	\end{enumerate}
+	
+	As mentioned in \cref{oofeatures}, none of these features can be replaced directly by a modern OO-language, nor should they as the framework clearly delivers based on passing ratio and student experience. As such, these three features should be present in the \cs framework.
+	
+	This chapter starts with a brief \cs primer in \cref{csprimer}. Primitive knowledge of the language is required for code samples in the following sections, and it also serves as an explanation on why \cs was chosen above Java. Architectural choices and implementation details are grouped according to the three features highlighted above, with \cref{type-safe-ast} covering AST and tree integrity, traversals explained in detail in \cref{trav} and workflow and organization aspects discussed in \cref{package}.
+			
 	\section{\cs Primer And Motivation}
 	\label{csprimer}
 		When considering imperative programming languages which are statically-typed, object-oriented and have automatic memory management the most obvious candidate would be Java. Most students have experience with Java as it is part of many other courses. So why \cs? This section briefly discusses unique features of \cs and why it is prefered over Java. It also doubles as a primer for readers not accustomed to it.
 		
 		\paragraph{var keyword}
-			Writing staticaly-typed code can be a verbose affair. Initializing a class and assigning it to a variable in Java means typing the class name twice: once for the type of the variable, once for the calling the constructor of the class. This is tedious work and doesn't enhance readability by any stretch of the imagination. \cs 3.0 introduced the \code{var} keyword, which infers the type based on the assignment to it. It can only be used in function scope and requires a direct assignment.
+			Writing statically-typed code can be a verbose affair. Initializing a class and assigning it to a variable in Java means typing the class name twice: once for the type of the variable, once for the calling the constructor of the class. This is tedious work and doesn't enhance readability by any stretch of the imagination. \cs 3.0 introduced the \code{var} keyword, which infers the type based on the assignment to it. It can only be used in function scope and requires a direct assignment.
 			
 			\begin{codespan}
 				\begin{csharpcode}
@@ -582,7 +595,10 @@
 						.Sum(i => i*2);      /* summation */
 				\end{csharpcode}
 			\end{codespan}
-			
+	
+	
+
+		
 	
 	\section{Type-Safe AST}
 	\label{type-safe-ast}
@@ -609,21 +625,44 @@
 		\end{codebox}
 									
 					
-	\section{Improved Traversal Mechanisms}
-		This section discusses ways in which a type-safe AST can be manipulated and presents two traversal methods exposed by the \cs framework. The section concludes with a short optimization round of the two traversal methods.
+	\section{Safer Traversal Mechanism}
+	\label{trav}
+		Traversals in the C-based framework are what ties the framework together. It's workings are nearly never initially understood but once mastered provide the tools to transform an AST in nearly every way. It is however inherently unsafe, as no type information is passed to traversal handlers. Adapting it for a strongly-typed OO-language is not without trade-offs, which is why this section starts off with an introduction to the \emph{visitor pattern} in \cref{visitor-pattern}. 
 		
-		\subsection{On Visitor Patterns}			
-			In the analysis of the existing framework the traversal mechanism was identified as some form of visitor pattern. The visitor pattern was first formally defined by \citeauthor{gof1994} in 1994, who defined its intent as: ``Represent an operation to be performed on the elements of an object structure. Visitor lets you define a new operation without changing the classes of the elements on which it operates.''. Parallels with the requirements for the traversal mechanism on an AST are easily drawn, coincidentally the one example they present is \emph{about a fictional AST}! To quickly summarize the example, instead of seperating compilation phases into logical units, functionality is placed in a method accessible on \emph{every} node. Thus, the type checking phase would add an overridable \code{TypeCheck ()} function to the base class, and responsibility for traversing child nodes is placed on the node as well.
+		\subsection{On Visitor Patterns}
+		\label{visitor-pattern}
+			The visitor pattern is an object-oriented software pattern first formally defined by \citeauthor{gof1994} in \citeyear{gof1994} and can be partially found in the C-based framework traversal mechanism. It aims to separate object structure from algorithm by moving operations on an object to a new class: the visitor. It arose from 1) the desire to group together related operations on a structure and 2) the cumbersome process of modifying each tree element for every new operation. Without the visitor pattern, an operation such as context analysis might be performed inside a method \code{ContextAnalysis()} defined on every node. Adding a new operation such as type checking would spread similar logic across files and result in the creation of \code{TypeCheck()} functions on all nodes\cite{gof1994}.
 			
-			The visitor pattern disapproves the modification of a node class for every new operation on a tree. It defines a base `Visitor' class which contains a visit method for every node in the hierarchy. The visit method has a void return type and accepts an argument holding the concrete node type. A method accepting the visitor class is added to every node, whose sole purpose is to return control to the visitor class by calling the visit method for that node. This inversion of control works around compile-time method resolution, or single-dispatch, and creating a form of double-dispatch. Each new operation on the tree results in a new visitor based on the abstract visitor class, implementing the visit methods for every node type. The classic example of the pattern is not shown here, as it only demonstrates unwanted code.
+			Applying the visitor pattern results in two distinct object hierarchies: one for the visitors and one for the actual object structure. At the root of the visitor hierarchy sits an abstract class or interface which declares a \emph{visit} method for every concrete node type. At the root of the object structure sits a base class declaring an \emph{accept} method, which takes as only argument a reference to the abstract visitor. Every concrete node must implement this accept function similarly, by simply calling the visit method on the visitor passed in for it's concrete type. Adding operations requires the creation of a new concrete visitor which implements the visit functions declared on the abstract. The classes involved in the previous example are shown in \cref{visitor-example}.
 			
-			In the classic visitor, each concrete visitor must implement methods for all node types, just like the user-mode traversals in the C framework. The first workaround for this problem is the `default-visitor' drawn-up in \citeyear{nordberg1996}, which adds another layer of inheritance to the visitor inheritance tree\cite{nordberg1996}. The same paper explains another variant on the visitor: the `extrinsic visitor', which relies on function lookup tables in combination with inheritance to call the correct visitor function, which is surprisingly close to the approach from the C-framework. A generalized pattern for all visitor patterns was published in \citeyear{palsberg1998essence}. The pattern, known as \emph{Walkabout}, is explained in a mix of Java and pseudo statements. Understanding all visitor patterns is relatively easy by observing their template, so it has been included in \cref{walkabout}\cite{palsberg1998essence}.
+			\begin{figure}
+				\includegraphics[width=1\textwidth]{figures/visitor/Modern.png}
+				\caption{Example of a visitor pattern, demonstrating distinct class hierarchies for nodes and visitors}
+				\label{visitor-example}
+			\end{figure}
 			
-			\begin{codebox}[label=walkabout]{Walkabout program by \citeauthor{palsberg1998essence}}
-				\inputminted[frame=leftline,linenos]{java}{samples/walkabout.java}
-			\end{codebox}
+			This scheme allows some traversal mechanism which operates on nodes (the base class) to invoke methods on a visitor based on the \emph{runtime} type of the node. In essence it offers double-dispatch for single-dispatch languages, as the visit method is chosen based on the runtime type of the node but initiated from a call on a base class. In the classic visitor pattern, each concrete visitor must implement methods for all node types, very similar to user-mode traversals in the C framework. The `children' traversal mode, which defines visitor methods for an arbitrary set of nodes has spawned countless variants and pattern templates, challenging the very definition of a software pattern\cite{nordberg1996,palsberg1998essence,bishop2008efficiency}.
 			
-			The template describes a visitor base class called `Walkabout', with a visit method acting on all node types (line 3), the most general form of which is - ofcourse - Java's \code{Object}. If the node passed in isn't null, a non-existent but defining method is invoked (line 6). How exactly it is determined that a public visit method has been defined for \emph{v} is left unspecified, as it depends on the type of visitor. If there is a method defined, that method is invoked (lines 6-7), if not, all fields of the node are instead visited (line 8-10).
+			Aside from the above issue, the visitor pattern provides two powerful concepts by default:
+			\paragraph{Statefulness}
+				As all functionality of a tree operation is contained in a class, it has state by definition. 
+			
+		\subsection{The Simple Solution: Using Dynamic Casts}
+			If the visitor pattern is redefined as a mechanism which invokes a method based on the runtime type of some object, while operating on a base type, the dynamic cast feature of \cs comes to mind. Using dynamic casts one could write:
+			
+			\begin{codespan}
+				\begin{csharpcode}
+					Node node = GetConcreteNode();
+					visitor.Visit((dynamic) node); // Method for ConcreteNode chosen at runtime
+				\end{csharpcode}
+			\end{codespan}
+			
+			This approach has three drawbacks: first of all, a suitable visit method may not exist! It most certainly allows partial visitors to be defined, but at the cost of losing the most fundamental compile time checks and possibly introducing runtime errors at every invocation. Secondly, it is rather tiresome to write a dynamic cast for every visitor invocation. Failing to follow this unenforced rule will lead to single-dispatch behavior, which either works fine, results in a compilation error or in the worst case call an unsuitable overload.
+			
+			The final and arguably most dangerous issue is one which has been discovered during the writing of this section. Suppose the \code{ConcreteNode GetConcreteNode()} function above returns null and the visit function is overloaded on both \code{Node} and \code{ConcreteNode}; which function is called? Oddly enough it was the most derived handler! Weirder still, if the initialization of the \code{node} variable came from another function \code{Node GetBaseNode()} which also returned null, \emph{the derived handler was still called!} In other words, a dynamic cast on a null object of some type will result in a program which traverses the inheritance tree \emph{bottom-up} attempting to find a potential match! With more than one matching class, i.e. if \code{AnotherConcreteNode} class inheriting from \code{Node} was added, a runtime exception is thrown.
+			
+			
+		\subsection{Limitations Of The Visitor Pattern}
 			
 			While the template deals with the basics of the pattern, it leaves much to be desired. It does not deal with or mention the possibility of more than one matching visit method for a node, something which is quite common and necessary behavior if inheritance is used in node composition. Another shortcoming is that it doesn't support return values, preventing such visitors from completely redefining a tree (i.e. a new root node is never possible). The C-framework did provide this mechanism, how can it be implemented in a type-safe language?
 			
@@ -1051,10 +1090,13 @@
 		- Can be overcome with extension methods
 		
 		Outcome: chosen for no collection types in lists, to avoid confusion with traversals.
-		
+	
+	\section{Organization And Distribution}
+	\label{package}
+		On class hierarchy, components, design decisions and NuGet.
 	
 
-\chapter{Usability And Maintainance Comparison}
+\chapter{Usability And Maintenance Comparison}
 	Ranking two different software packages is inherently subjective, though such an approach is actually warranted in this situation. The \cs framework has been field tested by one group from the 2015 course, who managed to deliver a compiler with all optional features earning them one of the highest grades in the class. This proves at the very least that the \cs framework can be used for the course.
 	
 	\section{Usability}

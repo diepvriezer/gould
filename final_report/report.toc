@@ -14,33 +14,38 @@
 \contentsline {subsection}{\numberline {2.3.2}Traversals}{12}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Phases}{13}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}Tree Validation}{14}{subsection.2.3.4}
-\contentsline {section}{\numberline {2.4}Features Found In OO-Languages}{14}{section.2.4}
+\contentsline {section}{\numberline {2.4}Object-Oriented Behavior}{14}{section.2.4}
 \contentsline {paragraph}{Tagged union}{15}{paragraph*.5}
-\contentsline {paragraph}{Access macros}{15}{paragraph*.6}
-\contentsline {paragraph}{Memory management}{15}{paragraph*.7}
-\contentsline {paragraph}{Validation traversal}{15}{paragraph*.8}
-\contentsline {paragraph}{Info structure}{15}{paragraph*.9}
-\contentsline {chapter}{\numberline {3}Re-Design In C\texttt {\#}\xspace : Code-First Approach}{17}{chapter.3}
+\contentsline {paragraph}{Nodesets}{15}{paragraph*.6}
+\contentsline {paragraph}{Access macros}{15}{paragraph*.7}
+\contentsline {paragraph}{Memory management}{15}{paragraph*.8}
+\contentsline {paragraph}{Validation traversal}{15}{paragraph*.9}
+\contentsline {paragraph}{Info structure}{15}{paragraph*.10}
+\contentsline {chapter}{\numberline {3}Re-Design In C\texttt {\#}\xspace }{17}{chapter.3}
 \contentsline {section}{\numberline {3.1}C\texttt {\#}\xspace Primer And Motivation}{17}{section.3.1}
-\contentsline {paragraph}{var keyword}{17}{paragraph*.10}
-\contentsline {paragraph}{Auto-implemented properties}{18}{paragraph*.11}
-\contentsline {paragraph}{Dynamic cast}{18}{paragraph*.12}
-\contentsline {paragraph}{Anonymous types}{18}{paragraph*.13}
-\contentsline {paragraph}{True generics}{19}{paragraph*.14}
-\contentsline {paragraph}{Lambda expressions}{19}{paragraph*.15}
-\contentsline {paragraph}{Extension methods}{20}{paragraph*.16}
-\contentsline {paragraph}{LINQ}{20}{paragraph*.17}
+\contentsline {paragraph}{var keyword}{17}{paragraph*.11}
+\contentsline {paragraph}{Auto-implemented properties}{18}{paragraph*.12}
+\contentsline {paragraph}{Dynamic cast}{18}{paragraph*.13}
+\contentsline {paragraph}{Anonymous types}{19}{paragraph*.14}
+\contentsline {paragraph}{True generics}{19}{paragraph*.15}
+\contentsline {paragraph}{Lambda expressions}{20}{paragraph*.16}
+\contentsline {paragraph}{Extension methods}{20}{paragraph*.17}
+\contentsline {paragraph}{LINQ}{21}{paragraph*.18}
 \contentsline {section}{\numberline {3.2}Type-Safe AST}{21}{section.3.2}
-\contentsline {section}{\numberline {3.3}Improved Traversal Mechanisms}{23}{section.3.3}
+\contentsline {section}{\numberline {3.3}Safer Traversal Mechanism}{23}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}On Visitor Patterns}{23}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Derivation Of The Generalized Visitor Pattern}{24}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}The Generalized Visitor}{26}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Lambda Visitor}{28}{subsection.3.3.4}
-\contentsline {subsection}{\numberline {3.3.5}Benchmarks And Optimization}{30}{subsection.3.3.5}
-\contentsline {section}{\numberline {3.4}Code-Configured Architecture}{31}{section.3.4}
-\contentsline {section}{\numberline {3.5}Collections}{33}{section.3.5}
-\contentsline {chapter}{\numberline {4}Usability And Maintainance Comparison}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}Usability}{35}{section.4.1}
-\contentsline {section}{\numberline {4.2}Maintainability}{36}{section.4.2}
-\contentsline {chapter}{\numberline {5}Discussion}{37}{chapter.5}
-\contentsline {chapter}{\numberline {6}References}{39}{chapter.6}
+\contentsline {paragraph}{Statefulness}{24}{paragraph*.20}
+\contentsline {subsection}{\numberline {3.3.2}The Simple Solution: Using Dynamic Casts}{24}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Limitations Of The Visitor Pattern}{25}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Derivation Of The Generalized Visitor Pattern}{25}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}The Generalized Visitor}{27}{subsection.3.3.5}
+\contentsline {subsection}{\numberline {3.3.6}Lambda Visitor}{29}{subsection.3.3.6}
+\contentsline {subsection}{\numberline {3.3.7}Benchmarks And Optimization}{31}{subsection.3.3.7}
+\contentsline {section}{\numberline {3.4}Code-Configured Architecture}{32}{section.3.4}
+\contentsline {section}{\numberline {3.5}Collections}{34}{section.3.5}
+\contentsline {section}{\numberline {3.6}Organization And Distribution}{35}{section.3.6}
+\contentsline {chapter}{\numberline {4}Usability And Maintenance Comparison}{37}{chapter.4}
+\contentsline {section}{\numberline {4.1}Usability}{37}{section.4.1}
+\contentsline {section}{\numberline {4.2}Maintainability}{38}{section.4.2}
+\contentsline {chapter}{\numberline {5}Discussion}{39}{chapter.5}
+\contentsline {chapter}{\numberline {6}References}{41}{chapter.6}

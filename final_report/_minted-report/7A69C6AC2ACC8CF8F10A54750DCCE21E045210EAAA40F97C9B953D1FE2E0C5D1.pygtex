@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYGmanni{n}{Node} \PYGmanni{n}{node} \PYGmanni{p}{=} \PYGmanni{n}{GetConcreteNode}\PYGmanni{p}{();}
+\PYGmanni{n}{visitor}\PYGmanni{p}{.}\PYGmanni{n}{Visit}\PYGmanni{p}{((}\PYGmanni{k+kt}{dynamic}\PYGmanni{p}{)} \PYGmanni{n}{node}\PYGmanni{p}{);} \PYGmanni{c+c1}{// Method for ConcreteNode chosen at runtime}
+\end{Verbatim}

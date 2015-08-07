@@ -12,20 +12,23 @@
 \BOOKMARK [2][-]{subsection.2.3.2}{Traversals}{section.2.3}% 12
 \BOOKMARK [2][-]{subsection.2.3.3}{Phases}{section.2.3}% 13
 \BOOKMARK [2][-]{subsection.2.3.4}{Tree Validation}{section.2.3}% 14
-\BOOKMARK [1][-]{section.2.4}{Features Found In OO-Languages}{chapter.2}% 15
-\BOOKMARK [0][-]{chapter.3}{Re-Design In C\043: Code-First Approach}{}% 16
+\BOOKMARK [1][-]{section.2.4}{Object-Oriented Behavior}{chapter.2}% 15
+\BOOKMARK [0][-]{chapter.3}{Re-Design In C\043}{}% 16
 \BOOKMARK [1][-]{section.3.1}{C\043 Primer And Motivation}{chapter.3}% 17
 \BOOKMARK [1][-]{section.3.2}{Type-Safe AST}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.3}{Improved Traversal Mechanisms}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.3}{Safer Traversal Mechanism}{chapter.3}% 19
 \BOOKMARK [2][-]{subsection.3.3.1}{On Visitor Patterns}{section.3.3}% 20
-\BOOKMARK [2][-]{subsection.3.3.2}{Derivation Of The Generalized Visitor Pattern}{section.3.3}% 21
-\BOOKMARK [2][-]{subsection.3.3.3}{The Generalized Visitor}{section.3.3}% 22
-\BOOKMARK [2][-]{subsection.3.3.4}{Lambda Visitor}{section.3.3}% 23
-\BOOKMARK [2][-]{subsection.3.3.5}{Benchmarks And Optimization}{section.3.3}% 24
-\BOOKMARK [1][-]{section.3.4}{Code-Configured Architecture}{chapter.3}% 25
-\BOOKMARK [1][-]{section.3.5}{Collections}{chapter.3}% 26
-\BOOKMARK [0][-]{chapter.4}{Usability And Maintainance Comparison}{}% 27
-\BOOKMARK [1][-]{section.4.1}{Usability}{chapter.4}% 28
-\BOOKMARK [1][-]{section.4.2}{Maintainability}{chapter.4}% 29
-\BOOKMARK [0][-]{chapter.5}{Discussion}{}% 30
-\BOOKMARK [0][-]{chapter.6}{References}{}% 31
+\BOOKMARK [2][-]{subsection.3.3.2}{The Simple Solution: Using Dynamic Casts}{section.3.3}% 21
+\BOOKMARK [2][-]{subsection.3.3.3}{Limitations Of The Visitor Pattern}{section.3.3}% 22
+\BOOKMARK [2][-]{subsection.3.3.4}{Derivation Of The Generalized Visitor Pattern}{section.3.3}% 23
+\BOOKMARK [2][-]{subsection.3.3.5}{The Generalized Visitor}{section.3.3}% 24
+\BOOKMARK [2][-]{subsection.3.3.6}{Lambda Visitor}{section.3.3}% 25
+\BOOKMARK [2][-]{subsection.3.3.7}{Benchmarks And Optimization}{section.3.3}% 26
+\BOOKMARK [1][-]{section.3.4}{Code-Configured Architecture}{chapter.3}% 27
+\BOOKMARK [1][-]{section.3.5}{Collections}{chapter.3}% 28
+\BOOKMARK [1][-]{section.3.6}{Organization And Distribution}{chapter.3}% 29
+\BOOKMARK [0][-]{chapter.4}{Usability And Maintenance Comparison}{}% 30
+\BOOKMARK [1][-]{section.4.1}{Usability}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.2}{Maintainability}{chapter.4}% 32
+\BOOKMARK [0][-]{chapter.5}{Discussion}{}% 33
+\BOOKMARK [0][-]{chapter.6}{References}{}% 34
