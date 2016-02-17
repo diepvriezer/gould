@@ -82,5 +82,13 @@ namespace Uva.Gould.Tests
             ids = nodeHead.Children(allInTree: true).OfType<IdNode>().Select(n => n.Id);
             Assert.IsTrue(ids.SequenceEqual(new[] { 0, 1, 2, 3 }));
         }
+
+        [TestMethod]
+        public void ToLinkedListDoesntNullFirst()
+        {
+            var coll = new[] {new IdNode(0), new IdNode(1)};
+            var head = coll.ToLinkedNode();
+            Assert.IsTrue(head.Node != null && head.Next != null && head.Next.Node != null && head.Next.Next == null);
+        }
     }
 }
