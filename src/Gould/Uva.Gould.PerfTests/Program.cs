@@ -8,14 +8,6 @@ using Uva.Gould.Traversals;
 
 namespace Uva.Gould.PerfTests
 {
-    public class Asdf : Visitor
-    {
-        public Int Visit(Bool b)
-        {
-            return new Int();
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -28,12 +20,7 @@ namespace Uva.Gould.PerfTests
             var candidates = new List<IVisitor>()
             {
                 new ReflectionLookup(),
-                new DynCastNoGenerics2(),
-                new DynInvoke(),
-                new DynInvokeNoGenerics(),
-                new DynCast(),
                 new DynCastNoGenerics(),
-                new DynInvokeOld()
             }.ToDictionary(c => c, c => new List<long>(trials));
             
             Thread.Sleep(250);
@@ -83,59 +70,9 @@ namespace Uva.Gould.PerfTests
         // 1) Expand statements into a new fixedforforstat block, unless parent is For or type is block.
         // 2) Convert integers to binop with int and bool
         // 3) Repeat twice (external).
-        internal class DynInvoke : LambdaVisitorDynInvoke, IVisitor
-        {
-            public DynInvoke()
-            {
-                View<For>(VisitChildren);
-                ReplaceIf<Statement>(s => !(s is Block), s => Trees.ForFixedForAndStatementBlock());
-                Replace<Int, Expression>(i => Trees.IntegerBooleanBinOp());
-            }
-        }
-
-        internal class DynCast : LambdaVisitorDynCast, IVisitor
-        {
-            public DynCast()
-            {
-                View<For>(VisitChildren);
-                ReplaceIf<Statement>(s => !(s is Block), s => Trees.ForFixedForAndStatementBlock());
-                Replace<Int, Expression>(i => Trees.IntegerBooleanBinOp());
-            }
-        }
-
-        internal class DynInvokeNoGenerics : LambdaVisitorDynInvokeNoGen, IVisitor
-        {
-            public DynInvokeNoGenerics()
-            {
-                View<For>(VisitChildren);
-                ReplaceIf<Statement>(s => !(s is Block), s => Trees.ForFixedForAndStatementBlock());
-                Replace<Int, Expression>(i => Trees.IntegerBooleanBinOp());
-            }
-        }
-
-        internal class DynCastNoGenerics : LambdaVisitorDynCastNoGen, IVisitor
+        internal class DynCastNoGenerics : LambdaVisitor, IVisitor
         {
             public DynCastNoGenerics()
-            {
-                View<For>(VisitChildren);
-                ReplaceIf<Statement>(s => !(s is Block), s => Trees.ForFixedForAndStatementBlock());
-                Replace<Int, Expression>(i => Trees.IntegerBooleanBinOp());
-            }
-        }
-
-        internal class DynCastNoGenerics2 : LambdaVisitorDynCastNoGen, IVisitor
-        {
-            public DynCastNoGenerics2()
-            {
-                View<For>(VisitChildren);
-                ReplaceIf<Statement>(s => !(s is Block), s => Trees.ForFixedForAndStatementBlock());
-                Replace<Int, Expression>(i => Trees.IntegerBooleanBinOp());
-            }
-        }
-
-        internal class DynInvokeOld : OldVisitor, IVisitor
-        {
-            public DynInvokeOld()
             {
                 View<For>(VisitChildren);
                 ReplaceIf<Statement>(s => !(s is Block), s => Trees.ForFixedForAndStatementBlock());

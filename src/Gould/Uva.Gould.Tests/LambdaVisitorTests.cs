@@ -10,7 +10,7 @@ using Uva.Gould.Traversals;
 namespace Uva.Gould.Tests
 {
     [TestClass]
-    public class LambdaVisitorTests : LambdaVisitorDynInvoke
+    public class LambdaVisitorTests : LambdaVisitor
     {
         [TestMethod]
         public void VisitsChildNodes()

@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>uvagould</id>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <title>Uva.Gould</title>
     <authors>Floris den Heijer</authors>
     <owners>Floris den Heijer</owners>
     <projectUrl>https://github.com/diepvriezer/gould</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Minimalistic framework with type safe AST traversal</description>
-    <releaseNotes>Reworked logic to allow View handlers to visit any node type, updated CTI errors (now uses node)</releaseNotes>
-    <copyright>Copyright © Floris den Heijer 2015</copyright>
+    <releaseNotes>Optimized lambda visitor and removed obsolete variants.</releaseNotes>
+    <copyright>Copyright © Floris den Heijer 2016</copyright>
     <tags>compiler framework ast</tags>
     <dependencies>
       <dependency id="Antlr4.Runtime" version="4.3.0.0" />

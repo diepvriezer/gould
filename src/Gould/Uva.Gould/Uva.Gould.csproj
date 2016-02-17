@@ -68,14 +68,9 @@
     <Compile Include="Graphs\GraphToDotFormatter.cs" />
     <Compile Include="Support\CTI.cs" />
     <Compile Include="Support\RuleStackErrorListener.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynCastNoGen2.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynCastNoGen.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynCast.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynInvokeNoGen.cs" />
-    <Compile Include="Traversals\LambdaVisitorDynInvoke.cs" />
+    <Compile Include="Traversals\LambdaVisitor.cs" />
     <Compile Include="Traversals\ViewOnlyVisitor.cs" />
     <Compile Include="Traversals\Visitor.cs" />
-    <Compile Include="OldVisitor.cs" />
     <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>

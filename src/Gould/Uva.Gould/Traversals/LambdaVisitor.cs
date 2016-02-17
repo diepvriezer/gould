@@ -3,18 +3,17 @@ using System.Collections.Generic;
 
 namespace Uva.Gould.Traversals
 {
-    public abstract class LambdaVisitorDynInvoke
+    public abstract class LambdaVisitor
     {
         private List<Handler> _handlers = new List<Handler>();
-
+ 
         public T Visit<T>(T node)
             where T : Node
         {
-            return Visit(node, typeof(T));
+            return (T) Visit(node, typeof (T));
         }
 
-        private T Visit<T>(T node, Type maxUpcast)
-            where T : Node
+        private Node Visit(Node node, Type maxUpcast)
         {
             if (node == null)
                 return null;
@@ -31,22 +30,25 @@ namespace Uva.Gould.Traversals
                 if (!maxUpcast.IsAssignableFrom(handle.MaxUpcast))
                     continue;
 
+                // For performance reasons, dynamic cast to ConcreteHandler which avoids DynamicInvoke.
+                dynamic dynHandle = handle;
+
                 // Test for predicate.
-                if (handle.Predicate != null)
+                if (dynHandle.Predicate != null)
                 {
-                    bool result = (bool) handle.Predicate.DynamicInvoke(node);
+                    bool result = dynHandle.Predicate.Invoke((dynamic) node);
                     if (!result)
                         continue;
                 }
 
                 // Check if this is an action or function.
-                if (handle.Function != null)
+                if (dynHandle.Function != null)
                 {
-                    return (T) handle.Function.DynamicInvoke(node);
+                    return dynHandle.Function.Invoke((dynamic) node);
                 }
                 else
                 {
-                    handle.Action.DynamicInvoke(node);
+                    dynHandle.Action.Invoke((dynamic) node);
                     return node;
                 }
             }
@@ -56,7 +58,7 @@ namespace Uva.Gould.Traversals
 
             return node;
         }
-
+        
         public void VisitChildren(Node node)
         {
             if (node == null)
@@ -65,7 +67,7 @@ namespace Uva.Gould.Traversals
             // Traverse child nodes using attributes and replace with result from visitor.
             foreach (var prop in node.ChildProperties)
             {
-                var value = (Node)prop.GetValue(node);
+                var value = (Node) prop.GetValue(node);
                 if (value != null)
                 {
                     value = Visit(value, prop.PropertyType);
@@ -79,47 +81,47 @@ namespace Uva.Gould.Traversals
         protected void Replace<T>(Func<T, T> function)
             where T : Node
         {
-            _handlers.Add(new Handler(typeof (T), typeof (T)) {Function = function});
+            _handlers.Add(new ConcreteHandler<T, T>(function));
         }
         protected void ReplaceIf<T>(Func<T, bool> predicate, Func<T, T> function)
             where T : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(T), predicate) { Function = function });
+            _handlers.Add(new ConcreteHandler<T, T>(function, predicate));
         }
         protected void Replace<T, TContext>(Func<T, TContext> function)
             where T : TContext
             where TContext : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(TContext)) { Function = function });
+            _handlers.Add(new ConcreteHandler<T, TContext>(function));
         }
         protected void ReplaceIf<T, TContext>(Func<T, bool> predicate, Func<T, TContext> function)
             where T : TContext
             where TContext : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(TContext), predicate) { Function = function });
+            _handlers.Add(new ConcreteHandler<T, TContext>(function, predicate));
         }
 
         protected void View<T>(Action<T> action)
             where T : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(T)) { Action = action });
+            _handlers.Add(new ConcreteHandler<T, T>(action));
         }
         protected void ViewIf<T>(Func<T, bool> predicate, Action<T> action)
             where T : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(T), predicate) { Action = action });
+            _handlers.Add(new ConcreteHandler<T, T>(action, predicate));
         }
         protected void View<T, TContext>(Action<T> action)
             where T : TContext
             where TContext : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(TContext)) { Action = action });
+            _handlers.Add(new ConcreteHandler<T, TContext>(action));
         }
         protected void ViewIf<T, TContext>(Func<T, bool> predicate, Action<T> action)
             where T : TContext
             where TContext : Node
         {
-            _handlers.Add(new Handler(typeof(T), typeof(TContext), predicate) { Action = action });
+            _handlers.Add(new ConcreteHandler<T, TContext>(action, predicate));
         }
 
         protected void RemoveAllHandlers()
@@ -128,22 +130,40 @@ namespace Uva.Gould.Traversals
         }
 
         #endregion
-
-        internal class Handler
+        
+        internal abstract class Handler
         {
-            public Handler(Type type, Type maxUpcast, Delegate predicate = null)
+            public abstract Type Type { get; }
+            public abstract Type MaxUpcast { get; }
+        }
+        internal class ConcreteHandler<T, TContext> : Handler
+            where T : TContext
+            where TContext : Node
+        {
+            public ConcreteHandler(Func<T, TContext> func, Func<T, bool> predicate = null)
             {
-                this.Type = type;
-                this.MaxUpcast = maxUpcast;
+                this.Function = func;
+                this.Predicate = predicate;
+            }
+            public ConcreteHandler(Action<T> action, Func<T, bool> predicate = null)
+            {
+                this.Action = action;
                 this.Predicate = predicate;
             }
 
-            public Type Type { get; set; }
-            public Type MaxUpcast { get; set; }
+            // Types can be deduced from generic parameters.
+            public override Type Type
+            {
+                get { return typeof (T); }
+            }
+            public override Type MaxUpcast
+            {
+                get { return typeof (TContext); }
+            }
 
-            public Delegate Function { get; set; }
-            public Delegate Action { get; set; }
-            public Delegate Predicate { get; set; }
+            public Func<T, TContext> Function { get; private set; }
+            public Action<T> Action { get; private set; }
+            public Func<T, bool> Predicate { get; private set; }
         }
     }
 }
