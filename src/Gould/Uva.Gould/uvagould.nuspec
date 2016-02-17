@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>uvagould</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <title>Uva.Gould</title>
     <authors>Floris den Heijer</authors>
     <owners>Floris den Heijer</owners>
     <projectUrl>https://github.com/diepvriezer/gould</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Minimalistic framework with type safe AST traversal</description>
-    <releaseNotes>Optimized lambda visitor and removed obsolete variants.</releaseNotes>
+    <releaseNotes>Fixed LinkedNode always starting with null and added [DebuggerStepThrough] to all visitors.</releaseNotes>
     <copyright>Copyright © Floris den Heijer 2016</copyright>
     <tags>compiler framework ast</tags>
     <dependencies>

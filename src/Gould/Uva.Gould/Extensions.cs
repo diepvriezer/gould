@@ -91,7 +91,6 @@ namespace Uva.Gould
         /// </summary>
         /// <typeparam name="T">Type of items in linked list and collection</typeparam>
         /// <param name="collection">Collection of nodes</param>
-        /// <param name="parent">Parent of the head node</param>
         /// <returns>Head of the linked list node of type T</returns>
         public static LinkedNode<T> ToLinkedNode<T>(this IEnumerable<T> collection)
             where T : Node
@@ -106,7 +105,6 @@ namespace Uva.Gould
         /// <typeparam name="T">Type of nodes in collection</typeparam>
         /// <typeparam name="TContext">Type of the linked list</typeparam>
         /// <param name="collection">Collection of nodes</param>
-        /// <param name="parent">Parent of the head node</param>
         /// <returns>Head of the linked list node of type T</returns>
         public static LinkedNode<TContext> ToLinkedNode<TContext, T>(this IEnumerable<T> collection)
             where T : TContext
@@ -115,12 +113,15 @@ namespace Uva.Gould
             if (collection == null)
                 return null;
 
-            var head = new LinkedNode<TContext>();
-            foreach (var item in collection)
-                head.Append(item);
+            var it = collection.GetEnumerator();
+            LinkedNode<TContext> head = null;
+            if (it.MoveNext())
+                head = new LinkedNode<TContext>{ Node = it.Current };
 
-            // Return only if n > 0.
-            return head.Node != null || head.Next != null ? head : null;
+            while (it.MoveNext() && head != null)
+                head.Append(it.Current);
+
+            return head;
         }
     }
 }

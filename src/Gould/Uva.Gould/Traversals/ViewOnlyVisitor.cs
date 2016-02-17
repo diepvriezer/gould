@@ -1,7 +1,10 @@
-﻿namespace Uva.Gould.Traversals
+﻿using System.Diagnostics;
+
+namespace Uva.Gould.Traversals
 {
     public abstract class ViewOnlyVisitor
     {
+        [DebuggerStepThrough]
         public void Visit<T>(T node)
             where T : Node
         {
@@ -21,6 +24,7 @@
             }
         }
 
+        [DebuggerStepThrough]
         public void VisitChildren(Node node)
         {
             if (node == null)

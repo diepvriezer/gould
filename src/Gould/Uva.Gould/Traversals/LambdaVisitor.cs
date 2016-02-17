@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Uva.Gould.Traversals
 {
@@ -7,12 +8,14 @@ namespace Uva.Gould.Traversals
     {
         private List<Handler> _handlers = new List<Handler>();
  
+        [DebuggerStepThrough]
         public T Visit<T>(T node)
             where T : Node
         {
             return (T) Visit(node, typeof (T));
         }
 
+        [DebuggerStepThrough]
         private Node Visit(Node node, Type maxUpcast)
         {
             if (node == null)
@@ -58,7 +61,8 @@ namespace Uva.Gould.Traversals
 
             return node;
         }
-        
+
+        [DebuggerStepThrough]
         public void VisitChildren(Node node)
         {
             if (node == null)

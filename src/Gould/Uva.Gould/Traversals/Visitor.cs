@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Uva.Gould.Traversals
 {
     public abstract class Visitor
     {
+        [DebuggerStepThrough]
         public T Visit<T>(T node)
             where T : Node
         {
             return Visit(node, typeof (T));
         }
 
+        [DebuggerStepThrough]
         private T Visit<T>(T node, Type maxUpcast)
             where T : Node
         {
@@ -32,6 +35,7 @@ namespace Uva.Gould.Traversals
             return node;
         }
 
+        [DebuggerStepThrough]
         public void VisitChildren(Node node)
         {
             if (node == null)
